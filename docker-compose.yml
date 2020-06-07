@@ -1,0 +1,31 @@
+version: '3'
+
+services: 
+    angular:
+        build: angular-client
+        container_name: ecommerce-client
+        ports:
+            - "4200:4200"
+        volumes:
+            - ./angular-client/:/var/www/app/angular
+
+    express:
+        build: express-server
+        container_name: ecommerce-server
+        ports:
+            - "3000:3000"
+        volumes:
+            - ./express-server/:/var/www/app/express-server
+        depends_on:
+            - mongodb
+    
+    mongodb:
+        image: mongo
+        container_name: ecommerce-db
+        ports:
+            - "27017:27017"
+        volumes:
+            - mydata:/data/db
+
+volumes:
+    mydata:
