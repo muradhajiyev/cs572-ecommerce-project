@@ -1,0 +1,4 @@
+{
+    "connectionString": "mongodb://mongodb/ecommerce",
+    "apiUrl": "http://localhost:3000"
+  }
