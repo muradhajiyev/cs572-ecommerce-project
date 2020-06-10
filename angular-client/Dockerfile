@@ -1,16 +1,14 @@
 FROM node:10
 
-ENV path /var/www/app/angular
+RUN mkdir -p /var/www/app
 
-RUN mkdir -p ${path}
+WORKDIR /var/www/app
 
-WORKDIR ${path}
-
-COPY package.json ${path}
+COPY package.json .
 
 RUN npm install
 
-COPY . ${path}
+COPY . .
 
 EXPOSE 4200
 
