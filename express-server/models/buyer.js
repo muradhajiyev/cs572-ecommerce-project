@@ -2,14 +2,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const buyerSchema = new Schema({
-    user:{type: Schema.Types.ObjectId, ref: 'User', required:true},
+    _id:{type: Schema.Types.ObjectId, ref: 'User', required:true},
     shoppingCart: [
         {
             productId: {type: Schema.Types.ObjectId, ref: 'Product', required: true},
             quantity: {type: Number, required: true}
         }
     ],
-    address: [
+    addresses: [
         {
             // id: {type: ObjectId},
             zipCode: {type: String}, 
