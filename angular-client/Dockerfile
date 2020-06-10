@@ -4,9 +4,9 @@ RUN mkdir -p /var/www/app
 
 WORKDIR /var/www/app
 
-COPY package.json .
+COPY package*.json ./
 
-RUN npm install
+RUN npm install -g @angular/cli @angular-devkit/build-angular && npm install
 
 COPY . .
 

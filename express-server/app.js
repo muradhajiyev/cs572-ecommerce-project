@@ -6,8 +6,12 @@ var logger = require('morgan');
 
 const initRoutes = require('./routes');
 
-
 var app = express();
+
+//swagger implementation
+const swaggerDoc = require('./swaggerDoc');
+swaggerDoc(app);
+
 
 app.use(logger('dev'));
 app.use(express.json());
