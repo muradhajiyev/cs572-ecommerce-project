@@ -4,24 +4,27 @@ services:
     angular:
         build: angular-client
         container_name: ecommerce-client
+        restart: always
         ports:
             - "4200:4200"
         volumes:
-            - ./angular-client/:/var/www/app/angular
+            - ./angular-client/:/var/www/app
 
     express:
         build: express-server
         container_name: ecommerce-server
+        restart: always
         ports:
             - "3000:3000"
         volumes:
-            - ./express-server/:/var/www/app/express-server
+            - ./express-server/:/var/www/app
         depends_on:
             - mongodb
     
     mongodb:
         image: mongo
         container_name: ecommerce-db
+        restart: always
         ports:
             - "27017:27017"
         volumes:
