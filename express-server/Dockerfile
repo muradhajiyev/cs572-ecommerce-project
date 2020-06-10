@@ -1,18 +1,16 @@
 FROM node:10
 
-ENV path=/var/www/app/express-server
+RUN mkdir -p /var/www/app
 
-RUN mkdir -p ${path}
-
-WORKDIR ${path}
-
-COPY package.json ${path}
-
-RUN npm install
+WORKDIR /var/www/app
 
 RUN npm install -g nodemon
 
-COPY . ${path}
+COPY package.json .
+
+RUN npm install
+
+COPY . .
 
 EXPOSE 3000
 
