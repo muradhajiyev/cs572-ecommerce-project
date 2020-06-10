@@ -11,7 +11,8 @@ const buyerSchema = new Schema({
     ],
     address: [
         {
-            zipCode: {type: String},
+            // id: {type: ObjectId},
+            zipCode: {type: String}, 
             street: {type:String},
             city: {type:String},
             state: {type:String},
