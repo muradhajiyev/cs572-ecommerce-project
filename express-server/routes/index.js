@@ -1,9 +1,16 @@
-var express = require('express');
-var router = express.Router();
+const
+    path = require('path'),
+    authRoute = require(path.join(__dirname, 'auth-route')),
+    buyerRoute = require(path.join(__dirname, 'buyer-route')),
+    
+    { verifyToken, authorizeAdmin, authorizeSeller, authorizeBuyer } = require(path.join(__dirname, 'security'))
+    ;
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'MWA eCommerce Project' });
-});
+module.exports = function(app){
+    app.use('/api/auth', authRoute);
+    app.use('/api/buyer', verifyToken, authorizeBuyer, buyerRoute);
+    app.get('/', function(req, res, next) {
+        res.send('Online market API is work');
+    });
+}
 
-module.exports = router;
