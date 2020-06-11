@@ -2,16 +2,17 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const buyerSchema = new Schema({
-    user:{type: Schema.Types.ObjectId, ref: 'User', required:true},
+    _id:{type: Schema.Types.ObjectId, ref: 'User', required:true},
     shoppingCart: [
         {
             productId: {type: Schema.Types.ObjectId, ref: 'Product', required: true},
             quantity: {type: Number, required: true}
         }
     ],
-    address: [
+    addresses: [
         {
-            zipCode: {type: String},
+            // id: {type: ObjectId},
+            zipCode: {type: String}, 
             street: {type:String},
             city: {type:String},
             state: {type:String},
