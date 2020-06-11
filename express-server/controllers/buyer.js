@@ -1,4 +1,5 @@
 const buyer = require('../models/buyer');
+const ApiResponse = require('../models/api.Response');
 
 exports.getAllAddresses = (req, res, next) => {
     buyer.findById(req.params.buyerId)
