@@ -37,4 +37,13 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+//onlineshoping is the database name
+// mongoose.connect('mongodb://localhost:27017/onlineshopping', {useNewUrlParser: true, useUnifiedTopology: true})
+//     .then(() => {
+//       app.listen(3000, () => {
+//         console.log('Server is running on 3000');
+//       })
+//     })
+//     .catch(err => console.log(err));
+
 module.exports = app;
