@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken'),
     path = require('path'),
-    config = require(path.join('..','config.json')),
-    { ApiResponse } = require(path.join('..', 'models')),
+    config = require(path.join(__dirname, '..','config.json')),
+    { ApiResponse } = require(path.join(__dirname, '..', 'models')),
     { userService } = require(path.join(__dirname, '..', 'services'));
 
 exports.verifyToken = (req, res, next) => {
