@@ -6,6 +6,7 @@ services:
         container_name: ecommerce-client
         ports:
             - "4200:4200"
+            # - "49153:49153"
         volumes:
             - ./angular-client/:/var/www/app
             - /var/www/app/node_modules/
