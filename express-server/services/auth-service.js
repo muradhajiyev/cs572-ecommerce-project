@@ -1,9 +1,8 @@
 const path = require('path'),
     jwt = require('jsonwebtoken'),
-    config = require(path.join('..','config.json')),
+    config = require(path.join(__dirname, '..','config.json')),
     bcryptjs = require('bcryptjs'),
-    { ApiResponse } = require(path.join(__dirname, "..", "models")),
-    { User, Buyer, Seller } = require(path.join('..', 'models'));
+    { ApiResponse, User, Buyer, Seller  } = require(path.join(__dirname, "..", "models"));
 
 exports.login = async function(email, password){
     
