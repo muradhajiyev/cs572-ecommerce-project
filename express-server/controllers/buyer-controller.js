@@ -5,9 +5,11 @@ const
 exports.getAllAddresses = (req, res, next) => {
     Buyer.findById(req.user._id)
         .then(buyer => {
+            console.log(buyer);
             res.status(200).json(new ApiResponse(200, 'success', buyer.addresses));
         })
-    res.status(500).send(new ApiResponse(500, 'error', err));
+        .catch(err => res.status(500).send(new ApiResponse(500, 'error', err)));
+
 }
 
 exports.addAddress = (req, res, next) => {
