@@ -5,11 +5,12 @@ const jwt = require('jsonwebtoken'),
     { userService } = require(path.join(__dirname, '..', 'services'));
 
 exports.verifyToken = (req, res, next) => {
-    const token = req.header('access-token');
+    const authorization = req.header('authorization');
     try {
-        if (!token) {
+        if (!authorization) {
             res.status(401).json(new ApiResponse(401, "error", { message: "Unauthorized User" }));
         }
+        const token = authorization.split(' ')[1];
         const verified = jwt.verify(token, config.SECRET_KEY);
         userService.getUserById(verified.userId)
             .then(user => {

@@ -6,7 +6,7 @@ var logger = require("morgan");
 const configData = require("./config.json");
 const mongoose = require("mongoose");
 const initRoutes = require('./routes');
-
+const ApiResponse = require('./models/ApiResponse');
 var app = express();
 
 //swagger implementation
