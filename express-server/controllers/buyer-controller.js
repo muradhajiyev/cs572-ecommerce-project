@@ -99,10 +99,19 @@ exports.editAddress = (req, res, next) => {
     });
 };
 
+//get list of shopping card
+exports.getListShoppingCard = (res, res, next) => {
+  Buyer.findById(req.user.id)
+    .then((buyer) => {
+      res.status(200).json(new ApiResponse(200, "success", buyer.shoppingCart));
+    })
+    .catch((err) => res.status(500).send(new ApiResponse(500, "error", err)));
+};
+
 //add to shopping card product
-exports.addToShoppingCart = (res, res, next) => {
-  const productId = req.params.productId;
-  const quantity = req.params.quantity;
+exports.addProductToShoppingCart = (res, res, next) => {
+  const productId = req.body.productId;
+  const quantity = req.body.quantity;
 
   Buyer.findById(req.user._id)
     .then((buyer) => {
@@ -117,6 +126,53 @@ exports.addToShoppingCart = (res, res, next) => {
       res.status(200).json(
         new ApiResponse(200, "success", {
           success: "product added",
+        })
+      );
+    })
+    .catch((err) => {
+      res.status(500).json(new ApiResponse(500, "error", err));
+    });
+};
+
+//update product shopping cart
+exports.updateProductFromShoppingCart = (res, res, next) => {
+  const productId = req.params.id;
+
+  Buyer.findByIdAndUpdate(req.user._id)
+    .then((buyer) => {
+      let product = buyer.shoppingCart.filter((product) => {
+        return product._id == productId;
+      })[0];
+      product.quantity = req.body.quantity;
+      return buyer.save();
+    })
+    .then(() => {
+      res.status(200).json(
+        new ApiResponse(200, "success", {
+          success: "product updated",
+        })
+      );
+    })
+    .catch((err) => {
+      res.status(500).json(new ApiResponse(500, "error", err));
+    });
+};
+
+//delete product from shopping card
+exports.deleteProductFromShoppingCart = (res, res, next) => {
+  const productId = req.params.id;
+  Buyer.findById(req.user._id)
+    .then((buyer) => {
+      buyer.shoppingCart = buyer.shoppingCart((product) => {
+        return product._id != productId;
+      });
+
+      return buyer.save();
+    })
+    .then(() => {
+      res.status(200).json(
+        new ApiResponse(200, "success", {
+          success: "product removed",
         })
       );
     })
