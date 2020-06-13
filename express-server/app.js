@@ -1,13 +1,12 @@
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
-const configData = require("./config.json");
-const mongoose = require("mongoose");
+const createError = require("http-errors");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
+const config = require(path.join(__dirname, 'config.json'));
 const initRoutes = require('./routes');
 const ApiResponse = require('./models/ApiResponse');
-var app = express();
+const app = express();
 
 //swagger implementation
 const swaggerDoc = require('./swaggerDoc');
@@ -29,7 +28,8 @@ app.use(function(req, res, next) {
 // error handler
 app.use(function(err, req, res, next) {
   let errStatus = err.status || 500;
-  let dev = true; //req.app.get('env') === 'development'
+  let dev = config.ENV === 'development'
+  if (dev) console.error('error handler: ', err);
   res.status(errStatus).json(new ApiResponse(errStatus, 'error', {message:err.message, error:dev ? err : {}}));
 });
 

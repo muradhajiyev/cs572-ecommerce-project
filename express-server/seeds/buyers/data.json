@@ -1,0 +1,111 @@
+[
+  {
+    "_id": {
+      "$oid": "5ee1698cf1d0b8140cb05937"
+    },
+    "shoppingCart": [],
+    "addresses": [],
+    "billingInfo": [],
+    "follows": [],
+    "cashBack": []
+  },
+  {
+    "_id": {
+      "$oid": "5ee1698cf1d0b8140cb05939"
+    },
+    "shoppingCart": [
+      {
+        "productId": {
+          "$oid": "5ee1698df1d0b8140cb05936"
+        },
+        "quantity": 2
+      }
+    ],
+    "addresses": [
+      {
+        "_id": {
+          "$oid": "5ee1698ba1d0b8140cb05939"
+        },
+        "zipCode": "52557",
+        "street": "1000 N ST",
+        "city": "Fairfield",
+        "state": "IA",
+        "phoneNumber": "641-777-7777",
+        "country": "USA"
+      }
+    ],
+    "billingInfo": [
+      {
+        "_id": {
+          "$oid": "5ee1698af1d0b8140cb05939"
+        },
+        "cardNumber": "4444555566667777",
+        "cardName": "JOE SLEIMAN",
+        "expirationDate": "0524",
+        "securityCode": "123",
+        "billingAddress": {
+          "zipCode": "52557",
+          "street": "1000 N ST",
+          "city": "Fairfield",
+          "state": "IA",
+          "phoneNumber": "641-777-7777",
+          "country": "USA"
+        }
+      }
+    ],
+    "follows": [],
+    "cashBack": []
+  },
+  {
+    "_id": {
+      "$oid": "5ee18462e04fdd0774558fda"
+    },
+    "shoppingCart": [],
+    "addresses": [
+      {
+        "_id": {
+          "$oid": "5ee40ecbb217703814c1b76b"
+        },
+        "zipCode": "52557",
+        "street": "1000N 4th stree",
+        "city": "Seattle",
+        "state": "Wachington",
+        "phoneNumber": "4253937355",
+        "country": "United states"
+      }
+    ],
+    "billingInfo": [
+      {
+        "billingAddress": {
+          "zipCode": "52557",
+          "street": "1000N 4th street",
+          "city": "Fairfield",
+          "state": "Iowa",
+          "phoneNumber": "111111111",
+          "country": "United states"
+        },
+        "_id": {
+          "$oid": "5ee54714bd266b2498722409"
+        },
+        "cardNumber": "111111111",
+        "cardName": "buyer123",
+        "expirationDate": {
+          "$date": "2025-05-06T00:00:00Z"
+        },
+        "securityCode": "111"
+      }
+    ],
+    "follows": [],
+    "cashBack": []
+  },
+  {
+    "_id": {
+      "$oid": "5ee409758159f843802606ae"
+    },
+    "shoppingCart": [],
+    "addresses": [],
+    "billingInfo": [],
+    "follows": [],
+    "cashBack": []
+  }
+]
