@@ -1,0 +1,14 @@
+[
+    {
+        "_id": {"$oid":"5ee1697cf1d0b8140cb05939"},
+        "name": "Electronic Devices"
+    },
+    {
+        "_id": {"$oid":"5ee1697cf1d0b8140cb05940"},
+        "name": "Fashion"
+    },
+    {
+        "_id": {"$oid":"5ee1697cf1d0b8140cb05941"},
+        "name": "Toys & Hobbies"
+    }
+]
