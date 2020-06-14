@@ -1,0 +1,23 @@
+[
+    {
+        "email": "hajiyev.murad1@gmail.com",
+        "password": "123456",
+        "name": "Murad",
+        "status": "ACTIVE",
+        "userType": "ADMIN"
+    },
+    {
+        "email": "maharishi@gmail.com",
+        "password": "123456",
+        "name": "Maharishi",
+        "status": "ACTIVE",
+        "userType": "SELLER"
+    },
+    {
+        "email": "corozza@gmail.com",
+        "password": "123456",
+        "name": "Corozza",
+        "status": "ACTIVE",
+        "userType": "SELLER"
+    }
+]
