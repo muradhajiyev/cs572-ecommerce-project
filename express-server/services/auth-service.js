@@ -27,7 +27,7 @@ exports.signup = async function(userType, data) {
             break;
         case 'seller':
             user = await createUser(data, 'PENDING', 'SELLER');
-            let seller = new Seller({_id:user._id,products:[]});
+            let seller = new Seller({_id:user._id});
             seller.save();
             break;
         default:
