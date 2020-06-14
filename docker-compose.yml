@@ -32,5 +32,16 @@ services:
         volumes:
             - mydata:/data/db
 
+    seeder:
+        image: pkosiec/mongo-seeding:3.0.0
+        volumes:
+            - ./express-server/seeds/:/data-import
+        working_dir: /data-import
+        environment: 
+            DB_URI: 'mongodb://mongodb/ecommerce'
+            DROP_DATABASE: 'true'
+        depends_on: 
+            - mongodb
+
 volumes:
     mydata:
