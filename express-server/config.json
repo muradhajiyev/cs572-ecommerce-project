@@ -1,5 +1,5 @@
 {
-    "connectionString": "mongodb://mongodb/ecommerce",
+    "connectionString": "mongodb://localhost/ecommerce",
     "apiUrl": "http://localhost:3000",
     "SECRET_KEY": "nmzhfuewthnkldsafkpeutjkgnfdat8uo45",
     "EXPIRES_IN": 10800
