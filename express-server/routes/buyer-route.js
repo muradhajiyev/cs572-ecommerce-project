@@ -71,4 +71,6 @@ router.post("/checkout", buyerController.createOrder);
 router.post("/orders/:orderId/cancel", buyerController.cancelOrder);
 router.get("/orders", buyerController.getMyOrders);
 
+router.get('/available-cashback', buyerController.getAvailableCashBack);
+
 module.exports = router;
