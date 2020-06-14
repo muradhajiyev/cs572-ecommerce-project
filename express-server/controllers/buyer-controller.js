@@ -298,6 +298,7 @@ exports.cancelOrder = (req, res)=>{
 exports.getMyOrders = (req, res)=>{
     request(req, res, orderService.getBuyerOrders(req.userId));
 }
+
 function request(req, res, promise){
     promise
         .then(response=>{
