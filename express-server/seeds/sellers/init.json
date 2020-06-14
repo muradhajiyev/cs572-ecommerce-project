@@ -1,10 +1,8 @@
 [
     {
-        "_id":{"$oid":"5ee1698cf1d0b8140cb05936"},
-        "products":[]
+        "_id":{"$oid":"5ee1698cf1d0b8140cb05936"}
     },
     {
-        "_id":{"$oid":"5ee1698cf1d0b8140cb05938"},
-        "products":[]
+        "_id":{"$oid":"5ee1698cf1d0b8140cb05938"}
     }
 ]
