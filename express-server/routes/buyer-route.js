@@ -26,5 +26,4 @@ router.post('/checkout', buyerController.createOrder);
 router.post('/orders/:orderId/cancel', buyerController.cancelOrder);
 router.get('/orders', buyerController.getMyOrders)
 
-
 module.exports = router;
