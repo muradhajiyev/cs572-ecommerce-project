@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const userStatus = require('./user-status');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -7,7 +8,7 @@ const userSchema = new Schema({
     name: {type: String, required: true,},
     status: {
         type: String,
-        enum: [ "ACTIVE", "DEACTIVE" ]
+        enum: [ userStatus.ACTIVE, userStatus.PENDING, userStatus.REJECT ]
     },
     userType: {
         type: String,
