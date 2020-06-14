@@ -22,6 +22,7 @@ exports.verifyToken = (req, res, next) => {
             userService.getUserById(verified.userId)
                 .then(user => {
                     req.user = user;
+                    req.userId = user._id.toString();
                     return next();
                 })
                 .catch(err => res.status(500).json(new ApiResponse(500, "error", err)));

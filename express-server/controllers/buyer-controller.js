@@ -289,17 +289,26 @@ exports.getAllActiveReviewsByProductId = (req, res, next) => {
 }
 
 exports.createOrder = (req, res)=>{
-    orderService.createOrder(req.user._id, req.body).then(response=>{
-        res.status(response.status).json(response);
-    }).catch(err=>{
-        res.status(500).json(new ApiResponse(500, 'error', err));
-    });
+    request(req, res, orderService.createOrder(req.user._id, req.body));
 }
 
 exports.cancelOrder = (req, res)=>{
-    orderService.cancelOrderByBuyer(req.user._id, req.params.orderId).then(response=>{
-        res.status(response.status).json(response);
-    }).catch(err=>{
-        res.status(500).json(new ApiResponse(500, 'error', err));
-    });
+    request(req, res, orderService.cancelOrderByBuyer(req.userId, req.params.orderId));
+}
+
+exports.getMyOrders = (req, res)=>{
+    request(req, res, orderService.getBuyerOrders(req.userId));
+}
+function request(req, res, promise){
+    promise
+        .then(response=>{
+            res.status(response.status).json(response);
+        })
+        .catch(err=>{
+            console.error(err);
+            res.status(500).json(new ApiResponse(500, 'error', {
+                message: err.message
+                //, stack: err.stack
+            }));
+        });
 }

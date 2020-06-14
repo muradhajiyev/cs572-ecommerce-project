@@ -5,10 +5,8 @@ const path = require('path'),
     { ApiResponse, User, Buyer, Seller  } = require(path.join(__dirname, "..", "models"));
 
 exports.login = async function(email, password){
-    
     const user = await User.findOne({ email });
     if (!user) return new ApiResponse(401, "error", { message: "Username doesn't exists" });
-    
     const pwdPass = bcryptjs.compareSync(password, user.password);
     if (!pwdPass) return new ApiResponse(403, "error", { message: "Invalid password" })
 

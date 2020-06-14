@@ -1,31 +1,41 @@
 [
     {
-        "_id": {
-            "$oid": "5a68fdc3615eda645bc6bdec"
-        },
+        "_id": {"$oid":"5ee1698cf1d0b8140cb05935"},
         "email": "hajiyev.murad1@gmail.com",
-        "password": "$2y$12$eYYFwnDPj9pV4Lm08GF6muUWWH9uigF0ACtVOefqVqWM.fObI5/vK", 
+        "password": "$2a$05$SWE0HcbjodtAwrZY6sR8JOH..FZAImeCnlgriJwLMQu1W/lMk68Tq",
         "name": "Murad",
         "status": "ACTIVE",
         "userType": "ADMIN"
     },
     {
-        "_id": {
-            "$oid": "5a68fdc3615eda645bc6bdeb"
-        },
+        "_id": {"$oid":"5ee1698cf1d0b8140cb05936"},
         "email": "maharishi@gmail.com",
-        "password": "$2y$12$eYYFwnDPj9pV4Lm08GF6muUWWH9uigF0ACtVOefqVqWM.fObI5/vK",
+        "password": "$2a$05$SWE0HcbjodtAwrZY6sR8JOH..FZAImeCnlgriJwLMQu1W/lMk68Tq",
         "name": "Maharishi",
         "status": "ACTIVE",
         "userType": "SELLER"
     },
     {
-        "_id": {
-            "$oid": "5a68fdc3615eda645bc6bdea"
-        },
+        "_id": {"$oid":"5ee1698cf1d0b8140cb05937"},
         "email": "corozza@gmail.com",
-        "password": "$2y$12$eYYFwnDPj9pV4Lm08GF6muUWWH9uigF0ACtVOefqVqWM.fObI5/vK",
+        "password": "$2a$05$jYfiArsDKVzXFmDEgykOguGT.t2nBdz22YZU6FjALvMntN.BNJnjW",
         "name": "Corozza",
+        "status": "ACTIVE",
+        "userType": "BUYER"
+    },
+    {
+        "_id": {"$oid":"5ee1698cf1d0b8140cb05938"},
+        "email": "amin@gmail.com",
+        "password": "$2a$05$SWE0HcbjodtAwrZY6sR8JOH..FZAImeCnlgriJwLMQu1W/lMk68Tq",
+        "name": "Aminjoni",
+        "status": "PENDING",
+        "userType": "SELLER"
+    },
+    {
+        "_id": {"$oid":"5ee1698cf1d0b8140cb05939"},
+        "email": "joe@gmail.com",
+        "password": "$2a$05$jYfiArsDKVzXFmDEgykOguGT.t2nBdz22YZU6FjALvMntN.BNJnjW",
+        "name": "Joe",
         "status": "ACTIVE",
         "userType": "BUYER"
     }
