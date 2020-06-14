@@ -50,7 +50,11 @@ const orderSchema = new Schema({
     }
 })
 orderSchema.statics.getLastOrderNumber = function(){
-    return this.findOne().sort('-orderNumber').exec(order=>order.orderNumber);
+    return this.aggregate(
+        [
+            { $group: {_id:'1', lastOrderNumber: { $max: "$orderNumber" } }}
+        ]
+     );
 }
 
 

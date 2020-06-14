@@ -2,19 +2,9 @@ const
     path = require('path'),
     { ObjectId } = require('mongodb'),
     HashMap = require('hashmap'),
+    catchError = require(__dirname, '..', 'util', 'helper').catchError,
     { ApiResponse, Buyer, Order,  OrderStatus, CashBackType  } = require(path.join(__dirname, "..", "models"));
 
-function getCashBack(cashBack, type){
-    switch(type){
-        case CashBackType.EARNED:
-        case CashBackType.REFUND:
-            return cashBack;
-        case CashBackType.SPENT:
-            return -1*cashBack;
-        default:
-            throw new Error('Undefined cashback type: ' + type);
-    }
-}
 
 //BODY: {cashbackPayment: 10, shippingAddressId: 'fdafr32rf545423', billingInfoId: 'fdfr874632das5',  }
 exports.createOrder = function(buyerId, data){
@@ -24,10 +14,13 @@ exports.createOrder = function(buyerId, data){
                 if(err){
                     return reject(err.message);
                 }
+                if(buyer.shoppingCart.length===0){
+                    return resolve(new ApiResponse(406, 'error', {message: 'Shopping cart is empty'}));
+                }
                 let sellerIds = new HashMap();
                 let availableCashBack = buyer.cashBack.reduce((a,e)=>a+getCashBack(e.cashBack, e.type), 0);
                 if(data.cashbackPayment > availableCashBack){
-                    return reject('Insufficient cashback');
+                    return resolve(new ApiResponse(406, 'error', {message: 'Insufficient cashback'}));
                 }
                 let cashbackPaymentPerProduct = data.cashbackPayment/buyer.shoppingCart.length;//product quantity is not important 
                 buyer.shoppingCart.forEach(cart => {
@@ -48,9 +41,9 @@ exports.createOrder = function(buyerId, data){
                     }
                     sellerIds.get(sellerId).push(product);
                 });
-                let address = buyer.addresses.find(adr=>adr._id === new ObjectId(data.shippingAddressId));
+                let address = buyer.addresses.find(adr=>adr._id.toString() === data.shippingAddressId);
                 if(address === undefined){
-                    return reject('Shipping address not defined');
+                    return resolve(new ApiResponse(406, 'error', {message: 'Shipping address not defined'}));
                 }
                 let shippingAddress = {
                     zipCode: address.zipCode,
@@ -60,9 +53,9 @@ exports.createOrder = function(buyerId, data){
                     phoneNumber: address.phoneNumber,
                     country: address.country                    
                 };
-                let blInfo = buyer.billingInfo.find(b=>b._id === new ObjectId(data.billingInfoId));
+                let blInfo = buyer.billingInfo.find(b=>b._id.toString() === data.billingInfoId);
                 if(blInfo === undefined){
-                    return reject('Billing info not defined');
+                    return resolve(new ApiResponse(406, 'error', {message: 'Billing info not defined'}));
                 }
                 let billingInfo = {
                     cardNumber: blInfo.cardNumber,
@@ -71,9 +64,16 @@ exports.createOrder = function(buyerId, data){
                     securityNumber: blInfo.securityNumber,
                     billingAddress:blInfo.billingAddress
                 };
-                Order.getLastOrderNumber().then(lastOrderNumber=>{
-                    sellerIds.forEach(function(products, sellerId){
-                        new Order({
+                Order.getLastOrderNumber().then(orders=>{
+                    let lastOrderNumber = 0;
+                    if(orders.length > 0){
+                        lastOrderNumber = orders[0].lastOrderNumber;
+                    }
+                    Promise.all(sellerIds.entries().map(function(e){
+                        let sellerId;
+                        let products;
+                        [sellerId, products] = e;
+                        return new Order({
                             buyerId: new ObjectId(buyerId),
                             sellerId: sellerId,
                             orderNumber: ++lastOrderNumber,
@@ -93,65 +93,103 @@ exports.createOrder = function(buyerId, data){
                                     orderId: order._id,
                                     type: CashBackType.SPENT
                                 });
-                                buyer.save();
                             }
-                        });  
-                    });
-                    resolve(new ApiResponse(200, 'success', {success: 'Order was created successfully'}));
-                });
+                            buyer.shoppingCart = [];
+                            buyer.save();
+                        })
+                        .catch(err=>reject(err));  
+                    })).then(() => {
+                        return resolve(new ApiResponse(200, 'success', {success: 'Order was created successfully'}));
+                      });
+                })
+                .catch(err=>reject(err));
             });
         });
 }
 
 exports.cancelOrderByBuyer = function(buyerId, orderId){
-    Order.findById(orderId)
+    return Order.findById(orderId)
         .then(order=>{
-            if(order.buyerId.toString() === buyerId){
-                return new ApiResponse(403, 'error', {message: 'Order does not exists'});
+            if(!order || order.buyerId.toString() !== buyerId){
+                return new ApiResponse(406, 'error', {message: 'Order does not exists'});
             }
-            setStatus(order, OrderStatus.CANCELED)
+            return setStatus(order, OrderStatus.CANCELED)
                 .then(order=>{
-                    order.save();
-                    return new ApiResponse(200, 'success', {message: 'Order status was updated successfully'});
+                    return order.save()
+                    .then((order)=>{
+                        return new ApiResponse(200, 'success', {message: 'Order status was updated successfully'});
+                    })
+                    .catch(catchError);
                 })
-                .catch(err=>{
-                    return new ApiResponse(403, 'error', err);
-                });
-        });
+                .catch(catchError);
+        })
+        .catch(catchError);
 }
 
 exports.setOrderStatusBySeller = function(sellerId, orderId, orderStatus){
-    Order.findById(orderId)
+    return Order.findById(orderId)
         .then(order=>{
-            if(order.sellerId.toString() === sellerId){
-                return new ApiResponse(403, 'error', {message: 'Order does not exists'});
+            if(!order || order.sellerId.toString() !== sellerId){
+                return new ApiResponse(406, 'error', {message: 'Order does not exists'});
             }
-            setStatus(order, orderStatus)
+            return setStatus(order, orderStatus)
                 .then(order=>{
-                    order.save();
-                    return new ApiResponse(200, 'success', {message: 'Order status was updated successfully'});
+                    return order.save()
+                        .then((order)=>{
+                            return new ApiResponse(200, 'success', {message: 'Order status was updated successfully'});
+                        })
+                    .catch(catchError);
                 })
-                .catch(err=>{
-                    return new ApiResponse(403, 'error', err);
-                });
-        });
+                .catch(catchError);
+        })
+        .catch(catchError);
+}
+
+exports.getBuyerOrders = function(buyerId){
+    return Order.find({buyerId: new ObjectId(buyerId)})
+        .then(orders=>{
+            return new ApiResponse(200, 'success', orders);
+            
+        })
+        .catch(catchError);
+}
+
+exports.getSellerOrders = function(sellerId){
+    return Order.find({sellerId: new ObjectId(sellerId)})
+        .then(orders=>{
+            return new ApiResponse(200, 'success', orders);
+            
+        })
+        .catch(catchError);
+}
+
+function getCashBack(cashBack, type){
+    switch(type){
+        case CashBackType.EARNED:
+        case CashBackType.REFUND:
+            return cashBack;
+        case CashBackType.SPENT:
+            return -1*cashBack;
+        default:
+            throw new Error('Undefined cashback type: ' + type);
+    }
 }
 function setStatus(order, orderStatus){
     return new Promise((resolve, reject)=>{
         switch(orderStatus.toUpperCase()){
-            case CANCELED:
+            case OrderStatus.CANCELED:
                     if (order.status !== OrderStatus.CREATED) {
                         return reject({message:"Order status cannot be changed to " + orderStatus});
                     }
                     order.canceledDate = new Date();
                     break;
-                case SHIPPED:
+                case OrderStatus.SHIPPED:
                     if (order.status !== OrderStatus.CREATED) {
                         return reject({message:"Order status cannot be changed to " + orderStatus});
                     }
                     order.shippedDate = new Date();
                     break;
-                case DELIVERED:
+                case OrderStatus.DELIVERED:
                     if (order.status !== OrderStatus.SHIPPED) {
                         return reject({message:"Order status cannot be changed to " + orderStatus});
                     }

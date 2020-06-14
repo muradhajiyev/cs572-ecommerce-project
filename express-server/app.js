@@ -29,7 +29,7 @@ app.use(function(req, res, next) {
 app.use(function(err, req, res, next) {
   let errStatus = err.status || 500;
   let dev = config.ENV === 'development'
-  if (dev) console.log(err);
+  if (dev) console.error('error handler: ', err);
   res.status(errStatus).json(new ApiResponse(errStatus, 'error', {message:err.message, error:dev ? err : {}}));
 });
 
