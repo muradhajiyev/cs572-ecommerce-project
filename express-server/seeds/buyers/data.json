@@ -1,12 +1,7 @@
 [
   {
     "_id": {
-      "$oid": "5a68fdc3615eda645bc6bdef"
-    }
-  },
-  {
-    "_id": {
-      "$oid": "5ee18462e04fdd0774558fda"
+      "$oid": "5a68fdc3615eda645bc6bdea"
     },
     "shoppingCart": [],
     "addresses": [
