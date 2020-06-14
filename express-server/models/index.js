@@ -4,8 +4,10 @@ const path = require('path'),
     Seller = require(path.join(__dirname, 'seller')),
     Buyer = require(path.join(__dirname, 'buyer')),
     Product = require(path.join(__dirname, 'product')),
+    UserStatus = require(path.join(__dirname, 'user-status')),
     Order = require(path.join(__dirname, 'order')),
-    UserStatus = require(path.join(__dirname, 'user-status'));
+    OrderStatus = require(path.join(__dirname, 'order-status')),
+    CashBackType = require(path.join(__dirname, 'cash-back-type'));
 
 module.exports = {
     ApiResponse,
@@ -13,6 +15,8 @@ module.exports = {
     Seller,
     Buyer,
     Product,
+    UserStatus,
     Order,
-    UserStatus
+    OrderStatus,
+    CashBackType
 }
