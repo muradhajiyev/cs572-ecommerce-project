@@ -1,8 +1,60 @@
 [
   {
     "_id": {
-      "$oid": "5a68fdc3615eda645bc6bdef"
-    }
+      "$oid": "5ee1698cf1d0b8140cb05937"
+    },
+    "shoppingCart": [],
+    "addresses": [],
+    "billingInfo": [],
+    "follows": [],
+    "cashBack": []
+  },
+  {
+    "_id": {
+      "$oid": "5ee1698cf1d0b8140cb05939"
+    },
+    "shoppingCart": [
+      {
+        "productId": {
+          "$oid": "5ee1698df1d0b8140cb05936"
+        },
+        "quantity": 2
+      }
+    ],
+    "addresses": [
+      {
+        "_id": {
+          "$oid": "5ee1698ba1d0b8140cb05939"
+        },
+        "zipCode": "52557",
+        "street": "1000 N ST",
+        "city": "Fairfield",
+        "state": "IA",
+        "phoneNumber": "641-777-7777",
+        "country": "USA"
+      }
+    ],
+    "billingInfo": [
+      {
+        "_id": {
+          "$oid": "5ee1698af1d0b8140cb05939"
+        },
+        "cardNumber": "4444555566667777",
+        "cardName": "JOE SLEIMAN",
+        "expirationDate": "0524",
+        "securityCode": "123",
+        "billingAddress": {
+          "zipCode": "52557",
+          "street": "1000 N ST",
+          "city": "Fairfield",
+          "state": "IA",
+          "phoneNumber": "641-777-7777",
+          "country": "USA"
+        }
+      }
+    ],
+    "follows": [],
+    "cashBack": []
   },
   {
     "_id": {
@@ -44,8 +96,7 @@
       }
     ],
     "follows": [],
-    "cashBack": [],
-    "__v": 21
+    "cashBack": []
   },
   {
     "_id": {
@@ -55,7 +106,6 @@
     "addresses": [],
     "billingInfo": [],
     "follows": [],
-    "cashBack": [],
-    "__v": 0
+    "cashBack": []
   }
 ]
