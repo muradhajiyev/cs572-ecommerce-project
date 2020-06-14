@@ -1,6 +1,6 @@
 const
     path = require('path'),
-    {ApiResponse, Buyer, Product, Order} = require(path.join(__dirname, "..", "models"));
+    {ApiResponse, Buyer, Product, Order, UserStatus, OrderStatus, ReviewStatus} = require(path.join(__dirname, "..", "models"));
 
 exports.getAllAddresses = (req, res, next) => {
     Buyer.findById(req.user._id)
@@ -231,12 +231,11 @@ exports.deleteFollowSeller = (req, res, next) => {
 exports.addReview = (req, res, next) => {
     Order.findById(req.params.orderId)
         .then(order => {
-                //'delivered' should be changed to enum
-                if (order.status == 'delivered') {
+                if (order.status == OrderStatus.DELIVERED) {
                     Product.findById(req.params.productId)
                         .then(product => {
                             product.reviews.push({
-                                status: 'Pending',
+                                status: ReviewStatus.PENDING,
                                 buyerId: req.user._id,
                                 createdDate: req.body.createdDate,
                                 stars: req.body.stars,
@@ -279,8 +278,7 @@ exports.getAllActiveReviewsByProductId = (req, res, next) => {
     Product.findById(req.params.productId)
         .then(product => {
             let reviews = product.reviews.filter(review => {
-                    //replace it by enum
-                    return review.status == 'Active';
+                    return review.status == UserStatus.ACTIVE;
                 }
             )
             res.status(200).json(new ApiResponse(200, 'success', reviews));
