@@ -6,7 +6,7 @@
         "price": 1100,
         "imageName": "",
         "description": "Apple IPhone 11 PRO, Very nice phone",
-        "sellerId": {"$oid":"5ee1698cf1d0b8140cb05937"},
+        "sellerId": {"$oid":"5ee1698cf1d0b8140cb05936"},
         "reviews": []
     }
 ]
