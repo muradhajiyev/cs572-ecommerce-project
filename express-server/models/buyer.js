@@ -1,4 +1,6 @@
-const mongoose = require('mongoose');
+const path = require('path'),
+    mongoose = require('mongoose'),
+    CashBackType = require(path.join(__dirname, 'cash-back-type'))
 const Schema = mongoose.Schema;
 
 const buyerSchema = new Schema({
@@ -45,7 +47,7 @@ const buyerSchema = new Schema({
         {
             cashBack: {type: Number},
             orderId: {type: Schema.Types.ObjectId, ref: 'Order'},
-            type: {type: String}
+            type: {type: String, enum:[CashBackType.EARNED, CashBackType.SPENT, CashBackType.REFUND]}
         }
     ]
 })
