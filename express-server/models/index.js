@@ -3,6 +3,8 @@ const path = require('path'),
     User = require(path.join(__dirname, 'user')),
     Seller = require(path.join(__dirname, 'seller')),
     Buyer = require(path.join(__dirname, 'buyer')),
+    Product = require(path.join(__dirname, 'product')),
+    Order = require(path.join(__dirname, 'order')),
     UserStatus = require(path.join(__dirname, 'user-status'));
 
 module.exports = {
@@ -10,5 +12,7 @@ module.exports = {
     User,
     Seller,
     Buyer,
+    Product,
+    Order,
     UserStatus
 }
