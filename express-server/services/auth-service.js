@@ -10,7 +10,7 @@ exports.login = async function(email, password){
     if (!user) return new ApiResponse(401, "error", { message: "Username doesn't exists" });
 
     const pwdPass = bcryptjs.compareSync(password, user.password);
-    if (!pwdPass) return new ApiResponse(401, "error", { message: "Invalid password" })
+    if (!pwdPass) return new ApiResponse(403, "error", { message: "Invalid password" })
 
     const token = jwt.sign({ userId: user._id.toString() }, config.SECRET_KEY, { expiresIn: config.EXPIRES_IN });
     let result = {

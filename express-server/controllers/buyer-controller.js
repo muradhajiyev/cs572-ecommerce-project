@@ -1,6 +1,7 @@
 const
     path = require('path'),
-    {ApiResponse, Buyer, Product, Order} = require(path.join(__dirname, "..", "models"));
+    {ApiResponse, Buyer, Product, Order} = require(path.join(__dirname, "..", "models")),
+    {orderService} = require(path.join(__dirname, '..', 'services'));
 
 exports.getAllAddresses = (req, res, next) => {
     Buyer.findById(req.user._id)
@@ -286,4 +287,20 @@ exports.getAllActiveReviewsByProductId = (req, res, next) => {
             res.status(200).json(new ApiResponse(200, 'success', reviews));
         })
         .catch(err => res.status(500).send(new ApiResponse(500, 'error', err)));
+}
+
+exports.createOrder = (req, res)=>{
+    orderService.createOrder(req.user._id, req.body).then(response=>{
+        res.status(response.status).json(response);
+    }).catch(err=>{
+        res.status(500).json(new ApiResponse(500, 'error', err));
+    });
+}
+
+exports.cancelOrder = (req, res)=>{
+    orderService.cancelOrderByBuyer(req.user._id, req.params.orderId).then(response=>{
+        res.status(response.status).json(response);
+    }).catch(err=>{
+        res.status(500).json(new ApiResponse(500, 'error', err));
+    });
 }
