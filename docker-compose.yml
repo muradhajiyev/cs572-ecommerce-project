@@ -33,7 +33,7 @@ services:
             - mydata:/data/db
 
     seeder:
-        image: pkosiec/mongo-seeding:3.2.0
+        image: pkosiec/mongo-seeding:3.4.1
         container_name: ecommerce-seeder
         volumes:
             - ./express-server/seeds/:/data-import

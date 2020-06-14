@@ -4,22 +4,22 @@ const
     { ApiResponse } = require(path.join(__dirname, "..", "models")),
     { authService } = require(path.join(__dirname, '..', 'services'));
 
-exports.login = async (req, res, next) => {
-    try {
-        let response = await authService.login(req.body.email, req.body.password);
-        res.status(response.status).json(response);
-    } catch (err) {
-        res.status(500).json(new ApiResponse(500, 'error', err));
-    }
+exports.login = (req, res, next) => {
+    authService.login(req.body.email, req.body.password)
+        .then(response => {
+            res.status(response.status).json(response);
+        }).catch(err => {
+            res.status(500).json(new ApiResponse(500, 'error', { message: err.message }));
+        });
 }
 
 
 exports.signup = (req, res, next) => {
-    try {
-        authService.signup(req.params.userType, req.body).then(response=>{
+    authService.signup(req.params.userType, req.body)
+        .then(response => {
             res.status(response.status).json(response);
+        })
+        .catch(err => {
+            res.status(500).json(new ApiResponse(500, 'error', { message: err.message }));
         });
-    } catch (err) {
-        res.status(500).json(new ApiResponse(500, 'error', err));
-    }
 }

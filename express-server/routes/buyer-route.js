@@ -22,4 +22,8 @@ router.get('/reviews/:productId', buyerController.getAllActiveReviewsByProductId
 router.post('/order/:orderId/product/:productId/add-review', buyerController.addReview);
 router.delete('/delete-review/:productId/:reviewId', buyerController.deleteReview);
 
+router.post('/checkout', buyerController.createOrder);
+router.post('/orders/:orderId/cancel', buyerController.cancelOrder);
+router.get('/orders', buyerController.getMyOrders)
+
 module.exports = router;

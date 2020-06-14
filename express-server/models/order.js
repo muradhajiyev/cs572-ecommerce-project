@@ -1,11 +1,17 @@
-const mongoose = require('mongoose');
+const { Order } = require('.');
+
+const path =require('path'),
+    mongoose = require('mongoose'),
+    OrderStatus = require(path.join(__dirname, 'order-status'));
 const Schema = mongoose.Schema;
 
 const orderSchema = new Schema({
     buyerId: {type: Schema.Types.ObjectId, required: true, ref: 'Buyer'},
     sellerId: {type: Schema.Types.ObjectId, required: true, ref: 'Seller'},
+    orderNumber: {type: Number, require: true},
     orderDate: {type: Date},
-    status: {type: String},
+    status: {type: String, enum:[OrderStatus.CREATED, OrderStatus.CANCELED, OrderStatus.SHIPPED, OrderStatus.DELIVERED]},
+    canceledDate: {type: Date},
     shippedDate: {type: Date},
     deliveredDate: {type: Date},
     products: [
@@ -29,14 +35,10 @@ const orderSchema = new Schema({
         country: {type: String},
     },
     billingInfo: {
-        type: {type: String},
         cardNumber: {type: String},
         cardName: {type: String},
         expirationDate: {type: Date},
         securityNumber: {type: String},
-        accountName: {type: String},
-        accountNumber: {type: String},
-        routingNumber: {type: String},
         billingAddress:{
             zipCode: {type: String},
             street: {type: String},
@@ -47,6 +49,14 @@ const orderSchema = new Schema({
         }
     }
 })
+orderSchema.statics.getLastOrderNumber = function(){
+    return this.aggregate(
+        [
+            { $group: {_id:'1', lastOrderNumber: { $max: "$orderNumber" } }}
+        ]
+     );
+}
+
 
 //collection name => orders
 module.exports = mongoose.model('Order', orderSchema);

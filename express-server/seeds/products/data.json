@@ -6,7 +6,7 @@
   "sellerId": "5ee54b12bd266b249872240a",
   "reviews": [
     {
-      "status": "Active",
+      "status": "ACTIVE",
       "buyerId": {
         "$oid": "5ee18462e04fdd0774558fda"
       },
@@ -24,8 +24,7 @@
       "status": "Pending",
       "stars": "2"
     }
-  ],
-  "__v": 2
+  ]
 },{
   "_id": {
     "$oid": "5ee57dc45a47f27910d69459"
