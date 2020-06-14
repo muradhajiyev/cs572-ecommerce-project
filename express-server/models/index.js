@@ -5,6 +5,8 @@ const path = require('path'),
     Buyer = require(path.join(__dirname, 'buyer')),
     Product = require(path.join(__dirname, 'product')),
     Order = require(path.join(__dirname, 'order')),
+    OrderStatus = require(path.join(__dirname, 'order-status')),
+    ReviewStatus = require(path.join(__dirname, 'review-status')),
     UserStatus = require(path.join(__dirname, 'user-status'));
 
 module.exports = {
@@ -14,5 +16,7 @@ module.exports = {
     Buyer,
     Product,
     Order,
-    UserStatus
+    UserStatus,
+    OrderStatus,
+    ReviewStatus
 }
