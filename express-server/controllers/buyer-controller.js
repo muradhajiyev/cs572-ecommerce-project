@@ -11,6 +11,7 @@ const path = require("path"),
   { orderService } = require(path.join(__dirname, "..", "services"));
 
 exports.getAllAddresses = (req, res, next) => {
+
   Buyer.findById(req.user._id)
     .then((buyer) => {
       console.log("buyer", buyer);
@@ -18,6 +19,7 @@ exports.getAllAddresses = (req, res, next) => {
     })
     .catch((err) => res.status(500).send(new ApiResponse(500, "error", err)));
 };
+
 
 exports.addAddress = (req, res, next) => {
   Buyer.findById(req.user._id)
@@ -370,8 +372,6 @@ function request(req, res, promise) {
       );
     });
 }
-
-
 
 //MARK:- SHOPPING CART
 //get list of shopping card
