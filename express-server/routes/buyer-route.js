@@ -19,7 +19,7 @@ router.post('/follow-seller', buyerController.addFollowSeller);
 router.delete('/follow-seller/:id', buyerController.deleteFollowSeller);
 
 router.get('/reviews/:productId', buyerController.getAllActiveReviewsByProductId);
-router.post('/add-review/:orderId/:productId', buyerController.addReview);
+router.post('/order/:orderId/product/:productId/add-review', buyerController.addReview);
 router.delete('/delete-review/:productId/:reviewId', buyerController.deleteReview);
 
 module.exports = router;
