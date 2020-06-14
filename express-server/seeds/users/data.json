@@ -1,0 +1,32 @@
+[
+    {
+        "_id": {
+            "$oid": "5a68fdc3615eda645bc6bdec"
+        },
+        "email": "hajiyev.murad1@gmail.com",
+        "password": "$2y$12$eYYFwnDPj9pV4Lm08GF6muUWWH9uigF0ACtVOefqVqWM.fObI5/vK", 
+        "name": "Murad",
+        "status": "ACTIVE",
+        "userType": "ADMIN"
+    },
+    {
+        "_id": {
+            "$oid": "5a68fdc3615eda645bc6bdeb"
+        },
+        "email": "maharishi@gmail.com",
+        "password": "$2y$12$eYYFwnDPj9pV4Lm08GF6muUWWH9uigF0ACtVOefqVqWM.fObI5/vK",
+        "name": "Maharishi",
+        "status": "ACTIVE",
+        "userType": "SELLER"
+    },
+    {
+        "_id": {
+            "$oid": "5a68fdc3615eda645bc6bdea"
+        },
+        "email": "corozza@gmail.com",
+        "password": "$2y$12$eYYFwnDPj9pV4Lm08GF6muUWWH9uigF0ACtVOefqVqWM.fObI5/vK",
+        "name": "Corozza",
+        "status": "ACTIVE",
+        "userType": "BUYER"
+    }
+]
