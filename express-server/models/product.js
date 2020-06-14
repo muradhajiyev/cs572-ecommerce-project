@@ -18,7 +18,6 @@ const productSchema = new Schema({
             decisionDate: {type: Date}
         }
     ]
-
 })
 
 //collection name => products
