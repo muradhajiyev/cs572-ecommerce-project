@@ -1,5 +1,6 @@
 [
     {
+        "_id": "5ee579a156a9e5060f2ka5bb",
         "email": "hajiyev.murad1@gmail.com",
         "password": "123456",
         "name": "Murad",
@@ -7,6 +8,7 @@
         "userType": "ADMIN"
     },
     {
+        "_id": "5ee579a156a9e5060f2zy5bb",
         "email": "maharishi@gmail.com",
         "password": "123456",
         "name": "Maharishi",
@@ -14,10 +16,11 @@
         "userType": "SELLER"
     },
     {
+        "_id": "5ee568a156a9e5060f2zy5bb",
         "email": "corozza@gmail.com",
         "password": "123456",
         "name": "Corozza",
         "status": "ACTIVE",
-        "userType": "SELLER"
+        "userType": "BUYER"
     }
 ]
