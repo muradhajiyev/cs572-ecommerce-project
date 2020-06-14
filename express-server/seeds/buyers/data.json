@@ -1,5 +1,7 @@
 [
     {
-        "_id": "5ee568a156a9e5060f2zy5bb"
+        "_id": {
+            "$oid": "5a68fdc3615eda645bc6bdef"
+        }
     }
 ]
