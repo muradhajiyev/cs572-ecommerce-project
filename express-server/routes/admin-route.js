@@ -1,7 +1,6 @@
-const 
-    path = require('path'),
-    { adminController } = require(path.join(__dirname, '..', 'controllers'));
-    router = require("express").Router();
+const path = require("path"),
+  { adminController } = require(path.join(__dirname, "..", "controllers"));
+router = require("express").Router();
 
 /* POST approve seller */
 router.post("/seller/:id/approve", adminController.approveSeller);
