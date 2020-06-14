@@ -1,3 +1,6 @@
 module.exports = {
+    CREATED: 'CREATED',
+    CANCELED: 'CANCELED',
+    SHIPPED: 'SHIPPED',
     DELIVERED: 'DELIVERED'
 }
