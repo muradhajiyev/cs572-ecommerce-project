@@ -351,6 +351,10 @@ exports.cancelOrder = (req, res) => {
 exports.getMyOrders = (req, res) => {
   request(req, res, orderService.getBuyerOrders(req.userId));
 };
+
+exports.getAvailableCashBack = (req, res) => {
+  request(req, res, orderService.getAvailableCashBack(req.userId));
+};
 function request(req, res, promise) {
   promise
     .then((response) => {
@@ -366,6 +370,8 @@ function request(req, res, promise) {
       );
     });
 }
+
+
 
 //MARK:- SHOPPING CART
 //get list of shopping card

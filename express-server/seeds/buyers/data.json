@@ -54,7 +54,17 @@
       }
     ],
     "follows": [],
-    "cashBack": []
+    "cashBack": [
+      {
+        "cashBack": 11,
+        "orderId": {"$oid":"5ee6202dc8e9310dfb95c1f6"},
+        "type": "EARNED"
+    },{
+        "cashBack": 5,
+        "orderId": {"$oid":"5ee6202dc8e9310dfb95c1f4"},
+        "type": "SPENT"
+    }
+    ]
   },
   {
     "_id": {

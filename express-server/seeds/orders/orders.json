@@ -15,8 +15,8 @@
                 "expirationDate" : "2024-06-01T00:00:00.000+00:00"
         },
         "buyerId" : {"$oid":"5ee1698cf1d0b8140cb05939"},
-        "sellerId" : {"$oid":"5ee1698cf1d0b8140cb05937"},
-        "orderNumber" : 2,
+        "sellerId" : {"$oid":"5ee1698cf1d0b8140cb05936"},
+        "orderNumber" : 7,
         "orderDate" : "2020-06-14T18:25:19.533+00:00",
         "status" : "CREATED",
         "canceledDate" : null,
@@ -30,8 +30,8 @@
                                 "price" : 1100
                         },
                         "quantity" : 2,
-                        "cashbackPayment" : 0,
-                        "creditCardPayment" : 2200,
+                        "cashbackPayment" : 5,
+                        "creditCardPayment" : 2195,
                         "totalPayment" : 2200
                 }
         ],
@@ -60,8 +60,8 @@
                 "expirationDate" : "2024-06-01T00:00:00.000+00:00"
         },
         "buyerId" : {"$oid":"5ee1698cf1d0b8140cb05939"},
-        "sellerId" : {"$oid":"5ee1698cf1d0b8140cb05937"},
-        "orderNumber" : 3,
+        "sellerId" : {"$oid":"5ee1698cf1d0b8140cb05936"},
+        "orderNumber" : 5,
         "orderDate" : "2020-06-14T18:25:19.533+00:00",
         "status" : "SHIPPED",
         "canceledDate" : null,
@@ -105,7 +105,7 @@
                 "expirationDate" : "2024-06-01T00:00:00.000+00:00"
         },
         "buyerId" : {"$oid":"5ee1698cf1d0b8140cb05939"},
-        "sellerId" : {"$oid":"5ee1698cf1d0b8140cb05937"},
+        "sellerId" : {"$oid":"5ee1698cf1d0b8140cb05936"},
         "orderNumber" : 4,
         "orderDate" : "2020-06-14T18:25:19.533+00:00",
         "status" : "DELIVERED",
