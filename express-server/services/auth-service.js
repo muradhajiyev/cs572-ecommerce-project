@@ -12,7 +12,7 @@ exports.login = async function(email, password){
     const pwdPass = bcryptjs.compareSync(password, user.password);
     if (!pwdPass) return new ApiResponse(401, "error", { message: "Invalid password" })
 
-    const token = jwt.sign({ userId: user._id.toString() }, config.SECRET_KEY, { expiresIn: 10800 });
+    const token = jwt.sign({ userId: user._id.toString() }, config.SECRET_KEY, { expiresIn: config.EXPIRES_IN });
     let result = {
         "access_token": token
        };
@@ -20,7 +20,7 @@ exports.login = async function(email, password){
 }
 
 exports.signup = async function(userType, data) {
-    if (await User.findOne({ email: data.email })) return new ApiResponse(401, "error", { err: "Email is already registered" });
+    if (await User.findOne({ email: data.email })) return new ApiResponse(401, "error", { message: "Email is already registered" });
     let user;
     switch(userType){
         case 'buyer':
@@ -34,7 +34,7 @@ exports.signup = async function(userType, data) {
             seller.save();
             break;
         default:
-            return new ApiResponse(401, 'error', {'message':'Unknown user type'});
+            return new ApiResponse(401, 'error', {message:'Unknown user type'});
     }
     return new ApiResponse(200, "success", {});
 }
