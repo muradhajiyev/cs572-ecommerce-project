@@ -3,8 +3,8 @@ const
     { ObjectId } = require('mongodb'),
     HashMap = require('hashmap'),
     catchError = require(__dirname, '..', 'util', 'helper').catchError,
-    { ApiResponse, Buyer, Order, OrderStatus, CashBackType } = require(path.join(__dirname, "..", "models"));
-
+    { Buyer, Order, OrderStatus, CashBackType } = require(path.join(__dirname, "..", "models"));
+const ApiResponse = require('../controllers/viewmodels/ApiResponse');
 
 //BODY: {cashbackPayment: 10, shippingAddressId: 'fdafr32rf545423', billingInfoId: 'fdfr874632das5',  }
 exports.createOrder = function (buyerId, data) {

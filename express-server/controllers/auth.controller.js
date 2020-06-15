@@ -1,7 +1,7 @@
 
 const
     path = require('path'),
-    { ApiResponse } = require(path.join(__dirname, "..", "models")),
+    ApiResponse = require('./viewmodels/ApiResponse'),
     { authService } = require(path.join(__dirname, '..', 'services'));
 
 exports.login = (req, res, next) => {

@@ -1,4 +1,4 @@
-const { ApiResponse } = require('../models');
+const ApiResponse = require('../controllers/viewmodels/ApiResponse');
 const { verifyToken } = require('../routes/security');
 
 module.exports = authorize;

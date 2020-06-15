@@ -19,7 +19,7 @@ module.exports = function (app) {
     app.use('/api/billing-info', authorize(Role.BUYER), billingInfoRouter);
     app.use('/api/reviews', reviewRouter);
     app.use('/api/carts', authorize(Role.BUYER), cartRouter);
-    app.use('/api/users/', userRouter);
+    app.use('/api/users', userRouter);
     app.use('/api/orders', orderRouter);
     app.get('/', function (req, res, next) {
         res.send('Online market API is work');

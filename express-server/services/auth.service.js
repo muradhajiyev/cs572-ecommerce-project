@@ -2,8 +2,10 @@ const path = require('path'),
     jwt = require('jsonwebtoken'),
     config = require(path.join(__dirname, '..','config.json')),
     bcryptjs = require('bcryptjs'),
-    { ApiResponse, User, Buyer, Seller  } = require(path.join(__dirname, "..", "models"));
+    { User, Buyer, Seller  } = require(path.join(__dirname, "..", "models"));
 
+const ApiResponse = require('../controllers/viewmodels/ApiResponse');
+    
 exports.login = async function(email, password){
     const user = await User.findOne({ email });
     if (!user) return new ApiResponse(401, "error", { message: "Username doesn't exists" });
