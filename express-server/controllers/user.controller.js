@@ -13,7 +13,7 @@ exports.followSeller = (req, res, next) => {
     Buyer.findById(req.user._id)
         .then((buyer) => {
             buyer.follows.push({
-                sellerId: req.body.sellerId,
+                sellerId: req.params.id,
             });
             return buyer.save();
         })
