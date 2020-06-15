@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const {addressController} = require("../controllers");
-const Role = require('../_helpers/role');
 const authorize = require('../_helpers/authorize');
 
 router.get("/", addressController.getAllAddresses);
