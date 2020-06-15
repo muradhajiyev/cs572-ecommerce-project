@@ -1,6 +1,6 @@
 const path = require('path'),
     mongoose = require('mongoose'),
-    CashBackType = require(path.join(__dirname, 'cash-back-type'))
+    CashBackType = require('./enums/cash-back-type');
 const Schema = mongoose.Schema;
 
 const buyerSchema = new Schema({

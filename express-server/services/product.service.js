@@ -46,3 +46,7 @@ exports.editProduct = async function(productId, title, categoryId, price, descri
 
     return product;
 }
+
+exports.deleteProduct = function(id){
+    //Todo: it is needed to be implemented after product id is added to orders.
+}
