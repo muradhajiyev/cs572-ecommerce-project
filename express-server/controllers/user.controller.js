@@ -2,12 +2,15 @@ const ReviewStatus = require("../models/review-status");
 const UserStatus = require("../models/user-status");
 
 const path = require("path"),
-  { ApiResponse, Buyer, User, Product } = require(path.join(
-    __dirname,
-    "..",
-    "models"
-  )),
-  { orderService } = require(path.join(__dirname, "..", "services"));
+    {
+        Buyer,
+        User
+    } = require(path.join(__dirname, "..", "models")),
+    {
+        orderService
+    } = require(path.join(__dirname, "..", "services"));
+
+const ApiResponse = require('./viewmodels/ApiResponse');
 
 //Follow Seller:
 exports.followSeller = (req, res, next) => {
