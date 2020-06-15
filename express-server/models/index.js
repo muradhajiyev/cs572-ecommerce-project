@@ -3,11 +3,11 @@ const path = require('path'),
     Seller = require(path.join(__dirname, 'seller')),
     Buyer = require(path.join(__dirname, 'buyer')),
     Product = require(path.join(__dirname, 'product')),
-    UserStatus = require(path.join(__dirname, 'user-status')),
     Order = require(path.join(__dirname, 'order')),
-    OrderStatus = require(path.join(__dirname, 'order-status')),
-    ReviewStatus = require(path.join(__dirname, 'review-status')),
-    CashBackType = require(path.join(__dirname, 'cash-back-type'));
+    UserStatus = require(path.join(__dirname, 'enums/user-status')),
+    OrderStatus = require(path.join(__dirname, 'enums/order-status')),
+    ReviewStatus = require(path.join(__dirname, 'enums/review-status')),
+    CashBackType = require(path.join(__dirname, 'enums/cash-back-type'));
 
 module.exports = {
     User,
