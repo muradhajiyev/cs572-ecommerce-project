@@ -3,13 +3,15 @@ const { userController } = require("../controllers");
 const Role = require('../_helpers/role');
 const authorize = require('../_helpers/authorize');
 
-router.post("/follow", authorize(Role.BUYER),  userController.followSeller);
-router.delete("/follow/:id", authorize(Role.BUYER), userController.deleteFollowSeller);
-router.get('/available-cashback', authorize(Role.BUYER, Role.SELLER), userController.getAvailableCashBack);
+// todo: change follow Seller implementation.
+router.post("/sellers/:id/follow", authorize(Role.BUYER),  userController.followSeller);
+router.delete("/sellers/:id/unfollow/", authorize(Role.BUYER), userController.unfollowSeller);
+
+router.get('/available-cashback', authorize(Role.BUYER), userController.getAvailableCashBack);
 
 /* POST approve seller */
-router.post("/seller/:id/approve", userController.approveSeller);
+router.post("/sellers/:id/approve", authorize(Role.ADMIN), userController.approveSeller);
 /* POST reject seller */
-router.post("/seller/:id/reject", userController.rejectSeller);
+router.post("/sellers/:id/reject", authorize(Role.ADMIN), userController.rejectSeller);
 
 module.exports = router;
