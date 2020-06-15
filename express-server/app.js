@@ -8,10 +8,6 @@ const initRoutes = require('./routes');
 const ApiResponse = require('./controllers/viewmodels/ApiResponse');
 const app = express();
 
-//swagger implementation
-const swaggerDoc = require('./swaggerDoc');
-swaggerDoc(app);
-
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
