@@ -6,11 +6,7 @@ const authorize = require('../_helpers/authorize');
 router.post("/sellers/:id/follow", authorize(Role.BUYER),  userController.followSeller);
 router.delete("/sellers/:id/unfollow/", authorize(Role.BUYER), userController.unfollowSeller);
 
-router.get(
-  "/available-cashback",
-  authorize(Role.BUYER),
-  userController.getAvailableCashBack
-);
+router.get("/available-cashback", authorize(Role.BUYER), userController.getAvailableCashback);
 
 /* POST approve seller */
 router.post(
