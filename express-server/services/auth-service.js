@@ -16,10 +16,10 @@ exports.login = async function(email, password){
     return new ApiResponse(200, "success", result); 
 }
 
-exports.signup = async function(userType, data) {
+exports.signup = async function(role, data) {
     if (await User.findOne({ email: data.email })) return new ApiResponse(401, "error", { message: "Email is already registered" });
     let user;
-    switch(userType){
+    switch(role){
         case 'buyer':
             user = await createUser(data, 'ACTIVE', 'BUYER');
             let buyer = new Buyer({_id:user._id,shoppingCart:[],addresses:[],billingInfo:[],follows:[],cashBack:[]});
@@ -36,14 +36,14 @@ exports.signup = async function(userType, data) {
     return new ApiResponse(200, "success", {});
 }
 
-function createUser(data, status, userType){
+function createUser(data, status, role){
     const hashedPassword = bcryptjs.hashSync(data.password, bcryptjs.genSaltSync(5));
     const user = new User({
         email: data.email,
         password: hashedPassword,
         name: data.name,
         status: status,
-        userType: userType
+        role: role
     });
     return user.save();
 }

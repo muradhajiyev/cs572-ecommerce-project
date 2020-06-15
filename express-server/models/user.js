@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const userStatus = require('./user-status');
+const roleEnum = require('../_helpers/role');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -10,9 +11,9 @@ const userSchema = new Schema({
         type: String,
         enum: [ userStatus.ACTIVE, userStatus.PENDING, userStatus.REJECT ]
     },
-    userType: {
+    role: {
         type: String,
-        enum: ['ADMIN', 'SELLER', 'BUYER'],
+        enum: [ roleEnum.ADMIN, roleEnum.SELLER, roleEnum.BUYER ],
         required: true 
     }
 })
