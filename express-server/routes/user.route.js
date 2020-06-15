@@ -35,11 +35,16 @@ router.post(
 );
 
 /** POST post review */
-router.post("product/:productid/review/:id/post", userController.postReview);
+router.post(
+  "/product/:productid/review/:id/post",
+  authorize(Role.ADMIN),
+  userController.postReview
+);
 
 /** POST reject review */
 router.post(
-  "product/:productid/review/:id/reject",
+  "/product/:productid/review/:id/reject",
+  authorize(Role.ADMIN),
   userController.rejectReview
 );
 

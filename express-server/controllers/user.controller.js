@@ -2,7 +2,11 @@ const ReviewStatus = require("../models/review-status");
 const UserStatus = require("../models/user-status");
 
 const path = require("path"),
-  { ApiResponse, Buyer, User } = require(path.join(__dirname, "..", "models")),
+  { ApiResponse, Buyer, User, Product } = require(path.join(
+    __dirname,
+    "..",
+    "models"
+  )),
   { orderService } = require(path.join(__dirname, "..", "services"));
 
 //Follow Seller:
@@ -104,12 +108,12 @@ exports.rejectSeller = (req, res) => {
 exports.postReview = (req, res) => {
   const productId = req.params.productid;
   const id = req.params.id;
-
+  console.log(productId, id);
   Product.findById(productId)
     .then((product) => {
-      let review = product.reviews.filter((review) => {
-        return review._id == id;
-      })[0];
+      let review = product.reviews.find((review) => {
+        return review._id.toString() === id;
+      });
 
       review.status = ReviewStatus.POSTED;
       return product.save();
