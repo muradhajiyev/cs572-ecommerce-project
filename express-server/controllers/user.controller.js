@@ -1,5 +1,5 @@
-const ReviewStatus = require("../models/review-status");
-const UserStatus = require("../models/user-status");
+const ReviewStatus = require("../models/enums/review-status");
+const UserStatus = require("../models/enums/user-status");
 
 const path = require("path"),
     {
