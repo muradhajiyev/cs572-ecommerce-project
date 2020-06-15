@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const userStatus = require('./enums/user-status');
-const roleEnum = require('../_helpers/role');
+const roleEnum = require('./enums/user-role');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({

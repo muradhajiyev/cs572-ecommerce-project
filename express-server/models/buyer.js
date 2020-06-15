@@ -1,6 +1,6 @@
 const path = require('path'),
     mongoose = require('mongoose'),
-    CashBackType = require('./enums/cash-back-type');
+    CashbackType = require(path.join(__dirname, 'enums', 'cashback-type'));
 const Schema = mongoose.Schema;
 
 const buyerSchema = new Schema({
@@ -13,7 +13,6 @@ const buyerSchema = new Schema({
     ],
     addresses: [
         {
-            // id: {type: ObjectId},
             zipCode: {type: String}, 
             street: {type:String},
             city: {type:String},
@@ -47,7 +46,7 @@ const buyerSchema = new Schema({
         {
             cashBack: {type: Number},
             orderId: {type: Schema.Types.ObjectId, ref: 'Order'},
-            type: {type: String, enum:[CashBackType.EARNED, CashBackType.SPENT, CashBackType.REFUND]}
+            type: {type: String, enum:[CashbackType.EARNED, CashbackType.SPENT, CashbackType.REFUND]}
         }
     ]
 })
