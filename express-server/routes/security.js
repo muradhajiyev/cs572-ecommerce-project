@@ -22,6 +22,7 @@ exports.verifyToken = (req, res, next) => {
             }
             userService.getUserById(verified.userId)
                 .then(user => {
+                    // console.log(user);
                     req.user = user;
                     req.userId = user._id.toString();
                     return next();

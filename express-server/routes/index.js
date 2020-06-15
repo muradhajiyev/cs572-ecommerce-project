@@ -9,7 +9,7 @@ const
     userRouter = require(path.join(__dirname, "user.route")),
     orderRouter = require(path.join(__dirname, "order.route"));
 
-const Role = require('../_helpers/role');
+const Role = require('../models/enums/user-role');
 const authorize = require('../_helpers/authorize');
 
 module.exports = function (app) {
