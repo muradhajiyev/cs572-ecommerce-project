@@ -1,12 +1,11 @@
 const router = require("express").Router();
 const { cartController } = require("../controllers");
-const Role = require('../_helpers/role');
-const authorize = require('../_helpers/authorize');
+
 
 //MARK:- Shopping cart CRUD Operation
-router.get("cart", cartController.getListShoppingCard);
-router.post("cart", cartController.addProductToShoppingCart);
-router.put("cart/:id", cartController.updateProductFromShoppingCart);
-router.delete("cart/:id", cartController.deleteProductFromShoppingCart);
+router.get("/",  cartController.getListShoppingCard);
+router.post("/", cartController.addProductToShoppingCart);
+router.put("/:id", cartController.updateProductFromShoppingCart);
+router.delete("/:id", cartController.deleteProductFromShoppingCart);
 
 module.exports = router;

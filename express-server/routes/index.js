@@ -9,16 +9,19 @@ const
     userRouter = require(path.join(__dirname, "user.route")),
     orderRouter = require(path.join(__dirname, "order.route"));
 
-module.exports = function(app){
+const Role = require('../_helpers/role');
+const authorize = require('../_helpers/authorize');
+
+module.exports = function (app) {
     app.use('/api/auth', authRoute);
-    app.use('/api', productRouter);
-    app.use('/api', addressRouter);
-    app.use('/api', billingInfoRouter);
-    app.use('/api', reviewRouter);
-    app.use('/api', cartRouter);
+    app.use('/api/products', productRouter);
+    app.use('/api/addresses', authorize(Role.BUYER), addressRouter);
+    app.use('/api/billing-info', authorize(Role.BUYER), billingInfoRouter);
+    app.use('/api/reviews', reviewRouter);
+    app.use('/api/carts', authorize(Role.BUYER), cartRouter);
     app.use('/api/users/', userRouter);
-    app.use('/api/', orderRouter);
-    app.get('/', function(req, res, next) {
+    app.use('/api/orders', orderRouter);
+    app.get('/', function (req, res, next) {
         res.send('Online market API is work');
     });
 }

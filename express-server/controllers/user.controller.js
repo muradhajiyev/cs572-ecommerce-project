@@ -29,7 +29,7 @@ exports.followSeller = (req, res, next) => {
         });
 };
 
-exports.deleteFollowSeller = (req, res, next) => {
+exports.unfollowSeller = (req, res, next) => {
     Buyer.findById(req.user._id)
         .then((buyer) => {
             buyer.follows = buyer.follows.filter((seller) => {

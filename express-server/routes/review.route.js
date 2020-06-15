@@ -5,12 +5,12 @@ const authorize = require('../_helpers/authorize');
 
 // TODO:: add roles to all routes
 
-router.get("/reviews/:productId", authorize() ,reviewController.getAllActiveReviewsByProductId);
+router.get("/product/:productId", reviewController.getAllActiveReviewsByProductId);
 
-// let's discuss this route
-router.post("/order/:orderId/product/:productId/add-review", authorize() ,reviewController.addReview);
+// let's discuss this route product: 5, Joe please check this implementation again.
+router.post("/product/:productId", authorize() ,reviewController.addReview);
 
 // reviews/:id - it is better. let's discuss
-router.delete("/delete-review/:productId/:reviewId", authorize(), reviewController.deleteReview);
+router.delete("/product/:productId", authorize(), reviewController.deleteReview);
 
 module.exports = router;
