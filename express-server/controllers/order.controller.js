@@ -1,8 +1,10 @@
-const path = require("path"),
-    {
-        orderService
-    } = require(path.join(__dirname, "..", "services"));
+const path = require("path");
+const { orderService } = require(path.join(__dirname, "..", "services"));
 const ApiResponse = require('./viewmodels/ApiResponse');
+
+const fs = require('fs');
+const pdf = require('html-pdf');
+
 
 exports.createOrder = (req, res) => {
     request(req, res, orderService.createOrder(req.user._id, req.body));
@@ -34,4 +36,13 @@ function request(req, res, promise) {
                 })
             );
         });
+}
+
+
+exports.generateReceipt = function(req, res, next){
+    var html = fs.readFileSync(path.join(__dirname, "..", "views", "receipt.report.html"), 'utf8');
+    pdf.create(html, {}).toFile('./businesscard.pdf', function(err, res) {
+        if (err) return console.log(err);
+        console.log(res); // { filename: '/app/businesscard.pdf' }
+      });
 }
