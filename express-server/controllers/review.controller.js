@@ -1,12 +1,13 @@
 const path = require("path");
 const {
-  ApiResponse,
-  Product,
-  Order,
-  UserStatus,
-  OrderStatus,
-  ReviewStatus,
+    Product,
+    Order,
+    UserStatus,
+    OrderStatus,
+    ReviewStatus,
 } = require(path.join(__dirname, "..", "models"));
+
+const ApiResponse = require('./viewmodels/ApiResponse');
 
 //Buyer Reviews:
 exports.addReview = (req, res, next) => {

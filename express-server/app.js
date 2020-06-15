@@ -5,7 +5,7 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const config = require(path.join(__dirname, 'config.json'));
 const initRoutes = require('./routes');
-const ApiResponse = require('./models/ApiResponse');
+const ApiResponse = require('./controllers/viewmodels/ApiResponse');
 const app = express();
 
 //swagger implementation

@@ -1,8 +1,9 @@
 const path = require("path"),
     {
-        ApiResponse,
         Buyer
     } = require(path.join(__dirname, "..", "models"));
+
+const ApiResponse = require('./viewmodels/ApiResponse');
 
 //MARK:- SHOPPING CART
 //get list of shopping card

@@ -1,5 +1,7 @@
+const ApiResponse = require("./viewmodels/ApiResponse");
+
 const path = require("path"),
-  { ApiResponse, Buyer } = require(path.join(__dirname, "..", "models"));
+  { Buyer } = require(path.join(__dirname, "..", "models"));
 
 exports.getAllAddresses = (req, res, next) => {
 
