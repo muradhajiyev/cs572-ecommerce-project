@@ -1,10 +1,8 @@
 const path = require("path"),
     {
-        ApiResponse
-    } = require(path.join(__dirname, "..", "models")),
-    {
         orderService
     } = require(path.join(__dirname, "..", "services"));
+const ApiResponse = require('./viewmodels/ApiResponse');
 
 exports.createOrder = (req, res) => {
     request(req, res, orderService.createOrder(req.user._id, req.body));

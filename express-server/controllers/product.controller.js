@@ -1,12 +1,23 @@
-const { ApiResponse } = require('../models');
+const ApiResponse = require('./viewmodels/ApiResponse');
 const { productService } = require('../services');
  
-exports.getProduct = function(req, res, next){
-    // productService.getProduct(req.params.id)
-    //     .then((product) => res.status(200).json(new ApiResponse(200, 'The product was found succesfully.', product)))
-    //     .catch(next);
 
-    res.json("test");
+exports.getProducts = function(req, res, next){
+    productService.getProducts(req.query.pageNumber, req.query.pageSize)
+        .then((pagedDto) => {
+            res.status(200).json(
+                new ApiResponse(
+                     200,
+                     'The products were found succesfully.',
+                     pagedDto));
+        })
+        .catch(next);
+}
+
+exports.getProduct = function(req, res, next){
+    productService.getProduct(req.params.id)
+        .then((product) => res.status(200).json(new ApiResponse(200, 'The product was found succesfully.', product)))
+        .catch(next);
 }
 
 exports.createProduct = function(req, res, next){

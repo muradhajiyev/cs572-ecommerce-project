@@ -1,4 +1,15 @@
 const { Product } = require('../models');
+const PagedDto = require('./dto/Paged.dto');
+
+exports.getProducts = async function(pageNumber = 1, pageSize = 10){
+    const products = await Product.find()
+        .skip((pageSize * pageNumber) - pageSize)
+        .limit(parseInt(pageSize));
+
+    const numOfProducts = await Product.countDocuments();
+
+    return new PagedDto(products, pageNumber, Math.ceil(numOfProducts / pageSize), numOfProducts);
+}
 
 exports.getProduct = async function(productId){
     const product = await Product.findById(productId);
