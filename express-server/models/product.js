@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const ReviewStatus = require("./review-status");
+const ReviewStatus = require("./enums/review-status");
 const Schema = mongoose.Schema;
 
 const productSchema = new Schema({
