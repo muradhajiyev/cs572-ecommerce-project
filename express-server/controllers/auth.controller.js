@@ -15,7 +15,7 @@ exports.login = (req, res, next) => {
 
 
 exports.signup = (req, res, next) => {
-    authService.signup(req.params.userType, req.body)
+    authService.signup(req.params.role, req.body)
         .then(response => {
             res.status(response.status).json(response);
         })
