@@ -2,7 +2,7 @@ const { Order } = require('.');
 
 const path =require('path'),
     mongoose = require('mongoose'),
-    OrderStatus = require(path.join(__dirname, 'order-status'));
+    OrderStatus = require(path.join(__dirname, 'enums/order-status'));
 const Schema = mongoose.Schema;
 
 const orderSchema = new Schema({

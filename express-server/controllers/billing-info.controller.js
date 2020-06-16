@@ -1,5 +1,6 @@
 const path = require("path");
-const { ApiResponse, Buyer } = require(path.join(__dirname, "..", "models"));
+const { Buyer } = require(path.join(__dirname, "..", "models"));
+const ApiResponse = require('./viewmodels/ApiResponse');
 
 exports.getAllBillingInfo = (req, res, next) => {
     Buyer.findById(req.user._id)

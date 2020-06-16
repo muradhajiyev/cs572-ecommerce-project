@@ -1,3 +1,6 @@
+const ReviewStatus = require("../models/enums/review-status");
+const UserStatus = require("../models/enums/user-status");
+
 const path = require("path"),
     {
         ApiResponse,
@@ -52,55 +55,107 @@ exports.unfollowSeller = (req, res, next) => {
 };
 
 exports.getAvailableCashBack = (req, res) => {
-    request(req, res, orderService.getAvailableCashBack(req.userId));
+  request(req, res, orderService.getAvailableCashBack(req.userId));
 };
 
-
 function request(req, res, promise) {
-    promise
-        .then((response) => {
-            res.status(response.status).json(response);
+  promise
+    .then((response) => {
+      res.status(response.status).json(response);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json(
+        new ApiResponse(500, "error", {
+          message: err.message,
+          //, stack: err.stack
         })
-        .catch((err) => {
-            console.error(err);
-            res.status(500).json(
-                new ApiResponse(500, "error", {
-                    message: err.message,
-                    //, stack: err.stack
-                })
-            );
-        });
+      );
+    });
 }
 
-
 // Handle Approve Seller
-exports.approveSeller = (req, res, next) => {
-    const id = req.params.id;
+exports.approveSeller = (req, res) => {
+  const id = req.params.id;
 
-    User.findById(id)
-        .then((user) => {
-            user.status = "Active";
-            res.send(user);
-        })
-        .catch((err) => {
-            res.status(404).send({
-                message: "user not found"
-            });
-        });
+  User.findById(id)
+    .then((user) => {
+      user.status = UserStatus.ACTIVE;
+      return User.save();
+    })
+    .then((user) => {
+      res.status(200).json(new ApiResponse(200, "success", user));
+    })
+    .catch((err) => {
+      res.status(404).send({ message: "user not found" });
+    });
 };
 
 // Handle Reject Seller
-exports.rejectSeller = (req, res, next) => {
-    const id = req.params.id;
+exports.rejectSeller = (req, res) => {
+  const id = req.params.id;
 
-    User.findById(id)
-        .then((user) => {
-            user.status = "Reject";
-            res.send(user);
+  User.findById(id)
+    .then((user) => {
+      user.status = UserStatus.REJECT;
+      return User.save();
+    })
+    .then((user) => {
+      res.status(200).json(new ApiResponse(200, "success", user));
+    })
+    .catch((err) => {
+      res.status(404).send({ message: "user not found" });
+    });
+};
+
+// Handle Post Review
+exports.postReview = (req, res) => {
+  const productId = req.params.productid;
+  const id = req.params.id;
+  console.log(productId, id);
+  Product.findById(productId)
+    .then((product) => {
+      let review = product.reviews.find((review) => {
+        return review._id.toString() === id;
+      });
+
+      review.status = ReviewStatus.POSTED;
+      return product.save();
+    })
+    .then(() => {
+      res.status(200).json(
+        new ApiResponse(200, "success", {
+          success: "product review posted",
         })
-        .catch((err) => {
-            res.status(404).send({
-                message: "user not found"
-            });
-        });
+      );
+    })
+    .catch((err) => {
+      res.status(500).send(new ApiResponse(500, "error", err));
+    });
+};
+
+// Handle Reject Review
+exports.rejectReview = (req, res) => {
+  const productId = req.params.productid;
+  const id = req.params.id;
+
+  Product.findById(productId)
+    .then((product) => {
+      let review = product.reviews.filter((review) => {
+        return review._id == id;
+      })[0];
+
+      review.status = ReviewStatus.REJECTED;
+      return product.save();
+    })
+    .then(() => {
+      res.status(200).json(
+        new ApiResponse(200, "success", {
+          success: "product review posted",
+        })
+      );
+    })
+    .catch((err) => {
+      res.status(500).send(new ApiResponse(500, "error", err));
+    });
 };
