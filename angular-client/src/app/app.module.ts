@@ -7,6 +7,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
   imports: [
     HttpClientModule,
     BrowserModule,
+    ReactiveFormsModule,
     AppRoutingModule
   ],
   providers: [
