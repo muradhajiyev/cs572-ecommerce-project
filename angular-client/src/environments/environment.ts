@@ -4,11 +4,7 @@
 
 export const environment = {
   production: false,
-  TOKEN_WHITELIST_DOMAINS: [
-    'localhost:3000'
-  ],
-  API_ENDPOINT: 'http://localhost:3000',
-  ASSETS_BASE: '/assets',
+  apiUrl: 'http://express'
 };
 
 /*
