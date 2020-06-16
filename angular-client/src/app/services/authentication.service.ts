@@ -15,7 +15,6 @@ export class AuthenticationService {
       this.jwtHelper = new JwtHelperService();
    }
 
-
   public get isAuthenticated(){
     const token = localStorage.getItem('token');
     return token && !this.jwtHelper.isTokenExpired(token);
