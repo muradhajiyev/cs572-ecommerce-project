@@ -2,9 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full' ,component: HomeComponent },
+  { path: '', pathMatch: 'full' ,component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'auth', loadChildren: () => import('./modules/authentication/authentication.module').then(m=>m.AuthenticationModule)},
   { path: 'admin', loadChildren: () => import('./modules/admin/admin.module').then(m=>m.AdminModule)},
   { path: 'buyer', loadChildren: () => import('./modules/buyer/buyer.module').then(m=>m.BuyerModule)},

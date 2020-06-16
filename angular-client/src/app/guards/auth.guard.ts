@@ -14,10 +14,19 @@ export class AuthGuard implements CanActivate, CanLoad {
   //basic
   canActivate(next: ActivatedRouteSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     var currentUser: User = this.authenticationService.currentUser;
-    if(this.authenticationService.isAuthenticated && next.data.roles && next.data.roles.indexOf(currentUser.role)) return true;
+
+    if(!this.authenticationService.isAuthenticated){
+      this.router.navigate(['/auth']);
+      return false;
+    } 
+
+    if(next.data.roles && next.data.roles.indexOf(currentUser.role)){
+      // redirect: not authorized page or not found
+      this.router.navigate(['/auth']);
+      return false;
+    }
     
-    this.router.navigate(['/auth']);
-    return false;
+    return true;
   }
 
   canLoad(route: Route): boolean | Observable<boolean> | Promise<boolean> {
