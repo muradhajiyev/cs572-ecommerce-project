@@ -3,6 +3,7 @@ const UserStatus = require("../models/enums/user-status");
 
 const path = require("path"),
     {
+        ApiResponse,
         Buyer,
         User
     } = require(path.join(__dirname, "..", "models")),
@@ -10,47 +11,47 @@ const path = require("path"),
         orderService
     } = require(path.join(__dirname, "..", "services"));
 
-const ApiResponse = require('./viewmodels/ApiResponse');
-
 //Follow Seller:
 exports.followSeller = (req, res, next) => {
-  Buyer.findById(req.user._id)
-    .then((buyer) => {
-      buyer.follows.push({
-        sellerId: req.body.sellerId,
-      });
-      return buyer.save();
-    })
-    .then(() => {
-      res.status(200).json(
-        new ApiResponse(200, "success", {
-          success: "follow seller saved to a particular buyer",
+    Buyer.findById(req.user._id)
+        .then((buyer) => {
+            buyer.follows.push({
+                sellerId: req.params.id,
+            });
+            return buyer.save();
         })
-      );
-    })
-    .catch((err) => {
-      res.status(500).send(new ApiResponse(500, "error", err));
-    });
+        .then(() => {
+            res.status(200).json(
+                new ApiResponse(200, "success", {
+                    success: "follow seller saved to a particular buyer",
+                })
+            );
+        })
+        .catch((err) => {
+            res.status(500).send(new ApiResponse(500, "error", err));
+        });
 };
 
 exports.unfollowSeller = (req, res, next) => {
-  Buyer.findById(req.user._id)
-    .then((buyer) => {
-      buyer.follows = buyer.follows.filter((seller) => {
-        return seller.sellerId != req.params.id;
-      });
-      return buyer.save();
-    })
-    .then(() => {
-      res.status(200).json(
-        new ApiResponse(200, "success", {
-          success: "follow seller deleted",
+    Buyer.findById(req.user._id)
+        .then((buyer) => {
+            buyer.follows = buyer.follows.filter((seller) => {
+                return seller.sellerId != req.params.id;
+            });
+            return buyer.save();
         })
-      );
-    })
-    .catch((err) => {
-      res.status(500).send(new ApiResponse(500, "error", err));
-    });
+        .then(() => {
+            res
+                .status(200)
+                .json(
+                    new ApiResponse(200, "success", {
+                        success: "follow seller deleted"
+                    })
+                );
+        })
+        .catch((err) => {
+            res.status(500).send(new ApiResponse(500, "error", err));
+        });
 };
 
 exports.getAvailableCashBack = (req, res) => {

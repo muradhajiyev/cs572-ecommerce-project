@@ -17,7 +17,7 @@ const orderSchema = new Schema({
     products: [
         {
             product: {
-                // todo: add product_id
+                productId: {type: String},
                 price: {type: Number},
                 title: {type: String}
             },
