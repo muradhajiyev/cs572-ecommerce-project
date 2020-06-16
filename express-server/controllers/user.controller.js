@@ -8,7 +8,7 @@ const path = require("path"),
         User
     } = require(path.join(__dirname, "..", "models")),
     {
-        orderService
+        cashbackService
     } = require(path.join(__dirname, "..", "services"));
 
 //Follow Seller:
@@ -54,25 +54,11 @@ exports.unfollowSeller = (req, res, next) => {
         });
 };
 
-exports.getAvailableCashBack = (req, res) => {
-  request(req, res, orderService.getAvailableCashBack(req.userId));
+exports.getAvailableCashback = (req, res, next) => {
+  cashbackService.getAvailableCashback(req.userId)
+    .then(availableCashBack=>{  res.status(200).json(new ApiResponse(200, "success", { availableCashBack }))})
+    .catch(next);
 };
-
-function request(req, res, promise) {
-  promise
-    .then((response) => {
-      res.status(response.status).json(response);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).json(
-        new ApiResponse(500, "error", {
-          message: err.message,
-          //, stack: err.stack
-        })
-      );
-    });
-}
 
 // Handle Approve Seller
 exports.approveSeller = (req, res) => {
@@ -112,7 +98,7 @@ exports.rejectSeller = (req, res) => {
 exports.postReview = (req, res) => {
   const productId = req.params.productid;
   const id = req.params.id;
-  console.log(productId, id);
+  // console.log(productId, id);
   Product.findById(productId)
     .then((product) => {
       let review = product.reviews.find((review) => {
