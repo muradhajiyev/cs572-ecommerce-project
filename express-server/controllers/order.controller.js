@@ -1,14 +1,7 @@
-const path = require("path"),
-    ApiResponse = require('./viewmodels/ApiResponse'),
-    {
-        Role,
-        OrderStatus
-    } = require(path.join(__dirname, "..", "models")),
-    {
-        orderService
-    } = require(path.join(__dirname, "..", "services"));
-
-const fs = require('fs');
+const path = require("path");
+const ApiResponse = require('./viewmodels/ApiResponse');
+const { Role, OrderStatus } = require(path.join(__dirname, "..", "models"));
+const { orderService, userService } = require(path.join(__dirname, "..", "services"));
 const pdf = require('html-pdf');
 
 exports.createOrder = (req, res, next) => {
@@ -51,11 +44,18 @@ exports.makeOrderDelivered = (req, res, next) => {
         .catch(next);
 };
 
-exports.generateReceipt = function (req, res, next) {
-    var html = fs.readFileSync(path.join(__dirname, "..", "views", "receipt.report.html"), 'utf8');
-    pdf.create(html, {}).toFile('./businesscard.pdf', function (err, res) {
-        if (err) return console.log(err);
-        console.log(res); // { filename: '/app/businesscard.pdf' }
+exports.getReceipt = async function (req, res, next) {
+    const order = await orderService.getOrderById(req.params.orderId);
+    const seller = await userService.getUserById(order.sellerId);
+    const buyer = await userService.getUserById(order.buyerId);
+
+    const receipt = orderService.generateReceipt(order, seller, buyer);
+    pdf.create(receipt, {}).toStream(function (err, stream) {
+        if (err){
+            console.log(err);
+            next(err);
+        } 
+        stream.pipe(res);
     });
 }
 

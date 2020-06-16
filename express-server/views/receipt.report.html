@@ -1,11 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Receipt</title>
 </head>
+
 <body>
-    <h1>Receipt</h1>
+    <h3>Receipt: #${num}</h3>
+    <p>Seller: ${seller}</p>
+    <p>Buyer: ${buyer}</p>
+    <p>Shipping address: ${address}</p>
+    <table border="1">
+        <thead>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Cashback payment</th>
+            <th>Cash payment</th>
+            <th>Total</th>
+        </thead>
+        <tbody>
+            ${rows}
+        </tbody>
+    </table>
 </body>
+
 </html>
