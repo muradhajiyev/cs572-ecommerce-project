@@ -24,8 +24,8 @@
         "deliveredDate" : null,
         "products" : [
                 {
-                        "_id" : {"$oid":"5ee6202dc8e9310dfb95c1f5"},
                         "product" : {
+                                "productId": {"$oid":"5ee1698df1d0b8140cb05936"},
                                 "title" : "iPhone 11 pro",
                                 "price" : 1100
                         },
@@ -69,8 +69,8 @@
         "deliveredDate" : null,
         "products" : [
                 {
-                        "_id" : {"$oid":"5ee6202dc8e9310dfb95c1f5"},
                         "product" : {
+                                "productId": {"$oid":"5ee1698df1d0b8140cb05936"},
                                 "title" : "iPhone 11 pro",
                                 "price" : 1100
                         },
@@ -114,8 +114,8 @@
         "deliveredDate" : "2020-06-15T19:25:19.533+00:00",
         "products" : [
                 {
-                        "_id" : {"$oid":"5ee6202dc8e9310dfb95c1f5"},
                         "product" : {
+                                "productId": {"$oid":"5ee1698df1d0b8140cb05936"},
                                 "title" : "iPhone 11 pro",
                                 "price" : 1100
                         },

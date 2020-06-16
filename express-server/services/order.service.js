@@ -2,248 +2,184 @@ const
     path = require('path'),
     { ObjectId } = require('mongodb'),
     HashMap = require('hashmap'),
-    catchError = require(__dirname, '..', 'util', 'helper').catchError,
-    { Buyer, Order, OrderStatus, CashBackType } = require(path.join(__dirname, "..", "models"));
-const ApiResponse = require('../controllers/viewmodels/ApiResponse');
+    cashbackService = require('./cashback.service'),
+    { Buyer, Order, OrderStatus } = require(path.join(__dirname, "..", "models"));
 
 //BODY: {cashbackPayment: 10, shippingAddressId: 'fdafr32rf545423', billingInfoId: 'fdfr874632das5',  }
-exports.createOrder = function (buyerId, data) {
-    return new Promise((resolve, reject) => {
-        Buyer.findById(buyerId).populate('shoppingCart.productId')
-            .exec((err, buyer) => {
-                if (err) {
-                    return reject(err.message);
-                }
-                if (buyer.shoppingCart.length === 0) {
-                    return resolve(new ApiResponse(406, 'error', { message: 'Shopping cart is empty' }));
-                }
-                let sellerIds = new HashMap();
-                let availableCashBack = buyer.cashBack.reduce((a, e) => a + getCashBack(e.cashBack, e.type), 0);
-                if (data.cashbackPayment > availableCashBack) {
-                    return resolve(new ApiResponse(406, 'error', { message: 'Insufficient cashback' }));
-                }
-                let cashbackPaymentPerProduct = data.cashbackPayment / buyer.shoppingCart.length;//product quantity is not important 
-                buyer.shoppingCart.forEach(cart => {
-                    let totalPayment = cart.productId.price * cart.quantity;
-                    let product = {
-                        product: {
-                            title: cart.productId.title,
-                            price: cart.productId.price
-                        },
-                        quantity: cart.quantity,
-                        cashbackPayment: cashbackPaymentPerProduct,
-                        creditCardPayment: totalPayment - cashbackPaymentPerProduct,
-                        totalPayment: totalPayment
-                    };
-                    let sellerId = cart.productId.sellerId.toString();
-                    if (!sellerIds.has(sellerId)) {
-                        sellerIds.set(sellerId, []);
-                    }
-                    sellerIds.get(sellerId).push(product);
-                });
-                let address = buyer.addresses.find(adr => adr._id.toString() === data.shippingAddressId);
-                if (address === undefined) {
-                    return resolve(new ApiResponse(406, 'error', { message: 'Shipping address not defined' }));
-                }
-                let shippingAddress = {
-                    zipCode: address.zipCode,
-                    street: address.street,
-                    city: address.city,
-                    state: address.state,
-                    phoneNumber: address.phoneNumber,
-                    country: address.country
-                };
-                let blInfo = buyer.billingInfo.find(b => b._id.toString() === data.billingInfoId);
-                if (blInfo === undefined) {
-                    return resolve(new ApiResponse(406, 'error', { message: 'Billing info not defined' }));
-                }
-                let billingInfo = {
-                    cardNumber: blInfo.cardNumber,
-                    cardName: blInfo.cardName,
-                    expirationDate: blInfo.expirationDate,
-                    securityNumber: blInfo.securityNumber,
-                    billingAddress: blInfo.billingAddress
-                };
-                Order.getLastOrderNumber().then(orders => {
-                    let lastOrderNumber = 0;
-                    if (orders.length > 0) {
-                        lastOrderNumber = orders[0].lastOrderNumber;
-                    }
-                    Promise.all(sellerIds.entries().map(function (e) {
-                        let sellerId;
-                        let products;
-                        [sellerId, products] = e;
-                        return new Order({
-                            buyerId: new ObjectId(buyerId),
-                            sellerId: sellerId,
-                            orderNumber: ++lastOrderNumber,
-                            orderDate: new Date(),
-                            status: OrderStatus.CREATED,
-                            canceledDate: null,
-                            shippedDate: null,
-                            deliveredDate: null,
-                            products: products,
-                            shippingAddress: shippingAddress,
-                            billingInfo: billingInfo
-                        }).save()
-                            .then(order => {
-                                if (data.cashbackPayment > 0) {
-                                    buyer.cashBack.push({
-                                        cashBack: products.reduce((a, p) => a + p.cashbackPayment, 0),
-                                        orderId: order._id,
-                                        type: CashBackType.SPENT
-                                    });
-                                }
-                                buyer.shoppingCart = [];
-                                buyer.save();
-                            })
-                            .catch(err => reject(err));
-                    })).then(() => {
-                        return resolve(new ApiResponse(200, 'success', { success: 'Order was created successfully' }));
-                    });
-                })
-                    .catch(err => reject(err));
-            });
-    });
-}
+exports.createOrder = async function (buyerId, data) {
+    let buyer = await Buyer.findById(buyerId);
+    buyer = await buyer
+        .populate('shoppingCart.productId')
+        .execPopulate();
 
-exports.cancelOrderByBuyer = function (buyerId, orderId) {
-    return Order.findById(orderId)
-        .then(order => {
-            if (!order || order.buyerId.toString() !== buyerId) {
-                return new ApiResponse(406, 'error', { message: 'Order does not exists' });
-            }
-            return setStatus(order, OrderStatus.CANCELED)
-                .then(order => {
-                    return order.save()
-                        .then((order) => {
-                            return Buyer.findById(order.buyerId)
-                                .then(buyer => {
-                                    let cashBack = order.products.reduce((a, p) => a + p.cashbackPayment, 0);
-                                    let cashBackType = CashBackType.REFUND;
-                                    buyer.cashBack.push(
-                                        {
-                                            cashBack: cashBack,
-                                            orderId: order._id,
-                                            type: cashBackType
-                                        }
-                                    );
-                                    buyer.save();
-                                    return new ApiResponse(200, 'success', { message: 'Order status was updated successfully' });
-                                })
-                                .catch(catchError)
-                        })
-                        .catch(catchError);
-                })
-                .catch(catchError);
-        })
-        .catch(catchError);
-}
-
-exports.setOrderStatusBySeller = function (sellerId, orderId, orderStatus) {
-    return Order.findById(orderId)
-        .then(order => {
-            if (!order || order.sellerId.toString() !== sellerId) {
-                return new ApiResponse(406, 'error', { message: 'Order does not exists' });
-            }
-            return setStatus(order, orderStatus)
-                .then(order => {
-                    return order.save()
-                        .then((order) => {
-                            let successResult = new ApiResponse(200, 'success', { message: 'Order status was updated successfully' });
-                            if (orderStatus === OrderStatus.DELIVERED || orderStatus === OrderStatus.CANCELED) {
-                                return Buyer.findById(order.buyerId)
-                                    .then(buyer => {
-                                        let cashBack = order.products.reduce((a, p) => a + p.cashbackPayment, 0);
-                                        let cashBackType = CashBackType.REFUND;
-                                        if (orderStatus === OrderStatus.DELIVERED) {
-                                            cashBack = order.products.reduce((a, p) => a + p.creditCardPayment, 0) / 100;
-                                            cashBackType = CashBackType.EARNED;
-                                        }
-                                        buyer.cashBack.push(
-                                            {
-                                                cashBack: cashBack,
-                                                orderId: order._id,
-                                                type: cashBackType
-                                            }
-                                        );
-                                        buyer.save();
-                                        return successResult;
-                                    })
-                                    .catch(catchError)
-                            } else {
-                                return successResult;
-                            }
-                        })
-                        .catch(catchError);
-                })
-                .catch(catchError);
-        })
-        .catch(catchError);
-}
-
-exports.getBuyerOrders = function (buyerId) {
-    return Order.find({ buyerId: new ObjectId(buyerId) })
-        .then(orders => {
-            return new ApiResponse(200, 'success', orders);
-
-        })
-        .catch(catchError);
-}
-
-exports.getSellerOrders = function (sellerId) {
-    return Order.find({ sellerId: new ObjectId(sellerId) })
-        .then(orders => {
-            return new ApiResponse(200, 'success', orders);
-
-        })
-        .catch(catchError);
-}
-exports.getAvailableCashBack = function (buyerId){
-    return Buyer.findById(buyerId)
-        .then(buyer=>{
-            let availableCashBack = buyer.cashBack.reduce((a, e) => a + getCashBack(e.cashBack, e.type), 0);
-            return new ApiResponse(200, 'success', {availableCashBack});
-        })
-        .catch(catchError);
-}
-
-function getCashBack(cashBack, type) {
-    switch (type) {
-        case CashBackType.EARNED:
-        case CashBackType.REFUND:
-            return cashBack;
-        case CashBackType.SPENT:
-            return -1 * cashBack;
-        default:
-            throw new Error('Undefined cashback type: ' + type);
+    if (buyer.shoppingCart.length === 0) {
+        throw new Error('Shopping cart is empty');
     }
-}
-function setStatus(order, orderStatus) {
-    return new Promise((resolve, reject) => {
-        switch (orderStatus.toUpperCase()) {
-            case OrderStatus.CANCELED:
-                if (order.status !== OrderStatus.CREATED) {
-                    return reject({ message: "Order status cannot be changed to " + orderStatus });
-                }
-                order.canceledDate = new Date();
-                break;
-            case OrderStatus.SHIPPED:
-                if (order.status !== OrderStatus.CREATED) {
-                    return reject({ message: "Order status cannot be changed to " + orderStatus });
-                }
-                order.shippedDate = new Date();
-                break;
-            case OrderStatus.DELIVERED:
-                if (order.status !== OrderStatus.SHIPPED) {
-                    return reject({ message: "Order status cannot be changed to " + orderStatus });
-                }
-                order.deliveredDate = new Date();
-                break;
-            default:
-                return reject({ message: "Order status cannot be changed to " + orderStatus });
+    let sellerIds = new HashMap();
+    let availableCashBack = cashbackService.getAvailableCashbackByBuyer(buyer);
+    if (data.cashbackPayment > availableCashBack) {
+        throw new Error('Insufficient cashback');
+    }
+    let cashbackPaymentPerProduct = data.cashbackPayment / buyer.shoppingCart.length;//product quantity is not important 
+    buyer.shoppingCart.forEach(cart => {
+        let sellerId = cart.productId.sellerId.toString();
+        if (!sellerIds.has(sellerId)) {
+            sellerIds.set(sellerId, []);
         }
-        order.status = orderStatus;
-        return resolve(order);
+        let totalPayment = cart.productId.price * cart.quantity;
+        let product = {
+            product: {
+                productId: cart.productId._id,
+                title: cart.productId.title,
+                price: cart.productId.price
+            },
+            quantity: cart.quantity,
+            cashbackPayment: cashbackPaymentPerProduct,
+            creditCardPayment: totalPayment - cashbackPaymentPerProduct,
+            totalPayment: totalPayment
+        };
+        sellerIds.get(sellerId).push(product);
     });
+
+    let address = buyer.addresses.find(adr => adr._id.toString() === data.shippingAddressId);
+    if (address === undefined) {
+        throw new Error('Shipping address not defined');
+    }
+    let shippingAddress = {
+        zipCode: address.zipCode,
+        street: address.street,
+        city: address.city,
+        state: address.state,
+        phoneNumber: address.phoneNumber,
+        country: address.country
+    };
+    let blInfo = buyer.billingInfo.find(b => b._id.toString() === data.billingInfoId);
+    if (blInfo === undefined) {
+        throw new Error('Billing info not defined');
+    }
+    let billingInfo = {
+        cardNumber: blInfo.cardNumber,
+        cardName: blInfo.cardName,
+        expirationDate: blInfo.expirationDate,
+        securityNumber: blInfo.securityNumber,
+        billingAddress: blInfo.billingAddress
+    };
+    let lastOrderNumber = await getLastOrderNumber();
+    let result = [];
+    sellerIds.forEach(async function (products, sellerId) {
+        let order = new Order({
+            buyerId: new ObjectId(buyerId),
+            sellerId: sellerId,
+            orderNumber: ++lastOrderNumber,
+            orderDate: new Date(),
+            status: OrderStatus.CREATED,
+            canceledDate: null,
+            shippedDate: null,
+            deliveredDate: null,
+            products: products,
+            shippingAddress: shippingAddress,
+            billingInfo: billingInfo
+        });
+        order = await order.save();
+        if (order) {
+            result.push(order);
+            if (data.cashbackPayment > 0) {
+                cashbackService.spendCashback(buyer, order._id, products.reduce((a, p) => a + p.cashbackPayment, 0));
+            }
+        } else {
+            throw new Error(`Order ${lastOrderNumber} not created`);
+        }
+    });
+
+    buyer.shoppingCart = [];
+    await buyer.save();
+    return result;
+}
+
+async function getLastOrderNumber() {
+    let orders = await Order.getLastOrderNumber();
+    let lastOrderNumber = 0;
+    if (orders.length > 0) {
+        lastOrderNumber = orders[0].lastOrderNumber;
+    }
+    return lastOrderNumber;
+}
+
+exports.cancelOrderByBuyer = async function (buyerId, orderId) {
+    let order = await Order.findById(orderId);
+    if (!order || order.buyerId.toString() !== buyerId) {
+        throw new Error('Order does not exists');
+    }
+    order = setStatus(order, OrderStatus.CANCELED);
+    order = await order.save();
+    if (!order) {
+        throw new Error('Order is not canceled');
+    }
+    let buyer = await Buyer.findById(buyerId);
+
+    let cashBack = order.products.reduce((a, p) => a + p.cashbackPayment, 0);
+    cashbackService.refundCashback(buyer, order._id, cashBack);
+
+    await buyer.save();
+    return order;
+}
+
+exports.setOrderStatusBySeller = async function (sellerId, orderId, orderStatus) {
+    let order = await Order.findById(orderId);
+    if (!order || order.sellerId.toString() !== sellerId) {
+        throw new Error('Order does not exists');
+    }
+    order = setStatus(order, OrderStatus.CANCELED);
+    order = await order.save();
+    if (!order) {
+        throw new Error('Order is not canceled');
+    }
+    if (orderStatus === OrderStatus.CANCELED || orderStatus === OrderStatus.DELIVERED) {
+        let buyer = await Buyer.findById(buyerId);
+        if (orderStatus === OrderStatus.CANCELED) {
+            let cashBack = order.products.reduce((a, p) => a + p.cashbackPayment, 0);
+            cashbackService.refundCashback(buyer, order._id, cashBack);
+
+        } else if (orderStatus === OrderStatus.DELIVERED) {
+            let cashBack = order.products.reduce((a, p) => a + p.creditCardPayment, 0) / 100;
+            cashbackService.earnCashback(buyer, order._id, cashBack);
+        }
+        await buyer.save();
+    }
+    return order;
+}
+
+exports.getBuyerOrders = async function (buyerId) {
+    return await Order.find({ buyerId: new ObjectId(buyerId) });
+}
+
+exports.getSellerOrders = async function (sellerId) {
+    return await Order.find({ sellerId: new ObjectId(sellerId) });
+}
+
+function setStatus(order, orderStatus) {
+    switch (orderStatus.toUpperCase()) {
+        case OrderStatus.CANCELED:
+            if (order.status !== OrderStatus.CREATED) {
+                throw new Error(`Order status cannot be changed to ${orderStatus}`);
+            }
+            order.canceledDate = new Date();
+            break;
+        case OrderStatus.SHIPPED:
+            if (order.status !== OrderStatus.CREATED) {
+                throw new Error(`Order status cannot be changed to ${orderStatus}`);
+            }
+            order.shippedDate = new Date();
+            break;
+        case OrderStatus.DELIVERED:
+            if (order.status !== OrderStatus.SHIPPED) {
+                throw new Error(`Order status cannot be changed to ${orderStatus}`);
+            }
+            order.deliveredDate = new Date();
+            break;
+        default:
+            throw new Error(`Order status cannot be changed to ${orderStatus}`);
+    }
+    order.status = orderStatus;
+    return order;
 }

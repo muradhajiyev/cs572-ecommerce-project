@@ -2,7 +2,7 @@ const { Order } = require('.');
 
 const path =require('path'),
     mongoose = require('mongoose'),
-    OrderStatus = require(path.join(__dirname, 'enums/order-status'));
+    OrderStatus = require(path.join(__dirname, 'enums', 'order-status'));
 const Schema = mongoose.Schema;
 
 const orderSchema = new Schema({
@@ -17,7 +17,7 @@ const orderSchema = new Schema({
     products: [
         {
             product: {
-                // todo: add product_id
+                productId: {type: Schema.Types.ObjectId, required: true, ref: 'Product'},
                 price: {type: Number},
                 title: {type: String}
             },
