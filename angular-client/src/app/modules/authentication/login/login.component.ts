@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   templateUrl: './login.component.html',
@@ -7,21 +9,35 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
   encapsulation: ViewEncapsulation.None
 })
 export class LoginComponent implements OnInit {
+  loginForm: FormGroup;
+  loading:boolean =false;
+  error = '';
 
-  constructor(private authService: AuthenticationService) { }
+  constructor(private authService: AuthenticationService,
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit(): void {
-    this.login();
+    this.loginForm = this.fb.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required]
+    });
   }
 
 
-  login() {
-    this.authService.login("corozza@gmail.com","123").subscribe(
+  onSubmit() {
+    this.loading = true;
+ 
+    this.authService.login(this.loginForm.controls.email.value, this.loginForm.controls.password.value).subscribe(
       res => {
-        console.log('success', res);
+        this.router.navigate(["/"]);
       },
       error => {
-        console.log('error', error);
+        //todo: handle error friendly.
+        console.log(error);
+        this.error = error;
+        this.loading = false;
     }
     )
   }
