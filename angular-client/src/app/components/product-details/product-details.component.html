@@ -1,0 +1,25 @@
+<div *ngIf="product" class="product-details-page">
+  <h3>{{product.title}}</h3>
+  <div class="product-image-container">
+    <img class="image-product" [src]="product.imageName">
+  </div>
+  <div class="product-description">
+    <h4>${{product.price}}</h4>
+    <button type="button"
+            class="btn btn-secondary"
+            (click)="addToCart()">Add to cart</button>
+  </div>
+  <div class="product-reviews-container">
+    <div class="product-reviews-header">
+      <h3>Product Reviews</h3>
+    </div>
+    <div *ngFor="let review of product.reviews" class="review">
+      <ngx-stars [readonly]="true" [size]="1" [initialStars]="review.stars" [color]="'yellow'"></ngx-stars>
+      <div>
+        <p>{{review.comment}}</p>
+        <label class="date">{{review.createdDate | date}}</label>
+      </div>
+    </div>
+  </div>
+
+</div>

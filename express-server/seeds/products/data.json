@@ -4,9 +4,15 @@
   },
   "title": "product_1",
   "sellerId": "5ee54b12bd266b249872240a",
+  categoryId: {
+    "$oid": "1"
+  },
+  price: 99,
+  imageName: "https://static.toiimg.com/thumb/72975551.cms?width=680&height=512&imgsize=881753",
+  description: "Brand new",
   "reviews": [
     {
-      "status": "ACTIVE",
+      "status": "POSTED",
       "buyerId": {
         "$oid": "5ee18462e04fdd0774558fda"
       },
@@ -21,8 +27,9 @@
       "_id": "123"
     },
     {
-      "status": "Pending",
-      "stars": "2"
+      "status": "POSTED",
+      "stars": "2",
+      "comment": "Excellent"
     }
   ]
 },{
