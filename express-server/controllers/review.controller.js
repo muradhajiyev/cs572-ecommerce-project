@@ -3,7 +3,10 @@ const {ObjectId} = require('mongodb');
 const {
     ApiResponse,
     Product,
+    Order,
     UserStatus,
+    OrderStatus,
+    ReviewStatus,
 } = require(path.join(__dirname, "..", "models"));
 const {
     reviewService
@@ -69,14 +72,14 @@ exports.deleteReview = (req, res, next) => {
 };
 
 exports.getAllActiveReviewsByProductId = (req, res, next) => {
-    Product.findById(req.params.productId)
-        .then((product) => {
-            let reviews = product.reviews.filter((review) => {
-                return review.status == UserStatus.ACTIVE;
-            });
-            res.status(200).json(new ApiResponse(200, "success", reviews));
-        })
-        .catch((err) => res.status(500).send(new ApiResponse(500, "error", err)));
+  Product.findById(req.params.productId)
+    .then((product) => {
+      let reviews = product.reviews.filter((review) => {
+        return review.status === ReviewStatus.POSTED;
+      });
+      res.status(200).json(new ApiResponse(200, "success", reviews));
+    })
+    .catch((err) => res.status(500).send(new ApiResponse(500, "error", err)));
 };
 
 addReview = (userId, productId, newReview, res) => {

@@ -1,8 +1,9 @@
 const jwt = require('jsonwebtoken'),
     path = require('path'),
     config = require(path.join(__dirname, '..','config.json')),
-    { ApiResponse } = require(path.join(__dirname, '..', 'models')),
     { userService } = require(path.join(__dirname, '..', 'services'));
+const ApiResponse = require('../controllers/viewmodels/ApiResponse');
+
 
 exports.verifyToken = (req, res, next) => {
     const authorization = req.header('authorization');
