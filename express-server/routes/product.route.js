@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { productController } = require('../controllers');
-const Role = require('../_helpers/role');
+const Role = require('../models/enums/user-role');
 const authorize = require('../_helpers/authorize');
 
 router.get('/', productController.getProducts);

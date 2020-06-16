@@ -1,72 +1,74 @@
 const path = require("path");
+const {ObjectId} = require('mongodb');
 const {
+    ApiResponse,
     Product,
     Order,
     UserStatus,
     OrderStatus,
     ReviewStatus,
 } = require(path.join(__dirname, "..", "models"));
-
-const ApiResponse = require('./viewmodels/ApiResponse');
+const {
+    reviewService
+} = require(path.join(__dirname, "..", "services"));
 
 //Buyer Reviews:
 exports.addReview = (req, res, next) => {
-  Order.findById(req.params.orderId)
-    .then((order) => {
-      if (order.status == OrderStatus.DELIVERED) {
-        Product.findById(req.params.productId)
-          .then((product) => {
-            product.reviews.push({
-              status: ReviewStatus.PENDING,
-              buyerId: req.user._id,
-              createdDate: req.body.createdDate,
-              stars: req.body.stars,
-              comment: req.body.comment,
-              decisionDate: req.body.decisionDate,
-            });
-            return product.save();
-          })
-          .then(() => {
-            res.status(200).json(
-              new ApiResponse(200, "success", {
-                success:
-                  "product reviews saved to a particular product and buyer",
-              })
-            );
-          })
-          .catch((err) => {
-            res.status(500).send(new ApiResponse(500, "error", err));
-          });
-      }
-      res.status(200).send(
-        new ApiResponse(200, "error", {
-          error: "order status not delivered so you can't add review",
+    let newReview = {
+        status: req.body.status,
+        buyerId: new ObjectId(req.body.buyerId),
+        createdDate: req.body.createdDate,
+        stars: req.body.stars,
+        comment: req.body.comment,
+        decisionDate: req.body.decisionDate
+    }
+    reviewService.getOrdersByBuyerIdMatchWithProductIdDelivered(req.user._id, req.params.productId)
+        .then((orders) => {
+            if (orders.length > 0) {
+                reviewService.getProductByUserId(req.user._id, req.params.productId)
+                    .then(product => {
+                        if (product.length > 0) {
+                            reviewService.removeReview(req.user._id, req.params.productId)
+                                .then(result => {
+                                    addReview(req.user._id, req.params.productId, newReview, res);
+                                })
+                                .catch(err => res.status(500).json(new ApiResponse(500, 'error', {error: "can't replace the existing review"})));
+
+                        } else {
+                            addReview(req.user._id, req.params.productId, newReview, res);
+                        }
+                    })
+                    .catch(err => res.status(500).json(new ApiResponse(500, 'error', {error: "can't find product with this id and this buyer id"})));
+            } else {
+                res.status(200).json(new ApiResponse(200, "success", {success: "You can't add review until your order is delivered"}));
+            }
         })
-      );
-    })
-    .catch((err) => {
-      res.status(500).send(new ApiResponse(500, "error", err));
-    });
+        .catch(err => res.status(500).json(new ApiResponse(500, 'error', {error: err})));
+};
+
+exports.getProductReviewByUserId = (req, res, next) => {
+    reviewService.getProductByUserId(req.user._id, req.params.productId)
+        .then(product => {
+            if (product.length > 0) {
+                let review = product[0].reviews.find(review => {
+                    return review.buyerId.toString() === req.user._id.toString();
+                })
+                res.status(200).json(new ApiResponse(200, "success", {success: review}));
+            }
+        })
+        .catch((err) => {
+            res.status(500).send(new ApiResponse(500, "error", err))
+        });
 };
 
 exports.deleteReview = (req, res, next) => {
-  Product.findById(req.params.productId)
-    .then((product) => {
-      product.reviews = product.reviews.filter((review) => {
-        return review._id != req.params.reviewId;
-      });
-      return product.save();
-    })
-    .then(() => {
-      res.status(200).json(
-        new ApiResponse(200, "success", {
-          success: "review deleted",
+    reviewService.removeReview(req.user._id, req.params.productId)
+        .then(() => {
+            res.status(200).json(new ApiResponse(200, "success", {success: "review deleted"}))
         })
-      );
-    })
-    .catch((err) => {
-      res.status(500).send(new ApiResponse(500, "error", err));
-    });
+        .catch((err) => {
+            res.status(500).send(new ApiResponse(500, "error", {error: err}))
+        });
 };
 
 exports.getAllActiveReviewsByProductId = (req, res, next) => {
@@ -79,3 +81,11 @@ exports.getAllActiveReviewsByProductId = (req, res, next) => {
     })
     .catch((err) => res.status(500).send(new ApiResponse(500, "error", err)));
 };
+
+addReview = (userId, productId, newReview, res) => {
+    reviewService.pushReview(userId, productId, newReview)
+        .then(result => {
+            res.status(200).json(new ApiResponse(200, "success", {success: 'Review added'}));
+        })
+        .catch(err => res.status(500).json(new ApiResponse(500, 'error', {error: "can't add review"})));
+}
