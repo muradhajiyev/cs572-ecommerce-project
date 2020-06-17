@@ -19,7 +19,7 @@ import { MenuListComponent } from './components/menu-list/menu-list.component';
     AppComponent,
     NavbarComponent,
     HomeComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
     ProductCardComponent,
     ProductListComponent,
     MenuListComponent
