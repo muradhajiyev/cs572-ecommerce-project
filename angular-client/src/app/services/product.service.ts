@@ -7,7 +7,15 @@ import { Product, ApiResponse, Paged } from '../models';
 })
 export class ProductService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private _http: HttpClient) { }
+
+  public getProductDetails(productId: string){
+    return this._http.get('/api/products/' + productId);
+  }
+
+  public addToCart(prodId: string){
+      return this._http.post('/api/carts/', {productId: prodId});
+  }
 
   getProducts(categoryId: string, pageNumber: number, pageSize: number){
     let params = new HttpParams();
@@ -17,6 +25,6 @@ export class ProductService {
     params = params
       .set('pageNumber', pageNumber.toString())
       .set('pageSize', pageSize.toString());
-    return this.http.get<ApiResponse<Paged>>("/api/products", {params: params});
+    return this._http.get<ApiResponse<Paged>>("/api/products", {params: params});
   }
 }
