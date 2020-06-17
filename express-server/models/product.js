@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const ReviewStatus = require("./enums/review-status");
 const Schema = mongoose.Schema;
+const config = require('../config.json');
 
 const productSchema = new Schema({
   title: { type: String },
@@ -31,6 +32,13 @@ const productSchema = new Schema({
     },
   ],
 });
+
+productSchema.set('toObject', { virtuals: true })
+productSchema.set('toJSON', { virtuals: true })
+
+productSchema.virtual('imageUrl').get(function(){
+  return `${config.productImageUrl}/${this.imageName}`;
+})
 
 //collection name => products
 module.exports = mongoose.model("Product", productSchema);
