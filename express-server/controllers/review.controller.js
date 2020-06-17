@@ -15,12 +15,16 @@ const {
 //Buyer Reviews:
 exports.addReview = (req, res, next) => {
     let newReview = {
-        status: req.body.status,
-        buyerId: new ObjectId(req.body.buyerId),
-        createdDate: req.body.createdDate,
+        status: ReviewStatus.PENDING,
+        buyer:{
+            buyerId: req.user._id,
+            name: req.user.name,
+            email: req.user.email
+        },
+        createdDate: new Date(),
         stars: req.body.stars,
         comment: req.body.comment,
-        decisionDate: req.body.decisionDate
+        decisionDate: null
     }
     reviewService.getOrdersByBuyerIdMatchWithProductIdDelivered(req.user._id, req.params.productId)
         .then((orders) => {
@@ -51,7 +55,7 @@ exports.getProductReviewByUserId = (req, res, next) => {
         .then(product => {
             if (product.length > 0) {
                 let review = product[0].reviews.find(review => {
-                    return review.buyerId.toString() === req.user._id.toString();
+                    return review.buyer.buyerId.toString() === req.user._id.toString();
                 })
                 res.status(200).json(new ApiResponse(200, "success", {success: review}));
             }
