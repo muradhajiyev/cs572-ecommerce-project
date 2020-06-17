@@ -1,0 +1,25 @@
+<div class="row">
+    <div *ngFor="let product of products" [product]="product" class="col-lg-4 col-md-6 mb-4 my-4" app-product-card></div>
+
+    <div class="pagination-container">
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" [ngClass]="{'disabled': pageNumber === 1}">
+                    <a class="page-link" [routerLink]="['.']" [queryParams]="{page: pageNumber-1}" queryParamsHandling="merge" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+                <li *ngFor="let p of pages" [ngClass]="{'active': pageNumber === p}" class="page-item">
+                    <a class="page-link" [routerLink]="['.']" [queryParams]="{page: p}" queryParamsHandling="merge">{{p}}</a></li>
+                
+                <li class="page-item" [ngClass]="{'disabled': pageNumber===maxPageNumber}">
+                    <a class="page-link"[routerLink]="['.']" [queryParams]="{page: pageNumber+1}" queryParamsHandling="merge" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>  
+</div>

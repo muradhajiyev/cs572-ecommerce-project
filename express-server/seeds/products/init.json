@@ -1,17 +1,167 @@
 [
   {
-    "_id": { "$oid": "5ee1698df1d0b8140cb05936" },
+    "_id": {
+      "$oid": "5ee1698df1d0b8140cb05936"
+    },
     "title": "iPhone 11 pro",
-    "categoryId": { "$oid": "5ee1697cf1d0b8140cb05939" },
+    "categoryId": {
+      "$oid": "5ee1697cf1d0b8140cb05939"
+    },
     "price": 1100,
     "imageName": "",
     "description": "Apple IPhone 11 PRO, Very nice phone",
-    "sellerId": { "$oid": "5ee1698cf1d0b8140cb05936" },
+    "sellerId": {
+      "$oid": "5ee1698cf1d0b8140cb05936"
+    },
     "reviews": [
       {
-        "_id": { "$oid": "5ee1698df1d0b8140cb05906" },
+        "_id": {
+          "$oid": "5ee1698df1d0b8140cb05906"
+        },
         "status": "PENDING",
-        "buyerId": { "$oid": "5ee1698cf1d0b8140cb05939" },
+        "buyer": {
+          "buyerId": {
+            "$oid": "5ee1698cf1d0b8140cb05939"
+          },
+          "nama": "Joe",
+          "email": "joe@gmail.com"
+        },
+        "createdDate": "2024-06-01T00:00:00.000+00:00",
+        "stars": 3,
+        "comment": "it's okay",
+        "decisionDate": null
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "5ee1698df1d0b8140cb04936"
+    },
+    "title": "iPhone 12 pro",
+    "categoryId": {
+      "$oid": "5ee1697cf1d0b8140cb05939"
+    },
+    "price": 1200,
+    "imageName": "",
+    "description": "Apple IPhone 12 PRO, Very nice phone",
+    "sellerId": {
+      "$oid": "5ee1698cf1d0b8140cb05936"
+    },
+    "reviews": [
+      {
+        "_id": {
+          "$oid": "5ee1698df1d0b8140cb05906"
+        },
+        "status": "POSTED",
+        "buyer": {
+          "buyerId": {
+            "$oid": "5ee1698cf1d0b8140cb05939"
+          },
+          "nama": "Joe",
+          "email": "joe@gmail.com"
+        },
+        "createdDate": "2024-06-01T00:00:00.000+00:00",
+        "stars": 3,
+        "comment": "it's okay",
+        "decisionDate": "2024-06-01T00:00:00.000+00:00"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "5ee1698df1d0b8140cb05236"
+    },
+    "title": "iPhone 12 pro",
+    "categoryId": {
+      "$oid": "5ee1697cf1d0b8140cb05939"
+    },
+    "price": 1200,
+    "imageName": "",
+    "description": "Apple IPhone 12 PRO, Very nice phone",
+    "sellerId": {
+      "$oid": "5ee1698cf1d0b8140cb05936"
+    },
+    "reviews": [
+      {
+        "_id": {
+          "$oid": "5ee1698df1d0b8140cb05906"
+        },
+        "status": "POSTED",
+        "buyer": {
+          "buyerId": {
+            "$oid": "5ee1698cf1d0b8140cb05939"
+          },
+          "nama": "Joe",
+          "email": "joe@gmail.com"
+        },
+        "createdDate": "2024-06-01T00:00:00.000+00:00",
+        "stars": 3,
+        "comment": "it's okay",
+        "decisionDate": "2024-06-01T00:00:00.000+00:00"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "5ee1698df1d0b8140cb05136"
+    },
+    "title": "iPhone 12 pro",
+    "categoryId": {
+      "$oid": "5ee1697cf1d0b8140cb05939"
+    },
+    "price": 1200,
+    "imageName": "",
+    "description": "Apple IPhone 12 PRO, Very nice phone",
+    "sellerId": {
+      "$oid": "5ee1698cf1d0b8140cb05936"
+    },
+    "reviews": [
+      {
+        "_id": {
+          "$oid": "5ee1698df1d0b8140cb05906"
+        },
+        "status": "POSTED",
+        "buyer": {
+          "buyerId": {
+            "$oid": "5ee1698cf1d0b8140cb05939"
+          },
+          "nama": "Joe",
+          "email": "joe@gmail.com"
+        },
+        "createdDate": "2024-06-01T00:00:00.000+00:00",
+        "stars": 3,
+        "comment": "it's okay",
+        "decisionDate": "2024-06-01T00:00:00.000+00:00"
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "5ee1698df1d0b8140cb05036"
+    },
+    "title": "iPhone 12 pro",
+    "categoryId": {
+      "$oid": "5ee1697cf1d0b8140cb05939"
+    },
+    "price": 1200,
+    "imageName": "",
+    "description": "Apple IPhone 12 PRO, Very nice phone",
+    "sellerId": {
+      "$oid": "5ee1698cf1d0b8140cb05936"
+    },
+    "reviews": [
+      {
+        "_id": {
+          "$oid": "5ee1698df1d0b8140cb05906"
+        },
+        "status": "POSTED",
+        "buyer": {
+          "buyerId": {
+            "$oid": "5ee1698cf1d0b8140cb05939"
+          },
+          "nama": "Joe",
+          "email": "joe@gmail.com"
+        },
         "createdDate": "2024-06-01T00:00:00.000+00:00",
         "stars": 3,
         "comment": "it's okay",

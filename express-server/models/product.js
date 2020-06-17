@@ -20,7 +20,11 @@ const productSchema = new Schema({
           ReviewStatus.REJECTED,
         ],
       },
-      buyerId: { type: Schema.Types.ObjectId, required: true, ref: "Buyer" },
+      buyer:{
+        buyerId: { type: Schema.Types.ObjectId, required: true, ref: "Buyer" },
+        name:{ type: String },
+        email:{ type: String }
+      },
       createdDate: { type: Date },
       stars: { type: Number },
       comment: { type: String },
