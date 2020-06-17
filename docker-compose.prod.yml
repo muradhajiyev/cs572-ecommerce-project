@@ -1,0 +1,41 @@
+version: '3.7'
+
+services: 
+    angular:
+        build: 
+            context: ./angular-client
+            target: prod
+        container_name: ecommerce-client-prod
+        ports:
+            - "80:80"
+
+    express:
+        build: 
+            context: ./express-server
+            target: prod
+        container_name: ecommerce-server-prod
+        restart: always
+        depends_on:
+            - mongodb
+    
+    mongodb:
+        image: mongo
+        container_name: ecommerce-db-prod
+        restart: always
+        volumes:
+            - mydata:/data/db
+
+    seeder:
+        image: pkosiec/mongo-seeding:3.4.1
+        container_name: ecommerce-seeder-prod
+        volumes:
+            - ./express-server/seeds/:/data-import
+        working_dir: /data-import
+        environment: 
+            DB_URI: 'mongodb://mongodb/ecommerce'
+            DROP_DATABASE: 'true'
+        depends_on: 
+            - mongodb
+
+volumes:
+    mydata:

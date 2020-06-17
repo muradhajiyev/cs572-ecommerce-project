@@ -17,10 +17,10 @@ CMD ["npm", "start"]
 # dev stage
 FROM prod as dev
 
+RUN npm install -g nodemon && npm install --only=dev
+
 EXPOSE 3000
 
 ENV NODE_ENV=development
-
-RUN npm install -g nodemon && npm install --only=dev
 
 CMD ["npm", "run", "watch"]
