@@ -5,7 +5,7 @@
   "title": "product_1",
   "sellerId": "5ee54b12bd266b249872240a",
   categoryId: {
-    "$oid": "1"
+    "$oid": "5ee925666c1d62190ce563c0"
   },
   price: 99,
   imageName: "https://static.toiimg.com/thumb/72975551.cms?width=680&height=512&imgsize=881753",
@@ -24,7 +24,7 @@
       "decisionDate": {
         "$date": "2020-06-13T00:00:00Z"
       },
-      "_id": "123"
+      "_id": "5ee18462e04fdd0774558fda"
     },
     {
       "status": "POSTED",

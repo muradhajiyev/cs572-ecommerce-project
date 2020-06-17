@@ -1,7 +1,11 @@
 import {ReviewStatus} from "./review.enum";
 
 export class Review {
-  buyerId: string;
+  buyer: {
+    buyerId: string,
+    name: string,
+    email: string,
+  };
   status: ReviewStatus;
   createdDate: Date;
   stars: number;

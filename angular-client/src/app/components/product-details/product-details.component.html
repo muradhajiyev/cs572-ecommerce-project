@@ -10,6 +10,13 @@
           <h3 class="card-title">{{product.title}}</h3>
           <h4>${{product.price}}</h4>
           <p class="card-text">{{product.description}}</p>
+          <div>
+            <label>quantity: 0</label>
+            <button type="button"
+                    class="btn btn-secondary"
+                    (click)="addToCart()">Add to cart</button>
+          </div>
+
         </div>
       </div>
 
@@ -20,10 +27,8 @@
 
         <div class="card-body" *ngFor="let review of product.reviews">
           <p>{{review.comment}}</p>
-          <small class="text-muted">Posted by Anonymous on 3/1/17</small>
           <hr>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-          <small class="text-muted">Posted by Anonymous on {{review.createdDate | date}}</small>
+          <small class="text-muted">Posted by {{review.buyer.name}} on {{review.createdDate | date}}</small>
           <hr>
           <span class="text-warning">
              <ngx-stars [readonly]="true" [size]="1" [initialStars]="review.stars" [color]="'yellow'"></ngx-stars>
