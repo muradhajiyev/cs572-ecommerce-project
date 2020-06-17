@@ -23,7 +23,7 @@ exports.addProductToShoppingCart = (req, res) => {
         .then((buyer) => {
             let productExist= false;
             for(let i = 0; i< buyer.shoppingCart.length; i++){
-                if(buyer.shoppingCart[i].productId.toString() == productId){
+                if(buyer.shoppingCart[i].productId.toString() === productId){
                     productExist = true;
                     buyer.shoppingCart[i].quantity++;
                     break;
@@ -79,7 +79,7 @@ exports.deleteProductFromShoppingCart = (req, res) => {
     Buyer.findById(req.user._id)
         .then((buyer) => {
             buyer.shoppingCart = buyer.shoppingCart.filter(
-                (product) => product._id.toString() != id
+                (product) => product._id.toString() !== id
             );
 
             return buyer.save();
