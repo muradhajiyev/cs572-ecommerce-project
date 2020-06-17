@@ -15,7 +15,7 @@ import {MenuListModel} from "../../models/menu-list";
 export class ProductDetailsComponent implements OnInit {
   public productId: string;
   public product: Product;
-  public menuListModel: MenuListModel = new MenuListModel("Categories1", "cat", []);
+  public menuListModel: MenuListModel = new MenuListModel("Categories", "cat", []);
 
   constructor(private _route: ActivatedRoute,
               private _router: Router,
