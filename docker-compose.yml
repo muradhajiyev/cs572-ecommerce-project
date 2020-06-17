@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 
 services: 
     angular:
@@ -14,7 +14,9 @@ services:
             - /var/www/app/node_modules/
 
     express:
-        build: express-server
+        build: 
+            context: ./express-server
+            target: dev
         container_name: ecommerce-server
         restart: always
         ports:
