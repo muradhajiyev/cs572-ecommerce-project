@@ -4,6 +4,7 @@ services:
     angular:
         build: 
             context: ./angular-client
+            dockerfile: Dockerfile.client
             target: dev
         container_name: ecommerce-client
         ports:
@@ -16,6 +17,7 @@ services:
     express:
         build: 
             context: ./express-server
+            dockerfile: Dockerfile.server
             target: dev
         container_name: ecommerce-server
         restart: always
