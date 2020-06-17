@@ -2,7 +2,9 @@ version: '3'
 
 services: 
     angular:
-        build: angular-client
+        build: 
+            context: ./angular-client
+            target: dev
         container_name: ecommerce-client
         ports:
             - "4200:4200"
