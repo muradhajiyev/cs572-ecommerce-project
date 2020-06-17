@@ -1,6 +1,7 @@
 import {Review} from "./review";
 
 export class Product {
+  _id: string;
   title: string;
   categoryId: string;
   price: string;
