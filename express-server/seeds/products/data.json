@@ -1,47 +1,42 @@
 [{
-  "_id": {
-    "$oid": "5ee55f685a47f27910d69457"
-  },
-  "title": "product_1",
-  "sellerId": "5ee54b12bd266b249872240a",
-  categoryId: {
-    "$oid": "5ee925666c1d62190ce563c0"
-  },
-  price: 99,
-  imageName: "https://static.toiimg.com/thumb/72975551.cms?width=680&height=512&imgsize=881753",
-  description: "Brand new",
-  "reviews": [
-    {
-      "status": "POSTED",
-      "buyerId": {
-        "$oid": "5ee18462e04fdd0774558fda"
-      },
-      "createdDate": {
-        "$date": "2020-06-13T00:00:00Z"
-      },
-      "stars": 4,
-      "comment": "very good",
-      "decisionDate": {
-        "$date": "2020-06-13T00:00:00Z"
-      },
-      "_id": "5ee18462e04fdd0774558fda"
+    "_id": {
+        "$oid": "5ea1698cf1d0b8140cb05938"
     },
-    {
-      "status": "POSTED",
-      "stars": "2",
-      "comment": "Excellent"
-    }
-  ]
-},{
-  "_id": {
-    "$oid": "5ee57dc45a47f27910d69459"
-  },
-  "title": "product_2",
-  "sellerId": "5ee54b12bd266b249872240a",
-  "reviews": [
-    {
-      "status": "pending",
-      "stars": "2"
-    }
-  ]
+    "title": "product_1",
+    "sellerId": "5ee1698cf1d0b8140cb05938",
+    "categoryId": {
+        "$oid": "5ee1697cf1d0b8140cb05939"
+    },
+    "price": 99,
+    "imageName": "https://static.toiimg.com/thumb/72975551.cms?width=680&height=512&imgsize=881753",
+    "description": "Brand new",
+    "reviews": [{
+        "status": "POSTED",
+        "buyerId": {
+            "$oid": "5ee1698cf1d0b8140cb05939"
+        },
+        "createdDate": {
+            "$date": "2020-06-13T00:00:00Z"
+        },
+        "stars": 4,
+        "comment": "very good",
+        "decisionDate": {
+            "$date": "2020-06-13T00:00:00Z"
+        },
+        "_id": "123"
+    }, {
+        "status": "POSTED",
+        "stars": "2",
+        "comment": "Excellent"
+    }]
+}, {
+    "_id": {
+        "$oid": "5ee57dc45a47f27910d69459"
+    },
+    "title": "product_2",
+    "sellerId": "5ee54b12bd266b249872240a",
+    "reviews": [{
+        "status": "pending",
+        "stars": "2"
+    }]
 }]
