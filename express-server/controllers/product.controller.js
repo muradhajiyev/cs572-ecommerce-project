@@ -1,6 +1,8 @@
 const ApiResponse = require('./viewmodels/ApiResponse');
 const { productService } = require('../services');
 const upload = require('../_helpers/storage');
+const fs = require('fs');
+const path = require('path');
 
 exports.getProducts = function (req, res, next) {
     productService.getProducts(req.query.pageNumber, req.query.pageSize)
@@ -30,4 +32,11 @@ exports.editProduct = function (req, res, next) {
 
 exports.deleteProduct = function (req, res, next) {
     //Todo: it is needed to be implemented after product id is added to orders.
+}
+
+exports.getImage = function(req, res){
+    const filename = req.params.name;
+    const filePath = path.join(__dirname, '..', '_uploads', filename);
+    const readStream = fs.createReadStream(filePath);
+    readStream.pipe(res);
 }

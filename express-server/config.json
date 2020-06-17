@@ -3,5 +3,6 @@
     "apiUrl": "http://localhost:3000",
     "SECRET_KEY": "nmzhfuewthnkldsafkpeutjkgnfdat8uo45",
     "EXPIRES_IN": 10800,
-    "ENV": "development"
+    "ENV": "development",
+    "productImageUrl": "/api/products/images"
 }
