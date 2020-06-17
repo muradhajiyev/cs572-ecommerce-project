@@ -9,6 +9,6 @@ router.put("/:orderId/cancel", authorize(Role.BUYER, Role.SELLER), orderControll
 router.put("/:orderId/shipped", authorize(Role.SELLER), orderController.makeOrderShipped);
 router.put("/:orderId/delivered", authorize(Role.SELLER), orderController.makeOrderDelivered);
 
-router.post("/receipt", orderController.generateReceipt);
+router.get("/:orderId/receipt", orderController.getReceipt);
 
 module.exports = router;

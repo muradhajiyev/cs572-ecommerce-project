@@ -1,3 +1,4 @@
+const fs = require('fs');
 const
     path = require('path'),
     { ObjectId } = require('mongodb'),
@@ -155,6 +156,37 @@ exports.getBuyerOrders = async function (buyerId) {
 
 exports.getSellerOrders = async function (sellerId) {
     return await Order.find({ sellerId: new ObjectId(sellerId) });
+}
+
+exports.getOrderById = async function(orderId){
+    const order = await Order.findById({ _id: new ObjectId(orderId) });
+    if(!order) throw Error(`No order exists with this id ${orderId}`);
+    return order;
+}
+
+
+exports.generateReceipt = function(order, seller, buyer){
+    var html = fs.readFileSync(path.join(__dirname, "..", "views", "receipt.report.html"), 'utf8');
+    html = html.replace("${num}", order.orderNumber);
+    html = html.replace("${seller}", seller.name);
+    html = html.replace("${buyer}", buyer.name);
+    html = html.replace("${address}", `${order.shippingAddress.city}, ${order.shippingAddress.state}, ${order.shippingAddress.street}, ${order.shippingAddress.country}`);
+    let rows = '';
+    order.products.forEach((item, index) => {
+        rows += `
+        <tr>
+            <td>${item.product.title}</td>
+            <td>${item.product.price}</td>
+            <td>${item.quantity}</td>
+            <td>${item.cashbackPayment}</td>
+            <td>${item.creditCardPayment}</td>
+            <td>${item.totalPayment}</td>
+        </tr>`
+    })
+
+    html = html.replace("${rows}", rows);
+
+    return html;
 }
 
 function setStatus(order, orderStatus) {

@@ -56,3 +56,6 @@ typings/
 # dotenv environment variables file
 .env
 .idea/
+
+express-server/_uploads/*
+!express-server/_uploads/.gitkeep
