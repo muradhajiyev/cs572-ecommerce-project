@@ -1,42 +1,38 @@
-<div class="container">
+<div class="row">
+  <div [model]="menuListModel" class="col-lg-3" app-menu-list></div>
+  <div class="col-lg-9 product-details-page" *ngIf="product">
 
-  <div class="row" >
-
-    <div class="col-lg-9" *ngIf="product" class="product-details-page">
-
-      <div class="card mt-4">
-        <img class="card-img-top img-fluid" [src]="product.imageName">
-        <div class="card-body">
-          <h3 class="card-title">{{product.title}}</h3>
-          <h4>${{product.price}}</h4>
-          <p class="card-text">{{product.description}}</p>
-          <div>
-            <button type="button"
-                    class="btn btn-secondary add-to-cart-btn"
-                    (click)="addToCart()">Add to cart</button>
-          </div>
-
-        </div>
-      </div>
-
-      <div class="card card-outline-secondary my-4">
-        <div class="card-header">
-          Product Reviews
-        </div>
-
-        <div class="card-body" *ngFor="let review of product.reviews">
-          <p>{{review.comment}}</p>
-          <hr>
-          <small class="text-muted">Posted by {{review.buyer?.name}} on {{review.createdDate | date}}</small>
-          <hr>
-          <span class="text-warning">
-             <ngx-stars [readonly]="true" [size]="1" [initialStars]="review.stars" [color]="'yellow'"></ngx-stars>
-          </span>
-          <hr>
+    <div class="card mt-4">
+      <img class="card-img-top img-fluid" [src]="product.imageName">
+      <div class="card-body">
+        <h3 class="card-title">{{product.title}}</h3>
+        <h4>${{product.price}}</h4>
+        <p class="card-text">{{product.description}}</p>
+        <div>
+          <button type="button"
+                  class="btn btn-secondary add-to-cart-btn"
+                  (click)="addToCart()">Add to cart</button>
         </div>
 
       </div>
     </div>
-  </div>
 
+    <div class="card card-outline-secondary my-4">
+      <div class="card-header">
+        Product Reviews
+      </div>
+
+      <div class="card-body" *ngFor="let review of product.reviews">
+        <p>{{review.comment}}</p>
+        <hr>
+        <small class="text-muted">Posted by {{review.buyer?.name}} on {{review.createdDate | date}}</small>
+        <hr>
+        <span class="text-warning">
+             <ngx-stars [readonly]="true" [size]="1" [initialStars]="review.stars" [color]="'yellow'"></ngx-stars>
+          </span>
+        <hr>
+      </div>
+
+    </div>
+  </div>
 </div>

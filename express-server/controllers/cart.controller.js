@@ -79,7 +79,7 @@ exports.deleteProductFromShoppingCart = (req, res) => {
     Buyer.findById(req.user._id)
         .then((buyer) => {
             buyer.shoppingCart = buyer.shoppingCart.filter(
-                (product) => product._id.toString() != id
+                (product) => product._id.toString() !== id
             );
 
             return buyer.save();
