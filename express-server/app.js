@@ -6,21 +6,8 @@ const logger = require("morgan");
 const config = require(path.join(__dirname, 'config.json'));
 const initRoutes = require('./routes');
 const ApiResponse = require('./controllers/viewmodels/ApiResponse');
-const cors = require('cors');
 const app = express();
 
-var originsWhitelist = [
-  'http://localhost:4200',      //this is my front-end url for development
-  // 'http://www.myproductionurl.com'
-];
-var corsOptions = {
-  origin: function(origin, callback){
-    var isWhitelisted = originsWhitelist.indexOf(origin) !== -1;
-    callback(null, isWhitelisted);
-  },
-  credentials:true
-}
-app.use(cors(corsOptions));
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

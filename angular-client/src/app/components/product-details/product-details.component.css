@@ -1,34 +1,3 @@
-.product-details-page{
-
-}
-.product-description{
-  margin-bottom: 20px;
-}
-.product-image-container {
-  height: 100px;
-}
-.image-product{
-  height: 100%;
-}
-
-.product-reviews-header{
-  width: 100%;
-  background-color: gray;
-  height: 50px;
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  padding-left: 20px;
-  margin-bottom: 10px;
-}
-.product-reviews-header h3{
-  margin-bottom: 0;
-  color: white;
-}
-.review{
-  border-bottom: 1px solid gray;
-  margin-bottom: 10px;
-}
-.date{
-  color: gray;
+.product-details-body{
+  padding-top: 56px;
 }

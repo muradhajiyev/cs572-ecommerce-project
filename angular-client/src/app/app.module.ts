@@ -23,8 +23,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     NgxStarsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AppRoutingModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
