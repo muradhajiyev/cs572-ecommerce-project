@@ -1,4 +1,4 @@
-FROM node:10
+FROM node:alpine3.12
 
 RUN mkdir -p /var/www/app
 
@@ -6,7 +6,7 @@ WORKDIR /var/www/app
 
 COPY package*.json ./
 
-RUN npm install -g @angular/cli && npm install
+RUN npm install
 
 COPY . .
 

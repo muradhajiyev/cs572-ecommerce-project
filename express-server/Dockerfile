@@ -1,6 +1,4 @@
-FROM node:10
-
-RUN mkdir -p /var/www/app
+FROM node:alpine3.12
 
 WORKDIR /var/www/app
 
