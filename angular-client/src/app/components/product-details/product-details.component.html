@@ -1,4 +1,4 @@
-<div class="container product-details-body">
+<div class="container">
 
   <div class="row" >
 
@@ -11,9 +11,8 @@
           <h4>${{product.price}}</h4>
           <p class="card-text">{{product.description}}</p>
           <div>
-            <label>quantity: 0</label>
             <button type="button"
-                    class="btn btn-secondary"
+                    class="btn btn-secondary add-to-cart-btn"
                     (click)="addToCart()">Add to cart</button>
           </div>
 
@@ -28,7 +27,7 @@
         <div class="card-body" *ngFor="let review of product.reviews">
           <p>{{review.comment}}</p>
           <hr>
-          <small class="text-muted">Posted by {{review.buyer.name}} on {{review.createdDate | date}}</small>
+          <small class="text-muted">Posted by {{review.buyer?.name}} on {{review.createdDate | date}}</small>
           <hr>
           <span class="text-warning">
              <ngx-stars [readonly]="true" [size]="1" [initialStars]="review.stars" [color]="'yellow'"></ngx-stars>

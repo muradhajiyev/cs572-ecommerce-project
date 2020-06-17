@@ -9,7 +9,7 @@
     },
     "price": 99,
     "imageName": "https://static.toiimg.com/thumb/72975551.cms?width=680&height=512&imgsize=881753",
-    "description": "Brand new",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus",
     "reviews": [{
         "status": "POSTED",
         "buyerId": {
@@ -19,7 +19,7 @@
             "$date": "2020-06-13T00:00:00Z"
         },
         "stars": 4,
-        "comment": "very good",
+        "comment": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus",
         "decisionDate": {
             "$date": "2020-06-13T00:00:00Z"
         },
@@ -27,7 +27,13 @@
     }, {
         "status": "POSTED",
         "stars": "2",
-        "comment": "Excellent"
+        "createdDate": {
+            "$date": "2020-06-13T00:00:00Z"
+        },
+        "decisionDate": {
+            "$date": "2020-06-13T00:00:00Z"
+        },
+        "comment": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus"
     }]
 }, {
     "_id": {

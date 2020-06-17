@@ -18,15 +18,23 @@ exports.getListShoppingCard = (req, res) => {
 //add to shopping card product
 exports.addProductToShoppingCart = (req, res) => {
     const productId = req.body.productId;
-    const quantity = req.body.quantity;
 
     Buyer.findById(req.user._id)
         .then((buyer) => {
-            buyer.shoppingCart.push({
-                productId: productId,
-                quantity: quantity,
-            });
-
+            let productExist= false;
+            for(let i = 0; i< buyer.shoppingCart.length; i++){
+                if(buyer.shoppingCart[i].productId == productId){
+                    productExist = true;
+                    buyer.shoppingCart[i].quantity++;
+                    break;
+                }
+            }
+            if(!productExist){
+                buyer.shoppingCart.push({
+                    productId: productId,
+                    quantity: 1,
+                });
+            }
             return buyer.save();
         })
         .then(() => {

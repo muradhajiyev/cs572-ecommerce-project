@@ -8,8 +8,12 @@ export class ProductService {
 
   constructor(private _http: HttpClient) { }
 
-  public getProductDetails(productId){
+  public getProductDetails(productId: string){
     return this._http.get('/api/products/' + productId);
+  }
+
+  public addToCart(prodId: string){
+      return this._http.post('/api/carts/', {productId: prodId});
   }
 
 }
