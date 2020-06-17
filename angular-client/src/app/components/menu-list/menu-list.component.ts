@@ -8,20 +8,23 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./menu-list.component.css']
 })
 export class MenuListComponent implements OnInit{
-
   @Input() model: MenuListModel;
+  @Output() itemClick = new EventEmitter();
+
   currentItemId: string = "all";
-  constructor(private route: ActivatedRoute) {
-    
-  }
+
+  constructor(private route: ActivatedRoute) {}
+
   ngOnInit(): void {
     this.route.queryParams.subscribe(queryParams => {
-      console.log("this.model", this.model);  
-      let itm = queryParams[this.model.paramName];
+      const itm = queryParams["cat"];
       if (itm) {
         this.currentItemId = itm;
       }
     });
   }
 
+  onItemClicked(itemId){
+    this.itemClick.emit(itemId);
+  }
 }

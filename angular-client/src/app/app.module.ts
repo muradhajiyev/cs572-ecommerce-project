@@ -12,7 +12,8 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProductCardComponent } from './components/product/product-card/product-card.component';
 import { ProductListComponent } from './components/product/product-list/product-list.component';
-import { MenuListComponent } from './components/menu-list/menu-list.component';
+import {SharedModule} from "./modules/shared/shared.module";
+import {RouterModule} from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -21,8 +22,7 @@ import { MenuListComponent } from './components/menu-list/menu-list.component';
     HomeComponent,
     ProductDetailsComponent,
     ProductCardComponent,
-    ProductListComponent,
-    MenuListComponent
+    ProductListComponent
   ],
   imports: [
     HttpClientModule,
@@ -31,7 +31,8 @@ import { MenuListComponent } from './components/menu-list/menu-list.component';
     HttpClientModule,
     NgxStarsModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    SharedModule,
+    RouterModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
