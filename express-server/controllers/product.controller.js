@@ -3,7 +3,7 @@ const { productService } = require('../services');
  
 
 exports.getProducts = function(req, res, next){
-    productService.getProducts(req.query.pageNumber, req.query.pageSize)
+    productService.getProducts(req.query.categoryId, req.query.pageNumber, req.query.pageSize)
         .then((pagedDto) => res.status(200).json(new ApiResponse(200, 'The products were found succesfully.', pagedDto)))
         .catch(next);
 }

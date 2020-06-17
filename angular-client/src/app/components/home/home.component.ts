@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuListModel } from 'src/app/models/menu-list';
+import { CategoryService } from 'src/app/services/category.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  menuListModel: MenuListModel = new MenuListModel("Categories1", "cat", []);
+  
+  constructor(private categoryService: CategoryService) { }
 
   ngOnInit(): void {
+    this.categoryService.getCategories().subscribe(categories => {
+      let items: Array<{ id: string, text: string }> = [];
+      items.push({ id: "all", text: "All categories" });
+      categories.result.forEach(cat => { items.push({ id: cat._id.toString(), text: cat.name }); });
+      this.menuListModel = new MenuListModel("Categories2", "cat", items);
+    });
   }
 
 }

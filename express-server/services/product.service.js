@@ -1,12 +1,17 @@
 const { Product } = require('../models');
+const {ObjectId} = require('mongodb');
 const PagedDto = require('./dto/Paged.dto');
 
-exports.getProducts = async function(pageNumber = 1, pageSize = 10){
-    const products = await Product.find()
+exports.getProducts = async function(categoryId, pageNumber = 1, pageSize = 10){
+    let filter = {};
+    if(categoryId){
+        filter.categoryId = new ObjectId(categoryId);
+    }
+    const products = await Product.find(filter)
         .skip((pageSize * pageNumber) - pageSize)
         .limit(parseInt(pageSize));
 
-    const numOfProducts = await Product.countDocuments();
+    const numOfProducts = await Product.countDocuments(filter);
 
     return new PagedDto(products, pageNumber, Math.ceil(numOfProducts / pageSize), numOfProducts);
 }
