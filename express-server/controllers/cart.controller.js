@@ -23,7 +23,7 @@ exports.addProductToShoppingCart = (req, res) => {
         .then((buyer) => {
             let productExist= false;
             for(let i = 0; i< buyer.shoppingCart.length; i++){
-                if(buyer.shoppingCart[i].productId == productId){
+                if(buyer.shoppingCart[i].productId.toString() == productId){
                     productExist = true;
                     buyer.shoppingCart[i].quantity++;
                     break;
