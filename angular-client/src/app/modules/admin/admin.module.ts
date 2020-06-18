@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {AdminRoutingModule} from "./admin-routing.module";
-import {AdminComponent} from "../../components/admin/admin.component";
-import {SharedModule} from "../shared/shared.module";
-import {PendingSellersComponent} from "../../components/pending-sellers/pending-sellers.component";
-import {PendingReviewsComponent} from "../../components/pending-reviews/pending-reviews.component";
+import { AdminComponent } from 'src/app/components/admin/admin.component';
+import { PendingSellersComponent } from 'src/app/components/pending-sellers/pending-sellers.component';
+import { PendingReviewsComponent } from 'src/app/components/pending-reviews/pending-reviews.component';
+import { AdminRoutingModule } from './admin-routing.module';
+import { SharedModule } from '../shared/shared.module';
 
 
 

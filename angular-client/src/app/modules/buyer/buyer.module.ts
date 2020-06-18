@@ -21,7 +21,7 @@ import { ShoppingCartComponent } from 'src/app/components/buyer/shopping-cart/sh
   imports: [
     CommonModule,
     SharedModule,
-    BuyerRoutingModule
+    BuyerRoutingModule,
   ],
   exports: [BuyerProfileComponent]
 })

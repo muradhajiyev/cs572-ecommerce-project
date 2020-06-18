@@ -1,0 +1,9 @@
+table{
+    width:100%;
+}
+#accordion th{
+    text-align: center;
+}
+td{
+    padding: 3px;
+}
