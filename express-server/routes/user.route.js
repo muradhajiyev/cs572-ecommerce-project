@@ -9,28 +9,24 @@ router.delete("/sellers/:id/unfollow/", authorize(Role.BUYER), userController.un
 router.get("/available-cashback", authorize(Role.BUYER), userController.getAvailableCashback);
 
 /* POST approve seller */
-router.post(
-  "/sellers/:id/approve",
+router.post("/sellers/:id/approve",
   authorize(Role.ADMIN),
   userController.approveSeller
 );
 /* POST reject seller */
-router.post(
-  "/sellers/:id/reject",
+router.post("/sellers/:id/reject",
   authorize(Role.ADMIN),
   userController.rejectSeller
 );
 
 /** POST post review */
-router.post(
-  "/product/:productid/review/:id/post",
+router.post("/product/:productid/review/:id/post",
   authorize(Role.ADMIN),
   userController.postReview
 );
 
 /** POST reject review */
-router.post(
-  "/product/:productid/review/:id/reject",
+router.post("/product/:productid/review/:id/reject",
   authorize(Role.ADMIN),
   userController.rejectReview
 );
