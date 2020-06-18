@@ -10,19 +10,21 @@ import { Observable, observable, BehaviorSubject } from 'rxjs';
 })
 export class AuthenticationService {
   jwtHelper: JwtHelperService;
-  private isAuthenticatedSubject: BehaviorSubject<boolean>;
-  public isAuthenticated: Observable<boolean>;
+  public authenticatedSubject: BehaviorSubject<boolean>;
+  // public isAuthenticated: Observable<boolean>;
 
   constructor(private http: HttpClient) {
       this.jwtHelper = new JwtHelperService();
-      this.isAuthenticatedSubject = new BehaviorSubject<boolean>(this.currentUser != null);
-      this.isAuthenticated = this.isAuthenticatedSubject.asObservable();
+      // this.isAuthenticatedSubject = new BehaviorSubject<boolean>(this.currentUser != null);
+      // this.isAuthenticated = this.isAuthenticatedSubject.asObservable();
+
+      this.authenticatedSubject = new BehaviorSubject<boolean>(this.currentUser != null);
    }
 
-  // public get isAuthenticated(){
-  //   const token = localStorage.getItem('token');
-  //   return token && !this.jwtHelper.isTokenExpired(token);
-  // }
+  public get isAuthenticated(){
+    const token = localStorage.getItem('token');
+    return token && !this.jwtHelper.isTokenExpired(token);
+  }
 
 
   public get currentUser(): User{
@@ -36,7 +38,7 @@ export class AuthenticationService {
     return this.http.post<ApiResponse<Token>>("/api/auth/login", {email: username, password: password})
         .pipe(map(res => {
             localStorage.setItem("token", res.result.access_token);
-            this.isAuthenticatedSubject.next(true);
+            this.authenticatedSubject.next(true);
             return res;
         }));
   }
@@ -45,7 +47,7 @@ export class AuthenticationService {
   logout(){
     return new Promise((resolve, reject) => {
       localStorage.removeItem('token');
-      this.isAuthenticatedSubject.next(false);
+      this.authenticatedSubject.next(false);
       resolve();
     })
   }
