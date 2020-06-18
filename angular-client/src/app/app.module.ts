@@ -14,6 +14,7 @@ import { ProductCardComponent } from './components/product/product-card/product-
 import { ProductListComponent } from './components/product/product-list/product-list.component';
 import { SharedModule } from './modules/shared/shared.module';
 import { RouterModule } from '@angular/router';
+import { OrderCheckoutComponent } from './components/buyer/order-checkout/order-checkout.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { RouterModule } from '@angular/router';
     ProductDetailsComponent,
     ProductCardComponent,
     ProductListComponent,
+    OrderCheckoutComponent,
   ],
   imports: [
     HttpClientModule,

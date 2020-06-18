@@ -10,6 +10,7 @@ import { AddressEditorComponent } from 'src/app/components/buyer/address-editor/
 import { BillingInfoEditorComponent } from 'src/app/components/buyer/billing-info-editor/billing-info-editor.component';
 import { AuthGuard } from 'src/app/guards/auth.guard';
 import { Role } from 'src/app/models';
+import { OrderCheckoutComponent } from 'src/app/components/buyer/order-checkout/order-checkout.component';
 
 
 const routes: Routes = [
@@ -22,7 +23,8 @@ const routes: Routes = [
       {path:'billing-infos/add', component: BillingInfoEditorComponent},
       {path:'billing-infos/edit/:id', component: BillingInfoEditorComponent},
       {path:'orders', component: OrdersComponent},
-      {path:'shopping-cart', component: ShoppingCartComponent}
+      {path:'orders/checkout', component: OrderCheckoutComponent},
+      {path:'shopping-cart', component: ShoppingCartComponent},
     ]
   }
 ]
