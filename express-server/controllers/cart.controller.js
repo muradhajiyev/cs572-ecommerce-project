@@ -81,7 +81,7 @@ exports.deleteProductFromShoppingCart = (req, res) => {
         .then((buyer) => {
             buyer.shoppingCart = buyer.shoppingCart.filter(
                 (product) => {
-                    product.productId.toString() !== id;
+                    return product.productId.toString() !== id;
 
                 }
             );
