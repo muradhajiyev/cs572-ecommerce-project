@@ -6,7 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-buyer-profile',
   templateUrl: './buyer-profile.component.html',
-  styleUrls: ['./buyer-profile.component.css']
+  styleUrls: ['./buyer-profile.component.css'],
 })
 export class BuyerProfileComponent implements OnInit {
   // currentTab: string = "addresses";
@@ -18,12 +18,11 @@ export class BuyerProfileComponent implements OnInit {
     { id: "shopping-cart", text: "Shopping cart" }
   ], true);
   constructor(private route: ActivatedRoute) { 
+    console.log("BuyerProfileComponent");
     // route.queryParams.subscribe(queryParams => {
     //   this.currentTab = queryParams['tab'];
     // });
   }
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

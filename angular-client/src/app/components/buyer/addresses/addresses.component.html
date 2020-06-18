@@ -1,1 +1,27 @@
-<p>addresses works!</p>
+<div class="col-lg-9">
+    <div class="h4">Addresses</div>
+    <div class="panel-body">
+        <a href="#" class="btn btn-secondary btn-sm" [routerLink]="['.', 'add']">Add</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Address</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let address of addresses; let i = index">
+                <th scope="row">{{i+1}}</th>
+                <td>
+                    {{address.city}}, {{address.state}}, {{address.street}}, {{address.zipCode}}, {{address.phoneNumber}}, {{address.country}}
+                </td>
+                <td>
+                    <a href="#" class="btn btn-secondary btn-sm" [routerLink]="['.', 'edit', address._id]">Edit</a>
+                    <button  type="button" class="btn btn-secondary btn-sm deleteAddress" (click)="removeAddress(address._id)">Remove</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

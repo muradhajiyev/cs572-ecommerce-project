@@ -1,1 +1,24 @@
-<p>billing-info works!</p>
+<div class="h4">Billing info</div>
+<div class="panel-body">
+    <a href="#" class="btn btn-secondary btn-sm" [routerLink]="['.', 'add']">Add Credit Card</a>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Billing Information</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let billingInfo of billingInfos; let i = index">
+            <th scope="row">{{i+1}}</th>
+            <td>Credit card: {{billingInfo.cardNumber}}, {{billingInfo.cardName}}</td>
+            <td>
+                <a href="#" class="btn btn-secondary btn-sm" [routerLink]="['.', 'edit', billingInfo._id]">Edit</a>
+                <button type="button" class="btn btn-secondary btn-sm"
+                    (click)="removeBillingInfo(billingInfo._id)">Remove</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
