@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AddressesComponent implements OnInit {
   addresses: Address[] = [];
-  constructor(private _router: Router, private _addressService: AddressService) { }
+  constructor(private _addressService: AddressService) { }
 
   ngOnInit(): void {
     this.refreshAddresses();

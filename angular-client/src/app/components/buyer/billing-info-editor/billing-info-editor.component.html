@@ -1,0 +1,92 @@
+<div class="h4">Add Credit Card</div>
+<form [formGroup]="dataForm" (ngSubmit)="onSubmit()" #billingForm>
+    <div class="form-group">
+        <label for="cardNumber">Card Number</label>
+        <input type="text" class="form-control" formControlName="cardNumber" placeholder="Card Number">
+        <p *ngIf="dataForm.controls.cardNumber.touched && dataForm.get('cardNumber').hasError('required')"
+            class="text-danger">
+            Incorrect Card Number</p>
+    </div>
+    <div class="form-group">
+        <label for="cardName">Card Name</label>
+        <input type="text" class="form-control" formControlName="cardName" placeholder="Card Name">
+        <p *ngIf="dataForm.controls.cardName.touched && dataForm.get('cardName').hasError('required')"
+            class="text-danger">
+            Incorrect Card Name</p>
+    </div>
+    <div class="form-group">
+        <label for="expirationDate">Expiration Date</label>
+        <input type="text" class="form-control" formControlName="expirationDate" th:field="*{expirationDate}"
+            placeholder="Expiration Date">
+        <p *ngIf="dataForm.controls.expirationDate.touched && dataForm.get('expirationDate').hasError('required')"
+            class="text-danger">
+            Incorrect Expiration Date</p>
+    </div>
+    <div class="form-group">
+        <label for="securityCode">Security Number</label>
+        <input type="text" class="form-control" formControlName="securityCode" placeholder="Security Number">
+        <p *ngIf="dataForm.controls.securityCode.touched && dataForm.get('securityCode').hasError('required')"
+            class="text-danger">
+            Incorrect Security Number</p>
+    </div>
+    <div *ngIf="billingInfoId === undefined" class="form-group">
+        <label for="billingAddressId">Billing Address</label>
+        <select class="form-control" formControlName="billingAddressId" required>
+            <option value="">Select Address</option>
+            <option *ngFor="let address of addresses" [value]="address._id">
+                {{address.city}}, {{address.state}}, {{address.street}}, {{address.zipCode}}, {{address.phoneNumber}},
+                {{address.country}}
+            </option>
+        </select>
+        <p *ngIf="dataForm.controls.billingAddressId.touched && dataForm.get('billingAddressId').hasError('required')"
+            class="text-danger">
+            Incorrect Address</p>
+    </div>
+    <div *ngIf="billingInfoId !== undefined" class="form-group" formGroupName="billingAddress">
+        <div class="form-group">
+            <label for="city">City</label>
+            <input type="text" class="form-control" formControlName="city" placeholder="City">
+            <p *ngIf="dataForm.get('billingAddress.city').touched && dataForm.get('billingAddress.city').hasError('required')"
+                class="text-danger">
+                Incorrect City</p>
+        </div>
+        <div class="form-group">
+            <label for="state">State</label>
+            <input type="text" class="form-control" formControlName="state" placeholder="State">
+            <p *ngIf="dataForm.get('billingAddress.state').touched && dataForm.get('billingAddress.state').hasError('required')"
+                class="text-danger">
+                Incorrect State</p>
+        </div>
+        <div class="form-group">
+            <label for="state">Street</label>
+            <input type="text" class="form-control" formControlName="street" placeholder="Street">
+            <p *ngIf="dataForm.get('billingAddress.street').touched && dataForm.get('billingAddress.street').hasError('required')"
+                class="text-danger">
+                Incorrect Street</p>
+        </div>
+        <div class="form-group">
+            <label for="state">ZIP Code</label>
+            <input type="text" class="form-control" formControlName="zipCode" placeholder="ZIP Code">
+            <p *ngIf="dataForm.get('billingAddress.zipCode').touched && dataForm.get('billingAddress.zipCode').hasError('required')"
+                class="text-danger">
+                Incorrect ZIP Code</p>
+        </div>
+        <div class="form-group">
+            <label for="state">Country</label>
+            <input type="text" class="form-control" formControlName="country" placeholder="Country">
+            <p *ngIf="dataForm.get('billingAddress.country').touched && dataForm.get('billingAddress.country').hasError('required')"
+                class="text-danger">
+                Incorrect Country</p>
+        </div>
+        <div class="form-group">
+            <label for="state">Phone Number</label>
+            <input type="text" class="form-control" formControlName="phoneNumber" placeholder="Phone Number">
+            <p *ngIf="dataForm.get('billingAddress.phoneNumber').touched && dataForm.get('billingAddress.phoneNumber').hasError('required')"
+                class="text-danger">
+                Incorrect Phone Number</p>
+        </div>
+    </div>
+    <div id="form-group">
+        <input class="btn btn-primary btn-sm" [disabled]="!dataForm.valid" value="Save" type="submit" />
+    </div>
+</form>

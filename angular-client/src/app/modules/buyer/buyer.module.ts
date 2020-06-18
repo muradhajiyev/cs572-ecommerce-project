@@ -9,6 +9,7 @@ import { AddressEditorComponent } from 'src/app/components/buyer/address-editor/
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BuyerRoutingModule } from './buyer-routing.module';
 import { BuyerProfileComponent } from 'src/app/components/buyer/buyer-profile/buyer-profile.component';
+import { BillingInfoEditorComponent } from 'src/app/components/buyer/billing-info-editor/billing-info-editor.component';
 
 
 
@@ -19,7 +20,8 @@ import { BuyerProfileComponent } from 'src/app/components/buyer/buyer-profile/bu
     BillingInfoComponent,
     OrdersComponent,
     ShoppingCartComponent,
-    AddressEditorComponent
+    AddressEditorComponent,
+    BillingInfoEditorComponent
   ],
   imports: [
     // FormsModule,

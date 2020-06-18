@@ -7,6 +7,7 @@ import { BillingInfoComponent } from 'src/app/components/buyer/billing-info/bill
 import { OrdersComponent } from 'src/app/components/buyer/orders/orders.component';
 import { ShoppingCartComponent } from 'src/app/components/buyer/shopping-cart/shopping-cart.component';
 import { AddressEditorComponent } from 'src/app/components/buyer/address-editor/address-editor.component';
+import { BillingInfoEditorComponent } from 'src/app/components/buyer/billing-info-editor/billing-info-editor.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,8 @@ const routes: Routes = [
       {path:'addresses/add', component: AddressEditorComponent},
       {path:'addresses/edit/:id', component: AddressEditorComponent},
       {path:'billing-infos', component: BillingInfoComponent},
+      {path:'billing-infos/add', component: BillingInfoEditorComponent},
+      {path:'billing-infos/edit/:id', component: BillingInfoEditorComponent},
       {path:'orders', component: OrdersComponent},
       {path:'shopping-cart', component: ShoppingCartComponent}
     ]
