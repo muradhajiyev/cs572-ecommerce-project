@@ -59,3 +59,4 @@ typings/
 
 express-server/_uploads/*
 !express-server/_uploads/.gitkeep
+!express-server/_uploads/notfound.png

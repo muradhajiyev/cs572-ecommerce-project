@@ -37,7 +37,10 @@ productSchema.set('toObject', { virtuals: true })
 productSchema.set('toJSON', { virtuals: true })
 
 productSchema.virtual('imageUrl').get(function(){
-  return `${config.productImageUrl}/${this.imageName}`;
+  if (this.imageName != undefined && this.imageName.length > 0)
+    return `${config.productImageUrl}/${this.imageName}`;
+  else
+    return `${config.productImageUrl}/not-found.png`;
 })
 
 //collection name => products
