@@ -12,8 +12,8 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProductCardComponent } from './components/product/product-card/product-card.component';
 import { ProductListComponent } from './components/product/product-list/product-list.component';
-import {SharedModule} from "./modules/shared/shared.module";
-import {RouterModule} from "@angular/router";
+import { SharedModule } from './modules/shared/shared.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -28,7 +28,6 @@ import {RouterModule} from "@angular/router";
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
     NgxStarsModule,
     ReactiveFormsModule,
     SharedModule,
