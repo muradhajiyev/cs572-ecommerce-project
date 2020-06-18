@@ -37,4 +37,7 @@ export class ProductService {
   public getProductsBySellerId(id) {
     return this._http.get<ApiResponse<Product[]>>('/api/products/seller/' + id);
   }
+  public deleteProduct(id){
+    return this._http.delete<ApiResponse<Product>>('/api/products/'+id);
+  }
 }
