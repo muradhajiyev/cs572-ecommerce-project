@@ -50,6 +50,7 @@ const orderSchema = new Schema({
         }
     }
 })
+
 orderSchema.statics.getLastOrderNumber = function(){
     return this.aggregate(
         [
@@ -58,6 +59,16 @@ orderSchema.statics.getLastOrderNumber = function(){
      );
 }
 
+orderSchema.set('toJSON', { virtuals: true })
+
+orderSchema.virtual('nextStage').get(function(){
+    if (this.status === OrderStatus.CREATED)
+        return "Mark it as shipped";
+    else if (this.status === OrderStatus.SHIPPED)
+        return "Mark it as delivered";
+
+    return null;
+})
 
 //collection name => orders
 module.exports = mongoose.model('Order', orderSchema);

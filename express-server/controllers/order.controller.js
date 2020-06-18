@@ -3,6 +3,8 @@ const ApiResponse = require('./viewmodels/ApiResponse');
 const { Role, OrderStatus } = require(path.join(__dirname, "..", "models"));
 const { orderService, userService } = require(path.join(__dirname, "..", "services"));
 const pdf = require('html-pdf');
+const orderStatus = require("../models/enums/order-status");
+const { CREATED } = require("../models/enums/order-status");
 
 exports.createOrder = (req, res, next) => {
     orderService.createOrder(req.user._id, req.body)
@@ -27,6 +29,25 @@ exports.cancelOrder = (req, res, next) => {
             .catch(next);
     }
 };
+
+exports.processOrder = async (req, res, next) => {
+    const order = await orderService.getOrderById(req.params.orderId);
+    let nextStage = OrderStatus.SHIPPED;
+
+    if (order.status == OrderStatus.CREATED)
+        nextStage = OrderStatus.SHIPPED;
+    else if (order.status == OrderStatus.SHIPPED)
+        nextStage = OrderStatus.DELIVERED
+    else 
+        next(`Order cannot be processed. Order status is: ${order.status}`);
+
+    
+    orderService.setOrderStatusBySeller(req.userId, req.params.orderId, nextStage)
+        .then(order => {
+            return res.status(200).json(new ApiResponse(200, 'Order status was updated successfully', order))
+        })
+        .catch(next);
+}
 
 exports.makeOrderShipped = (req, res, next) => {
     orderService.setOrderStatusBySeller(req.userId, req.params.orderId, OrderStatus.SHIPPED)

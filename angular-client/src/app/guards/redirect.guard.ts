@@ -21,7 +21,7 @@ export class RedirectGuard implements CanActivate {
         this.router.navigate(['admin'])
 
       if(this.authService.currentUser.role == Role.Seller)
-        this.router.navigate(['seller'])
+        this.router.navigate(['seller/products'])
 
       if(this.authService.currentUser.role == Role.Buyer)
         this.router.navigate(['buyer'])
