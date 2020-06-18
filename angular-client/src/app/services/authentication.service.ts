@@ -33,7 +33,7 @@ export class AuthenticationService {
     return payload;
   }
 
-  login(username: string, password: string){
+  login(username: string, password: string): Observable<ApiResponse<Token>>{
     
     return this.http.post<ApiResponse<Token>>("/api/auth/login", {email: username, password: password})
         .pipe(map(res => {
