@@ -52,12 +52,7 @@ exports.getReceipt = async function (req, res, next) {
     const receipt = orderService.generateReceipt(order, seller, buyer);
 
     pdf.create(receipt, {}).toStream(function (err, stream) {
-        if (err){
-            console.log('err',err);
-            next(err);
-        } 
-
-        
+        if (err) next(err);
         stream.pipe(res);
     });
 }
