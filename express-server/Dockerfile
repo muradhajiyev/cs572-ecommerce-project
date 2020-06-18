@@ -1,17 +1,26 @@
-FROM node:10
-
-RUN mkdir -p /var/www/app
+# prod stage
+FROM node:alpine3.12 as prod
 
 WORKDIR /var/www/app
 
-RUN npm install -g nodemon
-
-COPY package.json .
-
+COPY package*.json ./
+ 
 RUN npm install
 
 COPY . .
 
+ENV NODE_ENV=production
+
+CMD ["npm", "start"]
+
+
+# dev stage
+FROM prod as dev
+
+RUN npm install -g nodemon && npm install --only=dev
+
 EXPOSE 3000
+
+ENV NODE_ENV=development
 
 CMD ["npm", "run", "watch"]
