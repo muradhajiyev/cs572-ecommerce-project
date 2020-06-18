@@ -6,9 +6,9 @@ build:
     docker:
     release:
         - dockerfile: angular-client/Dockerfile
-            target: prod
+          target: prod
         - dockerfile: express-server/Dockerfile
-            target: prod
+          target: prod
     angular: angular-client/Dockerfile
     express: express-server/Dockerfile
     seeder: express-server/seeder/Dockerfile
