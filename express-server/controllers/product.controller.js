@@ -31,7 +31,9 @@ exports.editProduct = function (req, res, next) {
 }
 
 exports.deleteProduct = function (req, res, next) {
-    //Todo: it is needed to be implemented after product id is added to orders.
+    productService.deleteProduct(req.params.id)
+        .then((product) => res.status(200).json(new ApiResponse(200, 'The product was deleted succesfully.', product)))
+        .catch(next);
 }
 
 exports.getImage = function(req, res,next){
@@ -44,4 +46,12 @@ exports.getImage = function(req, res,next){
       });
     
     readStream.on('error', err => next(err));
+}
+
+exports.getProductsBySellerId = function(req, res, next){
+    productService.getProductsBySellerId(req.params.id)
+        .then((products) => {
+            res.status(200).json(new ApiResponse(200, 'seller products success', products))
+        })
+        .catch(next);
 }

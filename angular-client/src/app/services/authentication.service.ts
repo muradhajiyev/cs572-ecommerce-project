@@ -33,7 +33,7 @@ export class AuthenticationService {
     return payload;
   }
 
-  login(username: string, password: string){
+  login(username: string, password: string): Observable<ApiResponse<Token>>{
     
     return this.http.post<ApiResponse<Token>>("/api/auth/login", {email: username, password: password})
         .pipe(map(res => {
@@ -41,6 +41,11 @@ export class AuthenticationService {
             this.authenticatedSubject.next(true);
             return res;
         }));
+  }
+
+  signup(form: {role: string, name: string, email: string, password: string}): Observable<ApiResponse<User>>{
+    console.log(form);
+    return this.http.post<ApiResponse<User>>("/api/auth/signup/"+form.role, {email: form.email, name: form.name, password: form.password});
   }
 
   // basic

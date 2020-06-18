@@ -31,13 +31,11 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.loading = true;
- 
+    this.error = '';
     this.authService.login(this.loginForm.controls.email.value, this.loginForm.controls.password.value).subscribe(
       res => {this.router.navigate(["/"]);},
       error => {
-        //todo: handle error friendly.
-        console.log(error);
-        this.error = error;
+        this.error = error.error.result.message;
         this.loading = false;
     }
     )

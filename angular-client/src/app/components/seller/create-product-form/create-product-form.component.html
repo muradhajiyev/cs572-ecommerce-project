@@ -1,19 +1,22 @@
 <div>
   <h3>Add product</h3>
-  <p>{{ productForm | json }}</p>
+  <div *ngIf="added" class="alert alert-success" role="alert">
+    Successfully added product
+  </div>
   <form
     ngNativeValidate
     #formProduct="ngForm"
-    (ngSubmit)="onSubmitForm(formProduct.value)"
+    (ngSubmit)="onSubmitForm(formProduct)"
   >
     <div class="form-group">
       <label for="select-photo">Product photo</label>
       <input
+        accept="image/*"
         type="file"
         class="form-control-file"
         id="select-photo"
         required
-        [(ngModel)]="productForm.filename"
+        (change)="fileEvent($event)"
         name="filename"
       />
     </div>
@@ -25,7 +28,9 @@
         name="categoryId"
         [(ngModel)]="productForm.categoryId"
       >
-        <option *ngFor="let opt of category">{{ opt.name }}</option>
+        <option *ngFor="let opt of category" [ngValue]="opt._id">{{
+          opt.name
+        }}</option>
       </select>
     </div>
     <div class="form-group">
@@ -47,6 +52,7 @@
         class="form-control"
         id="price"
         placeholder="0.0"
+        min="1"
         required
         [(ngModel)]="productForm.price"
         name="price"
