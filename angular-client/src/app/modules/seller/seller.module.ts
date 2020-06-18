@@ -7,8 +7,13 @@ import { SellerProfileComponent } from 'src/app/components/seller/seller-profile
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { SellerRoutingModule } from './seller-routing.module';
+import { SellerOrdersComponent } from 'src/app/components/seller/seller-orders/seller-orders.component';
 @NgModule({
-  declarations: [SellerProfileComponent, CreateProductForm],
+  declarations: [
+    SellerProfileComponent,
+    CreateProductForm,
+    SellerOrdersComponent,
+  ],
   imports: [CommonModule, SharedModule, SellerRoutingModule, FormsModule],
   //exports: [SellerProfileComponent],
 })

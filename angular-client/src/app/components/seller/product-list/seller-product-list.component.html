@@ -1,5 +1,5 @@
 <div>
-  <button (click)="addproduct($event)" type="button" class="btn btn-secondary">
+  <button (click)="onAddClickButton($event)" class="btn btn-secondary">
     Add Product
   </button>
   <hr />
@@ -23,7 +23,18 @@
         <td>mdo</td>
         <td>Mark</td>
         <td>Otto</td>
-        <td>test</td>
+        <td>
+          <div routerLink="create-product" fragment="create-product">
+            <a href="seller/create-product">Edit</a>
+          </div>
+
+          <div routerLink="create-product" fragment="create-product">
+            <a href="seller/create-product">Image</a>
+          </div>
+          <div routerLink="create-product" fragment="create-product">
+            <a href="seller/create-product">Remove</a>
+          </div>
+        </td>
       </tr>
     </tbody>
   </table>
