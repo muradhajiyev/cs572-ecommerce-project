@@ -14,6 +14,7 @@ export class SellerProfileComponent implements OnInit {
     [
       { id: 'myproducts', text: 'My Products' },
       { id: 'orders', text: 'Orders' },
+      { id: 'create-product', text: 'Create Product' },
     ],
     true
   );
@@ -24,7 +25,5 @@ export class SellerProfileComponent implements OnInit {
     // });
   }
 
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
-  }
+  ngOnInit(): void {}
 }
