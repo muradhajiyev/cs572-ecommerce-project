@@ -9,9 +9,7 @@ import { ProductDetailsComponent } from './components/product-details/product-de
 import { NgxStarsModule } from 'ngx-stars';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
-import { ReactiveFormsModule } from '@angular/forms';
-import { CreateProductForm } from './components/create-product-form/create-product-form.component';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ProductCardComponent } from './components/product/product-card/product-card.component';
 import { ProductListComponent } from './components/product/product-list/product-list.component';
 import { SharedModule } from './modules/shared/shared.module';
@@ -32,9 +30,9 @@ import { RouterModule } from '@angular/router';
     AppRoutingModule,
     NgxStarsModule,
     ReactiveFormsModule,
-    FormsModule,
     SharedModule,
     RouterModule,
+    FormsModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
