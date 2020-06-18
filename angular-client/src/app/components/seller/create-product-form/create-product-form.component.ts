@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CategoryService } from 'src/app/services/category.service';
 import { Category } from 'src/app/models';
 import { ProductForm } from 'src/app/models/product-form';
@@ -15,11 +15,13 @@ import { FormGroup } from '@angular/forms';
 export class CreateProductForm implements OnInit {
   productForm = new ProductForm();
   category: Array<Category>;
-  debug = 'Empty';
+  added = false;
 
   constructor(
     private categoryService: CategoryService,
-    private productService: ProductService
+    private productService: ProductService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -35,7 +37,6 @@ export class CreateProductForm implements OnInit {
   }
 
   onSubmitForm(f) {
-    this.debug = `${this.productForm}`;
     let body = new FormData();
     body.append('title', this.productForm.title);
     body.append('categoryId', this.productForm.categoryId);
@@ -44,13 +45,16 @@ export class CreateProductForm implements OnInit {
     body.append('price', this.productForm.price);
     this.productService.createProduct(body).subscribe(
       (resp) => {
-        this.debug = 'added prduct';
+        this.added = true;
         console.log(resp);
+        f.resetForm();
+        setTimeout(() => {
+          this.router.navigate(['seller', 'products']);
+        }, 500);
       },
       (err) => {
-        this.debug = err;
+        this.added = false;
       }
     );
-    console.log('Form Values ' + f[0]);
   }
 }

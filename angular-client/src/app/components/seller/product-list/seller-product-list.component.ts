@@ -8,4 +8,9 @@ import { RouterModule, Router, ActivatedRoute } from '@angular/router';
 export class SellerProductList implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router) {}
   ngOnInit(): void {}
+
+  onAddClickButton(event) {
+    console.log('btn clicked');
+    this.router.navigate(['add']);
+  }
 }

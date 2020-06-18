@@ -15,7 +15,7 @@ const routes: Routes = [
         path: 'products',
         component: SellerProductList,
       },
-      { path: 'products/add', component: CreateProductForm },
+      { path: 'add', component: CreateProductForm },
       {
         path: 'orders',
         component: SellerOrdersComponent,

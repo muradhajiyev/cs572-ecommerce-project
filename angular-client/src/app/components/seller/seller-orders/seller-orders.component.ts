@@ -6,7 +6,5 @@ import { OnInit, Component } from '@angular/core';
   styleUrls: ['./seller-orders.component.css'],
 })
 export class SellerOrdersComponent implements OnInit {
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
-  }
+  ngOnInit(): void {}
 }
