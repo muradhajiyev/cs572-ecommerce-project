@@ -11,18 +11,14 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class BuyerProfileComponent implements OnInit {
   // currentTab: string = "addresses";
 
-  menuListModel: MenuListModel = new MenuListModel(
-    'Buyer',
-    'tab',
-    [
-      { id: 'addresses', text: 'Addresses' },
-      { id: 'billing-infos', text: 'Billing info' },
-      { id: 'orders', text: 'Orders' },
-      { id: 'shopping-cart', text: 'Shopping cart' },
-    ],
-    true
-  );
-  constructor(private route: ActivatedRoute) {
+  menuListModel: MenuListModel = new MenuListModel("Buyer", "tab", [
+    { id: "addresses", text: "Addresses" },
+    { id: "billing-infos", text: "Billing info" },
+    { id: "orders", text: "Orders" },
+    { id: "shopping-cart", text: "Shopping cart" }
+  ], true);
+  constructor(private route: ActivatedRoute) { 
+    console.log("BuyerProfileComponent");
     // route.queryParams.subscribe(queryParams => {
     //   this.currentTab = queryParams['tab'];
     // });
