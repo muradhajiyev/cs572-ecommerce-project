@@ -10,20 +10,27 @@
     <th scope="row">{{i + 1}}</th>
     <td>{{product.productId.title}}</td>
     <td>
-      <input type="number"
-             class="form-control"
-             placeholder="quantity"
-             [(ngModel)]="product.quantity"
-              (ngModelChange)="getTotalPrice()"
-             (blur)="updateShoppingCart(product.productId._id, product.quantity)">
-
-
+        <input type="number"
+               class="form-control"
+               placeholder="quantity"
+               min="1"
+               required
+               [(ngModel)]="product.quantity"
+               (ngModelChange)="getTotalPrice()"
+               (blur)="updateShoppingCart(product.productId._id, product.quantity)">
+        <div *ngIf="product.quantity?.length == 0">
+          quantity is required.
+        </div>
+        <div *ngIf="product.quantity <= 0">
+          quantity must be at least 1.
+        </div>
     </td>
     <td>${{product.productId.price * product.quantity}}</td>
     <td class="action-buttons">
       <button (click)="removeProductFromShoppingCart(product.productId._id)"
               type="button"
-              class="btn btn-secondary">Remove</button>
+              class="btn btn-secondary">Remove
+      </button>
     </td>
   </tr>
   <tr>
@@ -37,6 +44,7 @@
 
 <div class="checkout-btn-container">
   <button [routerLink]="['..', 'orders', 'checkout']" type="button"
-          [disabled]="shoppingCartProducts.length===0"
-          class="btn btn-secondary">Proceed to checkout</button>
+          [disabled]="shoppingCartProducts.length===0 || !checkQuantityValidation()"
+          class="btn btn-secondary">Proceed to checkout
+  </button>
 </div>

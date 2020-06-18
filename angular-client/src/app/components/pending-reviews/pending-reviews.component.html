@@ -10,7 +10,7 @@
     <th scope="row">{{i + 1}}</th>
     <td>{{pendingReview.review.buyer.name}}</td>
     <td>{{pendingReview.productDetails.title}}</td>
-    <td>{{pendingReview.review.createdDate}}</td>
+    <td>{{pendingReview.review.createdDate | date}} </td>
     <td>{{pendingReview.review.stars}}</td>
     <td>{{pendingReview.review.comment}}</td>
     <td class="action-buttons">
