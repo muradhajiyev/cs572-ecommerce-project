@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Product, ApiResponse, Paged } from '../models';
-import { ProductForm } from '../models/product-form';
+import {ToastrService} from "ngx-toastr";
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  constructor(private _http: HttpClient) {}
+  constructor(private _http: HttpClient,
+              private _toastr: ToastrService) {}
 
   public getProductDetails(productId: string) {
     return this._http.get('/api/products/' + productId);
@@ -39,5 +40,13 @@ export class ProductService {
   }
   public deleteProduct(id){
     return this._http.delete<ApiResponse<Product>>('/api/products/'+id);
+  }
+
+  public showSuccess(message, title){
+    this._toastr.success(message, title)
+  }
+
+  public showError(message, title){
+    this._toastr.error(message, title)
   }
 }

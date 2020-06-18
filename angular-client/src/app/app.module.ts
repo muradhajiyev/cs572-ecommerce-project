@@ -15,6 +15,8 @@ import { ProductListComponent } from './components/product/product-list/product-
 import { SharedModule } from './modules/shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { OrderCheckoutComponent } from './components/buyer/order-checkout/order-checkout.component';
+import { ToastrModule } from 'ngx-toastr';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import { OrderCheckoutComponent } from './components/buyer/order-checkout/order-
     SharedModule,
     RouterModule,
     FormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
