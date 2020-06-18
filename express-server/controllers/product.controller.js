@@ -45,3 +45,11 @@ exports.getImage = function(req, res,next){
     
     readStream.on('error', err => next(err));
 }
+
+exports.getProductsBySellerId = function(req, res, next){
+    productService.getProductsBySellerId(req.user._id)
+        .then((products) => {
+            res.status(200).json(new ApiResponse(200, 'The seller products were found successfully.', pagedDto))
+        })
+        .catch(next);
+}
