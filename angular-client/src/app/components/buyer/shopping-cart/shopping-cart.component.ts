@@ -51,7 +51,7 @@ export class ShoppingCartComponent implements OnInit {
     });
   }
 
-  public updateShoppingCart(productId, quantity){
+  public updateShoppingCart(productId, quantity) {
     const productIdString = productId.toString();
     this._buyerService.updateShoppingCart(productIdString, quantity).subscribe(
       () => {
@@ -61,5 +61,14 @@ export class ShoppingCartComponent implements OnInit {
         console.log("can't update product in shopping cart");
       }
     );
+  }
+
+  public checkQuantityValidation() {
+    for (let i = 0; i < this.shoppingCartProducts.length; i++) {
+      if(this.shoppingCartProducts[i].quantity <= 0){
+        return false;
+      }
+    }
+    return true;
   }
 }

@@ -18,6 +18,14 @@ export class OrderService {
     return this.httpClient.post<ApiResponse<Order[]>>('/api/orders', data);
   }
 
+  public cancelOrder(orderId): Observable<ApiResponse<Order>>{
+    return this.httpClient.put<ApiResponse<Order>>(`/api/orders/${orderId}/cancel`, null);
+  }
+
+  public processOrder(orderId): Observable<ApiResponse<Order>>{
+    return this.httpClient.put<ApiResponse<Order>>(`/api/orders/${orderId}/process`, null);
+  }
+
   
 }
 

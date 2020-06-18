@@ -11,9 +11,8 @@
     "price": 99,
     "imageName": "",
     "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus",
-    "reviews": [
-      {
-        "status": "POSTED",
+    "reviews": [{
+        "status": "PENDING",
         "buyerId": {
           "$oid": "5ee1698cf1d0b8140cb05939"
         },
@@ -26,9 +25,8 @@
           "$date": "2020-06-13T00:00:00Z"
         },
         "_id": "123"
-      },
-      {
-        "status": "POSTED",
+    }, {
+        "status": "PENDING",
         "stars": "2",
         "createdDate": {
           "$date": "2020-06-13T00:00:00Z"
@@ -53,7 +51,7 @@
     "sellerId": "5ee54b12bd266b249872240a",
     "reviews": [
       {
-        "status": "POST",
+        "status": "PENDING",
         "stars": "2",
         "buyer": {
           "buyerId": {

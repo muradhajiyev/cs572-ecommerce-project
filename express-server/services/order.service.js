@@ -154,13 +154,19 @@ exports.setOrderStatusBySeller = async function (sellerId, orderId, orderStatus)
     if (!order || order.sellerId.toString() !== sellerId) {
         throw new Error('Order does not exists');
     }
-    order = setStatus(order, OrderStatus.CANCELED);
+
+    if(orderStatus === OrderStatus.CANCELED && order.status !== OrderStatus.CREATED)
+        throw Error('Only Orders in Created status can be canceled.');
+
+    order = setStatus(order, orderStatus);
     order = await order.save();
     if (!order) {
-        throw new Error('Order is not canceled');
+        throw new Error('Order status could not be processed.');
     }
+
+
     if (orderStatus === OrderStatus.CANCELED || orderStatus === OrderStatus.DELIVERED) {
-        let buyer = await Buyer.findById(buyerId);
+        let buyer = await Buyer.findById(order.buyerId);
         if (orderStatus === OrderStatus.CANCELED) {
             let cashBack = order.products.reduce((a, p) => a + p.cashbackPayment, 0);
             buyer = cashbackService.refundCashback(buyer, order._id, cashBack);

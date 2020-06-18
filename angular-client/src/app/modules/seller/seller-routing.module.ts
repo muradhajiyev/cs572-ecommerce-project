@@ -5,11 +5,15 @@ import { CreateProductForm } from 'src/app/components/seller/create-product-form
 import { SellerProfileComponent } from 'src/app/components/seller/seller-profile/seller-profile.component';
 import { SellerOrdersComponent } from 'src/app/components/seller/seller-orders/seller-orders.component';
 import { ProductsComponent } from 'src/app/components/seller/products/products.component';
+import { AuthGuard } from 'src/app/guards/auth.guard';
+import { Role } from 'src/app/models';
 
 const routes: Routes = [
   {
     path: '',
     component: SellerProfileComponent,
+    canActivate: [AuthGuard], 
+    data: {roles: [Role.Seller]}, 
     children: [
       { path: 'products', component: ProductsComponent },
       { path: 'products/add', component: CreateProductForm },
