@@ -2,7 +2,7 @@
 <div class="list-group">
     <ng-container *ngIf="menu.pathVariable">
         <a *ngFor="let item of menu.items" [ngClass]="{'active': currentItemId === item.id}"
-            [routerLink]="['.', item.id]" class="list-group-item" 
+            [routerLink]="['.', item.id]" class="list-group-item"
             (click)="currentItemId = item.id"
             >{{item.text}}</a>
     </ng-container>
