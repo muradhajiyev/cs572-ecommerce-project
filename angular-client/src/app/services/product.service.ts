@@ -33,4 +33,8 @@ export class ProductService {
   public createProduct(product: ProductForm) {
     return this._http.post('/api/products/', product);
   }
+
+  public getProductsBySellerId(){
+    return this._http.get('/api/products/seller');
+  }
 }

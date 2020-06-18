@@ -16,6 +16,11 @@ exports.getProducts = async function(categoryId, pageNumber = 1, pageSize = 10){
     return new PagedDto(products, pageNumber, Math.ceil(numOfProducts / pageSize), numOfProducts);
 }
 
+exports.getProductsBySellerId =  function(sId){
+     return Product.find({sellerId: sId});
+}
+
+
 exports.getProduct = async function(productId){
     const product = await Product.findById(productId);
     if(!product) throw Error(`The product with id: ${productId} was not found in the system.`);

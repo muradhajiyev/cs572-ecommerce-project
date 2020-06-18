@@ -47,3 +47,11 @@ exports.getImage = function(req, res,next){
     
     readStream.on('error', err => next(err));
 }
+
+exports.getProductsBySellerId = function(req, res, next){
+    productService.getProductsBySellerId(req.params.id)
+        .then((products) => {
+            res.status(200).json(new ApiResponse(200, 'seller products success', products))
+        })
+        .catch(next);
+}
