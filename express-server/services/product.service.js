@@ -1,4 +1,4 @@
-const { Product } = require('../models');
+const { Product, Order } = require('../models');
 const {ObjectId} = require('mongodb');
 const PagedDto = require('./dto/Paged.dto');
 
@@ -57,6 +57,10 @@ exports.editProduct = async function(productId, title, categoryId, price, descri
     return product;
 }
 
-exports.deleteProduct = function(id){
-    //Todo: it is needed to be implemented after product id is added to orders.
+exports.deleteProduct = async function(id){
+    const orders = await Order.find({"products.product.productId": new ObjectId(id)});
+    if(orders != undefined && orders.length > 0)
+        throw Error("This product has already been purchased.");
+
+    return await Product.findByIdAndDelete(id);
 }

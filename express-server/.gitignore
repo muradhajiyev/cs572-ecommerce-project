@@ -58,4 +58,4 @@ typings/
 
 _uploads/*
 !_uploads/.gitkeep
-!_uploads/notfound.png
+!_uploads/not-found.png
