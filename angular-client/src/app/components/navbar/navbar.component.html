@@ -13,8 +13,14 @@
               <span class="sr-only">(current)</span>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="isAuthenticated">
+            <a class="nav-link">{{currentUser.name}}</a>
+          </li>
+          <li class="nav-item" *ngIf="isAuthenticated">
             <a class="nav-link" (click)="logout()" href="#">Logout</a>
+          </li>
+          <li class="nav-item" *ngIf="!isAuthenticated">
+            <a class="nav-link" [routerLink]="[ '/auth', 'login' ]">Login</a>
           </li>
         </ul>
       </div>
