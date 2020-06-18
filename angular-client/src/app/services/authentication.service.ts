@@ -43,6 +43,11 @@ export class AuthenticationService {
         }));
   }
 
+  signup(form: {role: string, name: string, email: string, password: string}): Observable<ApiResponse<User>>{
+    console.log(form);
+    return this.http.post<ApiResponse<User>>("/api/auth/signup/"+form.role, {email: form.email, name: form.name, password: form.password});
+  }
+
   // basic
   logout(){
     return new Promise((resolve, reject) => {
