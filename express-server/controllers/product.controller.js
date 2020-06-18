@@ -49,9 +49,9 @@ exports.getImage = function(req, res,next){
 }
 
 exports.getProductsBySellerId = function(req, res, next){
-    productService.getProductsBySellerId(req.user._id)
+    productService.getProductsBySellerId(req.params.id)
         .then((products) => {
-            res.status(200).json(new ApiResponse(200, 'The seller products were found successfully.', pagedDto))
+            res.status(200).json(new ApiResponse(200, 'seller products success', products))
         })
         .catch(next);
 }
