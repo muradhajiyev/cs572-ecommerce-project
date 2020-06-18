@@ -30,6 +30,11 @@ export class AuthGuard implements CanActivate, CanLoad {
   }
 
   canLoad(route: Route): boolean | Observable<boolean> | Promise<boolean> {
-    throw new Error("Method not implemented.");
+    if(!this.authenticationService.isAuthenticated){
+      this.router.navigate(['/']);
+      return false;
+    } 
+    return true;
   }
+
 }

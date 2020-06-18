@@ -9,26 +9,19 @@ router.delete("/sellers/:id/unfollow/", authorize(Role.BUYER), userController.un
 router.get("/available-cashback", authorize(Role.BUYER), userController.getAvailableCashback);
 
 /* POST approve seller */
-router.post("/sellers/:id/approve",
-  authorize(Role.ADMIN),
-  userController.approveSeller
-);
+router.post("/sellers/:id/approve", authorize(Role.ADMIN), userController.approveSeller);
+
 /* POST reject seller */
-router.post("/sellers/:id/reject",
-  authorize(Role.ADMIN),
-  userController.rejectSeller
-);
+router.post("/sellers/:id/reject", authorize(Role.ADMIN), userController.rejectSeller);
 
 /** POST post review */
-router.post("/product/:productid/review/:id/post",
-  authorize(Role.ADMIN),
-  userController.postReview
-);
+router.post("/product/:productid/review/:id/post", authorize(Role.ADMIN), userController.postReview);
 
 /** POST reject review */
-router.post("/product/:productid/review/:id/reject",
-  authorize(Role.ADMIN),
-  userController.rejectReview
-);
+router.post("/product/:productid/review/:id/reject", authorize(Role.ADMIN), userController.rejectReview);
+
+
+router.get("/pending", authorize(Role.ADMIN), userController.getPendingUsers);
+router.get("/reviews/pending", authorize(Role.ADMIN), userController.getPendingReviews )
 
 module.exports = router;
