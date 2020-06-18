@@ -1,0 +1,47 @@
+<div class="h4">Add address</div>
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="city">City</label>
+        <input type="text" class="form-control" formControlName="city" placeholder="City">
+        <p *ngIf="profileForm.controls.city.touched && profileForm.get('city').hasError('required')"
+            class="text-danger">
+            Incorrect City</p>
+    </div>
+    <div class="form-group">
+        <label for="state">State</label>
+        <input type="text" class="form-control" formControlName="state" placeholder="State">
+        <p *ngIf="profileForm.controls.state.touched && profileForm.get('state').hasError('required')"
+            class="text-danger">
+            Incorrect State</p>
+    </div>
+    <div class="form-group">
+        <label for="state">Street</label>
+        <input type="text" class="form-control" formControlName="street" placeholder="Street">
+        <p *ngIf="profileForm.controls.street.touched && profileForm.get('street').hasError('required')"
+            class="text-danger">
+            Incorrect Street</p>
+    </div>
+    <div class="form-group">
+        <label for="state">ZIP Code</label>
+        <input type="text" class="form-control" formControlName="zipCode" placeholder="ZIP Code">
+        <p *ngIf="profileForm.controls.zipCode.touched && profileForm.get('zipCode').hasError('required')"
+            class="text-danger">
+            Incorrect ZIP Code</p>
+    </div>
+    <div class="form-group">
+        <label for="state">Country</label>
+        <input type="text" class="form-control" formControlName="country" placeholder="Country">
+        <p *ngIf="profileForm.controls.country.touched && profileForm.get('country').hasError('required')"
+            class="text-danger">
+            Incorrect Country</p>
+    </div>
+    <div class="form-group">
+        <label for="state">Phone Number</label>
+        <input type="text" class="form-control" formControlName="phoneNumber" placeholder="Phone Number">
+        <p *ngIf="profileForm.controls.phoneNumber.touched && profileForm.get('phoneNumber').hasError('required')" class="text-danger">
+            Incorrect Phone Number</p>
+    </div>
+    <div id="form-group">
+        <input class="btn btn-primary btn-sm" [disabled]="!profileForm.valid" value="Save" type="submit" />
+    </div>
+</form>

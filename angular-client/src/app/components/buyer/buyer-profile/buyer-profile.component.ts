@@ -17,6 +17,7 @@ export class BuyerProfileComponent implements OnInit {
     { id: "shopping-cart", text: "Shopping cart" }
   ], true);
   constructor(private route: ActivatedRoute) { 
+    console.log("BuyerProfileComponent");
     // route.queryParams.subscribe(queryParams => {
     //   this.currentTab = queryParams['tab'];
     // });
