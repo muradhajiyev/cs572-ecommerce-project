@@ -17,7 +17,7 @@ export class AdminComponent implements OnInit {
   public menuListModel: MenuListModel = new MenuListModel("Admin", "pageType", [
     { id: "pending-sellers", text: "Pending sellers" },
     { id: "pending-reviews", text: "Pending reviews" }
-  ]);
+  ], true);
 
   constructor(private _route: ActivatedRoute) { }
 

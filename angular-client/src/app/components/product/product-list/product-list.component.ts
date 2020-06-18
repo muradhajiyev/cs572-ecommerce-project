@@ -56,7 +56,6 @@ export class ProductListComponent implements OnInit {
   }
   refreshProducts() {
     this.productService.getProducts(this._currentCategory, this.pageNumber, this.pageSize).subscribe(products => {
-      console.log(products);
       this.pages = [];
       this.pageNumber = +products.result.currentPage;
       this.maxPageNumber = +products.result.pages;

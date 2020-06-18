@@ -9,7 +9,7 @@ import { CategoryService } from 'src/app/services/category.service';
 })
 export class HomeComponent implements OnInit {
 
-  menuListModel: MenuListModel = new MenuListModel("Categories1", "cat", []);
+  menuListModel: MenuListModel = new MenuListModel("Categories", "cat", []);
   
   constructor(private categoryService: CategoryService) { }
 

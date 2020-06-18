@@ -4,41 +4,30 @@ services:
     angular:
         build: 
             context: ./angular-client
-            target: dev
-        container_name: ecommerce-client
+            target: prod
+        container_name: ecommerce-client-prod
         ports:
-            - "4200:4200"
-            # - "49153:49153"
-        volumes:
-            - ./angular-client/:/var/www/app
-            - /var/www/app/node_modules/
+            - "80:80"
 
     express:
         build: 
             context: ./express-server
-            target: dev
-        container_name: ecommerce-server
+            target: prod
+        container_name: ecommerce-server-prod
         restart: always
-        ports:
-            - "3000:3000"
-        volumes:
-            - ./express-server/:/var/www/app
-            - /var/www/app/node_modules/
         depends_on:
             - mongodb
     
     mongodb:
         image: mongo
-        container_name: ecommerce-db
+        container_name: ecommerce-db-prod
         restart: always
-        ports:
-            - "27017:27017"
         volumes:
             - mydata:/data/db
 
     seeder:
         image: pkosiec/mongo-seeding:3.4.1
-        container_name: ecommerce-seeder
+        container_name: ecommerce-seeder-prod
         volumes:
             - ./express-server/seeds/:/data-import
         working_dir: /data-import
