@@ -7,10 +7,10 @@ import { ProductForm } from '../models/product-form';
   providedIn: 'root',
 })
 export class ProductService {
-  constructor(private _http: HttpClient) {}
+  constructor(private _http: HttpClient) { }
 
   public getProductDetails(productId: string) {
-    return this._http.get('/api/products/' + productId);
+    return this._http.get<ApiResponse<Product>>('/api/products/' + productId);
   }
 
   public addToCart(prodId: string) {
@@ -36,5 +36,9 @@ export class ProductService {
 
   public getProductsBySellerId(id) {
     return this._http.get<ApiResponse<Product[]>>('/api/products/seller/' + id);
+  }
+
+  public editProduct(id) {
+    return this._http.get<ApiResponse<Product>>('/api/products/' + id);
   }
 }

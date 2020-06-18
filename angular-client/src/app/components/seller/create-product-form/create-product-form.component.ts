@@ -5,7 +5,7 @@ import { CategoryService } from 'src/app/services/category.service';
 import { Category } from 'src/app/models';
 import { ProductForm } from 'src/app/models/product-form';
 import { ProductService } from 'src/app/services/product.service';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'create-product-form',
@@ -13,18 +13,49 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./create-product-form.component.css'],
 })
 export class CreateProductForm implements OnInit {
+  productId: string;
   productForm = new ProductForm();
   category: Array<Category>;
   added = false;
+  dataForm = new FormGroup({
+    filename: new FormControl('', Validators.required),
+    categoryId: new FormControl('', Validators.required),
+    title: new FormControl('', Validators.required),
+    price: new FormControl('', Validators.required),
+    description: new FormControl('', Validators.required),
+  });
 
   constructor(
     private categoryService: CategoryService,
     private productService: ProductService,
     private route: ActivatedRoute,
-    private router: Router
-  ) {}
+    private router: Router,
+    private fb: FormBuilder
+  ) { }
 
   ngOnInit(): void {
+
+    let idProduct = this.route.snapshot.params['id'];
+
+    //edit product
+    if (idProduct) {
+      console.log(idProduct);
+      this.productService.getProductDetails(idProduct).subscribe(product => {
+        let pResult = product.result;
+        console.log(`Result : ${product.result}`);
+
+        this.dataForm = this.fb.group({
+          //   filename: ["result", Validators.required],
+          categoryId: ["result", Validators.required],
+          title: [pResult.title, Validators.required],
+          price: [pResult.price, Validators.required],
+          description: [pResult.description, Validators.required]
+        });
+
+      })
+
+    }
+
     this.categoryService.getCategories().subscribe((categories) => {
       this.category = categories.result;
     });

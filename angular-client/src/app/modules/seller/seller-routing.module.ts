@@ -15,6 +15,11 @@ const routes: Routes = [
         path: 'products',
         component: SellerProductList,
       },
+      {
+
+        path: 'products/edit/:id', component: CreateProductForm
+      },
+
       { path: 'products/add', component: CreateProductForm },
       {
         path: 'orders',
@@ -30,4 +35,4 @@ const routes: Routes = [
 
   exports: [RouterModule],
 })
-export class SellerRoutingModule {}
+export class SellerRoutingModule { }
