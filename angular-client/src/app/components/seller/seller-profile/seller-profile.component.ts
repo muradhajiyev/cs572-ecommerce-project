@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuListModel } from 'src/app/models';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MenuListModel } from 'src/app/models/menu-list';
 
 @Component({
   selector: 'seller-app-profile',

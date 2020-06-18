@@ -1,64 +1,45 @@
-[{
+[
+  {
     "_id": {
-        "$oid": "5ea1698cf1d0b8140cb05938"
+      "$oid": "5ea1698cf1d0b8140cb05938"
     },
     "title": "product_1",
     "sellerId": "5ee1698cf1d0b8140cb05938",
     "categoryId": {
-        "$oid": "5ee1697cf1d0b8140cb05941"
+      "$oid": "5ee1697cf1d0b8140cb05941"
     },
     "price": 99,
     "imageName": "",
     "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus",
-    "reviews": [{
+    "reviews": [
+      {
         "status": "POSTED",
         "buyerId": {
-            "$oid": "5ee1698cf1d0b8140cb05939"
+          "$oid": "5ee1698cf1d0b8140cb05939"
         },
         "createdDate": {
-            "$date": "2020-06-13T00:00:00Z"
+          "$date": "2020-06-13T00:00:00Z"
         },
         "stars": 4,
         "comment": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus",
         "decisionDate": {
-            "$date": "2020-06-13T00:00:00Z"
+          "$date": "2020-06-13T00:00:00Z"
         },
         "_id": "123"
-    }, {
+      },
+      {
         "status": "POSTED",
         "stars": "2",
         "createdDate": {
-            "$date": "2020-06-13T00:00:00Z"
+          "$date": "2020-06-13T00:00:00Z"
         },
         "decisionDate": {
-            "$date": "2020-06-13T00:00:00Z"
+          "$date": "2020-06-13T00:00:00Z"
         },
         "comment": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus"
-    }]
-},{
-    "_id": {
-      "$oid": "5ee57dc45a47f27910d69459"
-    },
-    "categoryId": {
-      "$oid": "5ee1697cf1d0b8140cb05940"
-    },
-    "title": "product_2",
-    "price": 100,
-    "description":"Very good item",
-    "sellerId": "5ee54b12bd266b249872240a",
-    "reviews": [
-      {
-        "status": "POST",
-        "stars": "2",
-        "buyer": {
-          "buyerId": {
-            "$oid": "5ee1698cf1d0b8140cb05939"
-          },
-          "name": "Joe",
-          "email": "joe@gmail.com"
-        }
-      }]
-},
+      }
+    ]
+  },
   {
     "_id": {
       "$oid": "5ee57dc45a47f27910d69459"
@@ -68,7 +49,7 @@
     },
     "title": "product_2",
     "price": 100,
-    "description":"Very good item",
+    "description": "Very good item",
     "sellerId": "5ee54b12bd266b249872240a",
     "reviews": [
       {
@@ -81,5 +62,32 @@
           "name": "Joe",
           "email": "joe@gmail.com"
         }
-      }]
-  }]
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "5ee57dc45a47f27910d69259"
+    },
+    "categoryId": {
+      "$oid": "5ee1697cf1d0b8140cb05940"
+    },
+    "title": "product_2",
+    "price": 100,
+    "description": "Very good item",
+    "sellerId": "5ee54b12bd266b249872240a",
+    "reviews": [
+      {
+        "status": "POST",
+        "stars": "2",
+        "buyer": {
+          "buyerId": {
+            "$oid": "5ee1698cf1d0b8140cb05939"
+          },
+          "name": "Joe",
+          "email": "joe@gmail.com"
+        }
+      }
+    ]
+  }
+]

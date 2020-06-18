@@ -1,5 +1,5 @@
 <div>
-  <button (click)="onAddClickButton($event)" class="btn btn-secondary">
+  <button [routerLink]="['seller', 'products', 'add']" class="btn btn-secondary">
     Add Product
   </button>
   <hr />
@@ -10,26 +10,20 @@
         <th scope="col">Category</th>
         <th scope="col">Title</th>
         <th scope="col">Price</th>
-        <th scope="col">Status</th>
         <th scope="col">Description</th>
         <th scope="col">Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>mdo</td>
-        <td>Mark</td>
-        <td>Otto</td>
+      <tr *ngFor="let p of products; let i = index">
+        <th scope="row">{{i+1}}</th>
+        <td>{{ p.categoryId.name }}</td>
+        <td>{{ p.title }}</td>
+        <td>{{ p.price }}</td>
+        <td>{{ p.description }}/td></td>
         <td>
           <div routerLink="create-product" fragment="create-product">
             <a href="seller/create-product">Edit</a>
-          </div>
-
-          <div routerLink="create-product" fragment="create-product">
-            <a href="seller/create-product">Image</a>
           </div>
           <div routerLink="create-product" fragment="create-product">
             <a href="seller/create-product">Remove</a>

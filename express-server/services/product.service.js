@@ -17,7 +17,7 @@ exports.getProducts = async function(categoryId, pageNumber = 1, pageSize = 10){
 }
 
 exports.getProductsBySellerId =  function(sId){
-     return Product.find({sellerId: sId});
+     return Product.find({sellerId: sId}).populate("categoryId");
 }
 
 

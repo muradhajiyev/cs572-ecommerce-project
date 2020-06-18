@@ -34,7 +34,7 @@ export class ProductService {
     return this._http.post('/api/products/', body);
   }
 
-  public getProductsBySellerId(){
-    return this._http.get('/api/products/seller');
+  public getProductsBySellerId(id) {
+    return this._http.get<ApiResponse<Product[]>>('/api/products/seller/' + id);
   }
 }
