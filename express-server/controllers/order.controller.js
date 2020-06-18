@@ -50,11 +50,14 @@ exports.getReceipt = async function (req, res, next) {
     const buyer = await userService.getUserById(order.buyerId);
 
     const receipt = orderService.generateReceipt(order, seller, buyer);
+
     pdf.create(receipt, {}).toStream(function (err, stream) {
         if (err){
-            console.log(err);
+            console.log('err',err);
             next(err);
         } 
+
+        
         stream.pipe(res);
     });
 }

@@ -7,4 +7,5 @@ export * from './paged';
 export * from './review';
 export * from './address';
 export * from './menu-list';
+export * from './order';
 export * from './billing-info';
