@@ -18,7 +18,7 @@ export class AdminComponent implements OnInit {
   public menuListModel: MenuListModel = new MenuListModel("Admin", "pageType", [
     { id: "pending-sellers", text: "Pending sellers" },
     { id: "pending-reviews", text: "Pending reviews" }
-  ]);
+  ], true);
   public pendingSellersHeaderTitles = ['Seller name','Seller email','Actions'];
   public pendingReviewsHeaderTitles = ['Buyer','Order Product','Created date', 'Stars', 'Comment', 'Actions'];
   public PendingSellersActionTitles = ['Approve', 'Reject'];

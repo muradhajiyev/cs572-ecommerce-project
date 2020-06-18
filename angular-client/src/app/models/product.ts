@@ -6,6 +6,7 @@ export class Product {
   categoryId: string;
   price: string;
   imageName: string;
+  imageUrl: string;
   description: string;
   sellerId: string;
   reviews: Review[];
