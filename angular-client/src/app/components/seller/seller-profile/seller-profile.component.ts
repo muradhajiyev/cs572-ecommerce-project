@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuListModel } from 'src/app/models/menu-list';
+import { MenuListModel } from 'src/app/models';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   templateUrl: './seller-profile.component.html',
   styleUrls: ['./seller-profile.component.css'],
 })
-export class SellerProfileComponent implements OnInit {
+export class SellerProfileComponent {
   menuListModel: MenuListModel = new MenuListModel(
     'Seller',
     'menu',
@@ -25,5 +25,8 @@ export class SellerProfileComponent implements OnInit {
     // });
   }
 
+<<<<<<< HEAD
   ngOnInit(): void {}
+=======
+>>>>>>> 83c04e7f5bf33da50465fff228e863ed15deb092
 }

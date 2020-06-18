@@ -4,12 +4,12 @@ import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: '[app-menu-list]',
+  selector: 'app-menu-list',
   templateUrl: './menu-list.component.html',
   styleUrls: ['./menu-list.component.css']
 })
 export class MenuListComponent implements OnInit {
-  @Input() model: MenuListModel;
+  @Input() menu: MenuListModel;
   @Output() itemClick = new EventEmitter();
 
   currentItemId: string = "all";
@@ -17,7 +17,7 @@ export class MenuListComponent implements OnInit {
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    if (this.model.pathVariable) {
+    if (this.menu.pathVariable) {
       // this.currentItemId = this.route.snapshot.params[this.model.paramName];
       // this.route.params.subscribe(params => {
       //   console.log(params);
@@ -29,7 +29,7 @@ export class MenuListComponent implements OnInit {
       // });
     } else {
       this.route.queryParams.subscribe(queryParams => {
-        const itm = queryParams[this.model.paramName];
+        const itm = queryParams[this.menu.paramName];
         if (itm) {
           this.currentItemId = itm;
         }

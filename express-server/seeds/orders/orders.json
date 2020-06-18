@@ -90,7 +90,7 @@
         }
     },
     {
-        "_id" : {"$oid":"5ee6202dc8e9310dfb95c1f6"},
+        "_id" : {"$oid":"5ee6202dc8e9310dfb95c1f3"},
         "billingInfo" : {
                 "billingAddress" : {
                         "zipCode" : "52557",
@@ -123,6 +123,96 @@
                         "cashbackPayment" : 0,
                         "creditCardPayment" : 1100,
                         "totalPayment" : 1100
+                }
+        ],
+        "shippingAddress" : {
+                "zipCode" : "52557",
+                "street" : "1000 N ST",
+                "city" : "Fairfield",
+                "state" : "IA",
+                "phoneNumber" : "641-777-7776",
+                "country" : "USA"
+        }
+    },
+    {
+        "_id" : {"$oid":"5ee6202dc8e9310dfb95c1f6"},
+        "billingInfo" : {
+                "billingAddress" : {
+                        "zipCode" : "52557",
+                        "street" : "1000 N ST",
+                        "city" : "Fairfield",
+                        "state" : "IA",
+                        "phoneNumber" : "641-777-7776",
+                        "country" : "USA"
+                },
+                "cardNumber" : "4444555566667776",
+                "cardName" : "JOE SLEIMAN",
+                "expirationDate" : "2024-06-01T00:00:00.000+00:00"
+        },
+        "buyerId" : {"$oid":"5ee1698cf1d0b8140cb05937"},
+        "sellerId" : {"$oid":"5ee1698cf1d0b8140cb05936"},
+        "orderNumber" : 4,
+        "orderDate" : "2020-06-14T18:25:19.533+00:00",
+        "status" : "DELIVERED",
+        "canceledDate" : null,
+        "shippedDate" : "2020-06-14T19:25:19.533+00:00",
+        "deliveredDate" : "2020-06-15T19:25:19.533+00:00",
+        "products" : [
+                {
+                        "product" : {
+                                "productId": {"$oid":"5ee1698df1d0b8140cb05936"},
+                                "title" : "iPhone 11 pro",
+                                "price" : 1100
+                        },
+                        "quantity" : 1,
+                        "cashbackPayment" : 0,
+                        "creditCardPayment" : 1100,
+                        "totalPayment" : 1100
+                }
+        ],
+        "shippingAddress" : {
+                "zipCode" : "52557",
+                "street" : "1000 N ST",
+                "city" : "Fairfield",
+                "state" : "IA",
+                "phoneNumber" : "641-777-7776",
+                "country" : "USA"
+        }
+    },
+    {
+        "_id" : {"$oid":"5ee6202dc8e9310dfb95c1f2"},
+        "billingInfo" : {
+                "billingAddress" : {
+                        "zipCode" : "52557",
+                        "street" : "1000 N ST",
+                        "city" : "Fairfield",
+                        "state" : "IA",
+                        "phoneNumber" : "641-777-7776",
+                        "country" : "USA"
+                },
+                "cardNumber" : "4444555566667776",
+                "cardName" : "JOE SLEIMAN",
+                "expirationDate" : "2024-06-01T00:00:00.000+00:00"
+        },
+        "buyerId" : {"$oid":"5ee1698cf1d0b8140cb05937"},
+        "sellerId" : {"$oid":"5ee1698cf1d0b8140cb05936"},
+        "orderNumber" : 5,
+        "orderDate" : "2020-06-14T18:25:19.533+00:00",
+        "status" : "SHIPPED",
+        "canceledDate" : null,
+        "shippedDate" : "2020-06-14T19:25:19.533+00:00",
+        "deliveredDate" : null,
+        "products" : [
+                {
+                        "product" : {
+                                "productId": {"$oid":"5ee1698df1d0b8140cb05936"},
+                                "title" : "iPhone 11 pro",
+                                "price" : 1100
+                        },
+                        "quantity" : 3,
+                        "cashbackPayment" : 0,
+                        "creditCardPayment" : 3300,
+                        "totalPayment" : 3300
                 }
         ],
         "shippingAddress" : {

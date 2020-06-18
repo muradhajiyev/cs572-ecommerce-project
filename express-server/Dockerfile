@@ -1,5 +1,5 @@
 # prod stage
-FROM node:alpine3.12 as prod
+FROM node:wheezy as prod
 
 WORKDIR /var/www/app
 

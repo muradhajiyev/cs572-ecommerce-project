@@ -6,7 +6,7 @@ export class MenuListModel{
     items: Items;
     pathVariable: boolean = false;
     constructor(title: string, paramName: string, items: Items, pathVariable: boolean = false){
-        this.title= title;
+        this.title = title;
         this.paramName = paramName;
         this.items = items;
         this.pathVariable = pathVariable;

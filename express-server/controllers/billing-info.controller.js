@@ -13,18 +13,19 @@ exports.getAllBillingInfo = (req, res, next) => {
   exports.addBillingInfo = (req, res, next) => {
     Buyer.findById(req.user._id)
       .then((buyer) => {
+        let address = buyer.addresses.find(a=>a._id.toString() === req.body.billingAddressId);
         buyer.billingInfo.push({
           cardNumber: req.body.cardNumber,
           cardName: req.body.cardName,
           expirationDate: req.body.expirationDate,
           securityCode: req.body.securityCode,
           billingAddress: {
-            zipCode: req.body.zipCode,
-            street: req.body.street,
-            city: req.body.city,
-            state: req.body.state,
-            phoneNumber: req.body.phoneNumber,
-            country: req.body.country,
+            zipCode: address.zipCode,
+            street: address.street,
+            city: address.city,
+            state: address.state,
+            phoneNumber: address.phoneNumber,
+            country: address.country,
           },
         });
         return buyer.save();
@@ -36,9 +37,7 @@ exports.getAllBillingInfo = (req, res, next) => {
           })
         );
       })
-      .catch((err) => {
-        res.status(500).send(new ApiResponse(500, "error", err));
-      });
+      .catch(next);
   };
   
   exports.deleteBillingInfo = (req, res, next) => {
@@ -82,23 +81,23 @@ exports.getAllBillingInfo = (req, res, next) => {
   exports.editBillingInfo = (req, res, next) => {
     Buyer.findByIdAndUpdate(req.user._id)
       .then((buyer) => {
-        let billingInfoDetail = buyer.billingInfo.filter((billingInfo) => {
-          return billingInfo._id == req.params.id;
-        })[0];
+        let billingInfoDetail = buyer.billingInfo.find((billingInfo) => {
+          return billingInfo._id.toString() === req.params.id;
+        });
         billingInfoDetail.cardNumber = req.body.cardNumber;
         billingInfoDetail.cardName = req.body.cardName;
         billingInfoDetail.expirationDate = req.body.expirationDate;
         billingInfoDetail.securityCode = req.body.securityCode;
         billingInfoDetail.billingAddress = {
-          zipCode: req.body.zipCode,
-          street: req.body.street,
-          city: req.body.city,
-          state: req.body.state,
-          phoneNumber: req.body.phoneNumber,
-          country: req.body.country,
+          zipCode: req.body.billingAddress.zipCode,
+          street: req.body.billingAddress.street,
+          city: req.body.billingAddress.city,
+          state: req.body.billingAddress.state,
+          phoneNumber: req.body.billingAddress.phoneNumber,
+          country: req.body.billingAddress.country,
         };
         buyer.billingInfo.forEach((billingInfo) => {
-          if (billingInfo._id == req.params.id) {
+          if (billingInfo._id.toString() === req.params.id) {
             billingInfo = billingInfoDetail;
           }
         });

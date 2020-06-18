@@ -8,7 +8,7 @@ import { CategoryService } from 'src/app/services/category.service';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  menuListModel: MenuListModel = new MenuListModel('Categories1', 'cat', []);
+  menuListModel: MenuListModel = new MenuListModel('Categories', 'cat', []);
 
   constructor(private categoryService: CategoryService) {}
 
@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
       categories.result.forEach((cat) => {
         items.push({ id: cat._id.toString(), text: cat.name });
       });
-      this.menuListModel = new MenuListModel('Categories2', 'cat', items);
+      this.menuListModel = new MenuListModel('Categories', 'cat', items);
     });
   }
 }
