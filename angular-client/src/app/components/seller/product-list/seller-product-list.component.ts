@@ -1,17 +1,16 @@
 import { OnInit, Component } from '@angular/core';
-import { RouterModule, Router } from '@angular/router';
+import { RouterModule, Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'seller-product-list',
   templateUrl: './seller-product-list.component.html',
   styleUrls: ['./seller-product.component.css'],
 })
 export class SellerProductList implements OnInit {
-  constructor(private router: Router) {}
+  constructor(private route: ActivatedRoute, private router: Router) {}
   ngOnInit(): void {}
 
-  public addproduct(event) {
-    console.log('HERE');
-
-    this.router.navigateByUrl('/create-product');
+  onAddClickButton(event) {
+    console.log('btn clicked');
+    this.router.navigate(['add']);
   }
 }

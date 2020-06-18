@@ -58,4 +58,28 @@
           "email": "joe@gmail.com"
         }
       }]
-}]
+},
+  {
+    "_id": {
+      "$oid": "5ee57dc45a47f27910d69459"
+    },
+    "categoryId": {
+      "$oid": "5ee1697cf1d0b8140cb05940"
+    },
+    "title": "product_2",
+    "price": 100,
+    "description":"Very good item",
+    "sellerId": "5ee54b12bd266b249872240a",
+    "reviews": [
+      {
+        "status": "POST",
+        "stars": "2",
+        "buyer": {
+          "buyerId": {
+            "$oid": "5ee1698cf1d0b8140cb05939"
+          },
+          "name": "Joe",
+          "email": "joe@gmail.com"
+        }
+      }]
+  }]
