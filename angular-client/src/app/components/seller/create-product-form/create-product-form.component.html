@@ -1,0 +1,72 @@
+<div>
+  <h3>Add product</h3>
+  <p>{{ productForm | json }}</p>
+  <form
+    ngNativeValidate
+    #formProduct="ngForm"
+    (ngSubmit)="onSubmitForm(formProduct.value)"
+  >
+    <div class="form-group">
+      <label for="select-photo">Product photo</label>
+      <input
+        type="file"
+        class="form-control-file"
+        id="select-photo"
+        required
+        [(ngModel)]="productForm.filename"
+        name="filename"
+      />
+    </div>
+    <div class="form-group">
+      <label for="exampleFormControlSelect1">Category</label>
+      <select
+        class="form-control"
+        id="categorySelect"
+        name="categoryId"
+        [(ngModel)]="productForm.categoryId"
+      >
+        <option *ngFor="let opt of category">{{ opt.name }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="title">Title:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="title"
+        placeholder="Title"
+        required
+        [(ngModel)]="productForm.title"
+        name="title"
+      />
+    </div>
+    <div class="form-group">
+      <label for="price">Price:</label>
+      <input
+        type="number"
+        class="form-control"
+        id="price"
+        placeholder="0.0"
+        required
+        [(ngModel)]="productForm.price"
+        name="price"
+      />
+    </div>
+    <div class="form-group">
+      <label for="desc">Description</label>
+      <textarea
+        class="form-control"
+        id="desc"
+        rows="3"
+        placeholder="Description"
+        required
+        [(ngModel)]="productForm.description"
+        name="description"
+      ></textarea>
+    </div>
+    <button type="reset" class="btn btn-primary">Reset</button>
+    <button style="margin-left: 10px;" type="submit" class="btn btn-primary">
+      Add Product
+    </button>
+  </form>
+</div>
