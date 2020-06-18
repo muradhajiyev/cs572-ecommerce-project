@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuListModel } from 'src/app/models';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MenuListModel } from 'src/app/models/menu-list';
 
 @Component({
   selector: 'seller-app-profile',
@@ -8,19 +8,10 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./seller-profile.component.css'],
 })
 export class SellerProfileComponent {
-  menuListModel: MenuListModel = new MenuListModel(
-    'Seller',
-    'menu',
-    [
+  menuListModel: MenuListModel = new MenuListModel('Seller', 'menu',[
       { id: 'products', text: 'My Products' },
-      { id: 'orders', text: 'Orders' },
-    ],
-    true
-  );
+      { id: 'orders', text: 'Orders' }
+    ], true);
 
-  constructor(private route: ActivatedRoute) {
-    // route.queryParams.subscribe(queryParams => {
-    //   this.currentTab = queryParams['tab'];
-    // });
-  }
+  constructor(private route: ActivatedRoute) {  }
 }

@@ -1,0 +1,37 @@
+<div>
+
+    <button [routerLink]="['.', 'add']" class="btn btn-secondary">
+        Add Product
+    </button>
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Category</th>
+                <th scope="col">Title</th>
+                <th scope="col">Price</th>
+                <th scope="col">Description</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let p of products; let i = index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{ p.categoryId.name }}</td>
+                <td>{{ p.title }}</td>
+                <td>{{ p.price }}</td>
+                <td>{{ p.description}}</td>
+                <td>
+                    <div>
+                        <a href="#" class="btn btn-secondary btn-sm" [routerLink]="['.', 'edit', p._id]">Edit</a>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-secondary btn-sm deleteAddress"
+                            (click)="removeProduct(p._id)">Remove</button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
