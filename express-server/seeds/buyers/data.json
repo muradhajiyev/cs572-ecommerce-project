@@ -117,5 +117,47 @@
     "billingInfo": [],
     "follows": [],
     "cashBack": []
+  },
+  {
+    "_id": {
+      "$oid": "5ee1698cf2c0b8140cb05123"
+    },
+    "shoppingCart": [],
+    "addresses": [
+      {
+        "_id": {
+          "$oid": "5ee40ecbb217701234c1b76b"
+        },
+        "zipCode": "52557",
+        "street": "1000N 4th stree",
+        "city": "Seattle",
+        "state": "Wachington",
+        "phoneNumber": "4253937355",
+        "country": "United states"
+      }
+    ],
+    "billingInfo": [
+      {
+        "billingAddress": {
+          "zipCode": "52557",
+          "street": "1000N 4th street",
+          "city": "Fairfield",
+          "state": "Iowa",
+          "phoneNumber": "222222222",
+          "country": "United states"
+        },
+        "_id": {
+          "$oid": "5ee12314bd266b2498722409"
+        },
+        "cardNumber": "111111111",
+        "cardName": "buyer123",
+        "expirationDate": {
+          "$date": "2025-05-06T00:00:00Z"
+        },
+        "securityCode": "111"
+      }
+    ],
+    "follows": [],
+    "cashBack": []
   }
 ]

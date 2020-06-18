@@ -19,6 +19,9 @@ export class LoginComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
+    if (this.authService.isAuthenticated)
+      this.router.navigate(["/"])
+
     this.loginForm = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required]
@@ -30,9 +33,7 @@ export class LoginComponent implements OnInit {
     this.loading = true;
  
     this.authService.login(this.loginForm.controls.email.value, this.loginForm.controls.password.value).subscribe(
-      res => {
-        this.router.navigate(["/"]);
-      },
+      res => {this.router.navigate(["/"]);},
       error => {
         //todo: handle error friendly.
         console.log(error);

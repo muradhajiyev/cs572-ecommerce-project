@@ -1,13 +1,13 @@
-<h1 class="my-4">{{model.title}}</h1>
+<h1 class="my-4">{{menu.title}}</h1>
 <div class="list-group">
-    <ng-container *ngIf="model.pathVariable">
-        <a *ngFor="let item of model.items" [ngClass]="{'active': currentItemId === item.id}"
-            [routerLink]="['.', item.id]" class="list-group-item" 
+    <ng-container *ngIf="menu.pathVariable">
+        <a *ngFor="let item of menu.items" [ngClass]="{'active': currentItemId === item.id}"
+            [routerLink]="['.', item.id]" class="list-group-item"
             (click)="currentItemId = item.id"
             >{{item.text}}</a>
     </ng-container>
-    <ng-container *ngIf="!model.pathVariable">
-        <a *ngFor="let item of model.items" [ngClass]="{'active': currentItemId === item.id}"
-        [routerLink]="['.']" [queryParams]="model.queryParams(item.id)" class="list-group-item">{{item.text}}</a>
+    <ng-container *ngIf="!menu.pathVariable">
+        <a *ngFor="let item of menu.items" [ngClass]="{'active': currentItemId === item.id}"
+        [routerLink]="['.']" [queryParams]="menu.queryParams(item.id)" class="list-group-item">{{item.text}}</a>
     </ng-container>
 </div>
