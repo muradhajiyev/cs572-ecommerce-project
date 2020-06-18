@@ -12,7 +12,7 @@ export class SellerProfileComponent {
     'Seller',
     'menu',
     [
-      { id: 'myproducts', text: 'My Products' },
+      { id: 'products', text: 'My Products' },
       { id: 'orders', text: 'Orders' },
     ],
     true
@@ -23,5 +23,4 @@ export class SellerProfileComponent {
     //   this.currentTab = queryParams['tab'];
     // });
   }
-
 }

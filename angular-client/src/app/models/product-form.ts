@@ -1,7 +1,7 @@
 export class ProductForm {
-  public title: String;
+  public title: string;
   public categoryId: string;
   public price: string;
-  public filename: string;
+  public filename: File;
   public description: string;
 }
