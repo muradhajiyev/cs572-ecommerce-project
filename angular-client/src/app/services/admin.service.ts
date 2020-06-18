@@ -22,4 +22,13 @@ export class AdminService {
   public rejectSeller(sellerId: string){
     return this._http.post('/api/users/sellers/' + sellerId + '/reject', null);
   }
+
+  public approveReview(productId: string, reviewId: string){
+    return this._http.post('/api/users/product/' + productId + '/review/' + reviewId + '/post', null);
+  }
+
+  public rejectReview(productId: string, reviewId: string){
+    return this._http.post('/api/users/product/' + productId + '/review/' + reviewId + '/reject', null);
+
+  }
 }

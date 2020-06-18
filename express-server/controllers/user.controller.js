@@ -152,14 +152,15 @@ exports.getPendingReviews = (req, res, next) => {
             let reviews = [];
             products.map(p=>{
                 p.reviews.forEach(review => {
-                    let productDetails = {};
-                    productDetails.title = p.title;
-                    productDetails.productId = p._id;
-                    reviews.push(review);
+                    let r = {};
+                    r.productDetails = {};
+                    r.productDetails.title = p.title;
+                    r.productDetails.productId = p._id.toString();
+                    r.review = review;
+                    reviews.push(r);
                 });
-                // reviews.push(...p.reviews);
             });
-            res.status(200).json(new ApiResponse(200, "success",  reviews.filter(r=>r.status === ReviewStatus.PENDING)));
+            res.status(200).json(new ApiResponse(200, "success",  reviews.filter(r=>r.review.status === ReviewStatus.PENDING)));
         })
         .catch(next);
 }

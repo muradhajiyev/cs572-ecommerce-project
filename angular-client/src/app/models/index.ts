@@ -5,3 +5,4 @@ export * from './category';
 export * from './product';
 export * from './paged';
 export * from './review';
+export * from './menu-list';

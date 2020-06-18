@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {MenuListModel} from "../../models/menu-list";
 import {ActivatedRoute} from "@angular/router";
+import {MenuListModel} from "../../models";
 enum CurrentSection{
   PENDINGSELLERS = 'pending-sellers',
   PENDINGREVIEWS = 'pending-reviews'

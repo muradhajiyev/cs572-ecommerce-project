@@ -8,18 +8,18 @@
   <tbody>
   <tr *ngFor="let pendingReview of pendingReviews; let i = index;">
     <th scope="row">{{i + 1}}</th>
-    <td>{{pendingReview.buyer.name}}</td>
-    <td>product name</td>
-    <td>{{pendingReview.createdDate}}</td>
-    <td>{{pendingReview.stars}}</td>
-    <td>{{pendingReview.comment}}</td>
+    <td>{{pendingReview.review.buyer.name}}</td>
+    <td>{{pendingReview.productDetails.title}}</td>
+    <td>{{pendingReview.review.createdDate}}</td>
+    <td>{{pendingReview.review.stars}}</td>
+    <td>{{pendingReview.review.comment}}</td>
     <td class="action-buttons">
-<!--      <button (click)="approveReview()"-->
-<!--              type="button"-->
-<!--              class="btn btn-secondary">Post</button>-->
-<!--      <button (click)="rejectReview()"-->
-<!--              type="button"-->
-<!--              class="btn btn-secondary">Decline</button>-->
+      <button (click)="approveReview(pendingReview.productDetails.productId, pendingReview.review._id)"
+              type="button"
+              class="btn btn-secondary">Post</button>
+      <button (click)="rejectReview(pendingReview.productDetails.productId, pendingReview.review._id)"
+              type="button"
+              class="btn btn-secondary">Decline</button>
     </td>
   </tr>
   </tbody>

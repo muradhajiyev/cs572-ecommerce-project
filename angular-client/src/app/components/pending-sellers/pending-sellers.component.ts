@@ -30,7 +30,7 @@ export class PendingSellersComponent implements OnInit {
   }
 
   public approveSeller(sellerId) {
-      let sellerIdString = sellerId.toString();
+      const sellerIdString = sellerId.toString();
       this._adminService.approveSeller(sellerIdString).subscribe(
         () => {
           this.pendingSellers = this.pendingSellers.filter( seller => {
@@ -45,7 +45,7 @@ export class PendingSellersComponent implements OnInit {
   }
 
   public rejectSeller(sellerId) {
-    let sellerIdString = sellerId.toString();
+    const sellerIdString = sellerId.toString();
     this._adminService.rejectSeller(sellerIdString).subscribe(
       () => {
         this.pendingSellers = this.pendingSellers.filter( seller => {

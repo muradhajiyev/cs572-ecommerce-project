@@ -1,7 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import {Review} from "../../models/review";
 import {AdminService} from "../../services/admin.service";
-import {User} from "../../models";
+import {ReviewStatus} from "../../models/review.enum";
+
+interface ReviewShape {
+  review: {
+    _id: string;
+    buyer: {
+      buyerId: string,
+      name: string,
+      email: string,
+    };
+    status: ReviewStatus;
+    createdDate: Date;
+    stars: number;
+    comment: string;
+    decisionDate: Date;
+  };
+  productDetails: {
+    productId: string;
+    title: string;
+  };
+}
+
 
 @Component({
   selector: 'app-pending-reviews',
@@ -11,7 +31,7 @@ import {User} from "../../models";
 export class PendingReviewsComponent implements OnInit {
   public headerTitles = ['Buyer','Order Product','Created date', 'Stars', 'Comment', 'Actions'];
   public actionTitles = ['Post', 'Decline'];
-  public pendingReviews: Review[];
+  public pendingReviews: ReviewShape[];
 
   constructor(private _adminService: AdminService) { }
 
@@ -21,7 +41,7 @@ export class PendingReviewsComponent implements OnInit {
 
   public getPendingReviews(){
     this._adminService.getPendingReviews().subscribe(
-      (reviews: Review[]) => {
+      (reviews: ReviewShape[]) => {
         this.pendingReviews = reviews['result'];
       },
       (err) => {
@@ -30,34 +50,36 @@ export class PendingReviewsComponent implements OnInit {
     );
   }
 
-  public approveReview(sellerId) {
-  //   let sellerIdString = sellerId.toString();
-  //   this._adminService.approveSeller(sellerIdString).subscribe(
-  //     () => {
-  //       this.pendingSellers = this.pendingSellers.filter( seller => {
-  //         return seller['_id'] != sellerIdString;
-  //       });
-  //       console.log('seller Approved');
-  //     },
-  //     (err) => {
-  //       console.log('error in approving seller: ', err);
-  //     }
-  //   );
+  public approveReview(productId, reviewId) {
+    const productIdString = productId.toString();
+    const reviewIdString = reviewId.toString();
+    this._adminService.approveReview(productIdString, reviewIdString).subscribe(
+      () => {
+        this.pendingReviews = this.pendingReviews.filter( pendingReview => {
+          return pendingReview.review['_id'] != reviewIdString;
+        });
+        console.log('Review Posted');
+      },
+      (err) => {
+        console.log('error in posting review: ', err);
+      }
+    );
   }
 
-  public rejectReview(sellerId) {
-  //   let sellerIdString = sellerId.toString();
-  //   this._adminService.rejectSeller(sellerIdString).subscribe(
-  //     () => {
-  //       this.pendingSellers = this.pendingSellers.filter( seller => {
-  //         return seller['_id'] != sellerIdString;
-  //       });
-  //       console.log('seller rejected');
-  //     },
-  //     (err) => {
-  //       console.log('error in rejecting seller: ', err);
-  //     }
-  //   );
+  public rejectReview(productId, reviewId) {
+    const productIdString = productId.toString();
+    const reviewIdString = reviewId.toString();
+    this._adminService.rejectReview(productIdString, reviewIdString).subscribe(
+      () => {
+        this.pendingReviews = this.pendingReviews.filter( pendingReview => {
+          return pendingReview.review['_id'] != reviewIdString;
+        });
+        console.log('Review Rejected');
+      },
+      (err) => {
+        console.log('error in rejecting review: ', err);
+      }
+    );
   }
 
 }
