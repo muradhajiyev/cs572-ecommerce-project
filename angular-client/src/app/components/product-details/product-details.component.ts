@@ -55,10 +55,10 @@ export class ProductDetailsComponent implements OnInit {
   public addToCart() {
     this._productService.addToCart(this.productId).subscribe(
       () => {
-          console.log("product added.");
+        this._productService.showSuccess('Product added to shopping cart','Product');
       },
       () => {
-        console.log("product not added");
+        this._productService.showSuccess('Sorry, Product not added to shopping cart','Product');
       }
     );
   }
