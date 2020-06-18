@@ -9,6 +9,7 @@ const ApiResponse = require('./viewmodels/ApiResponse');
 //get list of shopping card
 exports.getListShoppingCard = (req, res) => {
     Buyer.findById(req.user.id)
+        .populate('shoppingCart.productId')
         .then((buyer) => {
             res.status(200).json(new ApiResponse(200, "success", buyer.shoppingCart));
         })
@@ -56,7 +57,7 @@ exports.updateProductFromShoppingCart = (req, res) => {
     Buyer.findByIdAndUpdate(req.user._id)
         .then((buyer) => {
             let product = buyer.shoppingCart.find(
-                (cart) => cart._id.toString() === id
+                (cart) => cart.productId.toString() === id
             );
             product.quantity = req.body.quantity;
             return buyer.save();
@@ -79,17 +80,16 @@ exports.deleteProductFromShoppingCart = (req, res) => {
     Buyer.findById(req.user._id)
         .then((buyer) => {
             buyer.shoppingCart = buyer.shoppingCart.filter(
-                (product) => product._id.toString() !== id
+                (product) => {
+                    product.productId.toString() !== id;
+
+                }
             );
 
             return buyer.save();
         })
         .then(() => {
-            res.status(200).json(
-                new ApiResponse(200, "success", {
-                    success: "product removed",
-                })
-            );
+            res.status(200).json(new ApiResponse(200, "success", {success: "product removed"}));
         })
         .catch((err) => {
             res.status(500).json(new ApiResponse(500, "error", err));

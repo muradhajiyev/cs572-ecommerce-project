@@ -1,1 +1,41 @@
-<p>shopping-cart works!</p>
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col" *ngFor="let title of headerTitles">{{title}}</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let product of shoppingCartProducts; let i = index;">
+    <th scope="row">{{i + 1}}</th>
+    <td>{{product.productId.title}}</td>
+    <td>
+      <input type="number"
+             class="form-control"
+             placeholder="quantity"
+             [(ngModel)]="product.quantity"
+              (ngModelChange)="getTotalPrice()"
+             (blur)="updateShoppingCart(product.productId._id, product.quantity)">
+
+
+    </td>
+    <td>${{product.productId.price * product.quantity}}</td>
+    <td class="action-buttons">
+      <button (click)="removeProductFromShoppingCart(product.productId._id)"
+              type="button"
+              class="btn btn-secondary">Remove</button>
+    </td>
+  </tr>
+  <tr>
+    <td></td>
+    <th>Total sum</th>
+    <td></td>
+    <th>${{totalPrice}}</th>
+  </tr>
+  </tbody>
+</table>
+
+<div class="checkout-btn-container">
+  <button type="button"
+          class="btn btn-secondary">Proceed to checkout</button>
+</div>

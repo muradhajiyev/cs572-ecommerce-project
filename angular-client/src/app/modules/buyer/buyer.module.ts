@@ -21,10 +21,10 @@ import { BillingInfoEditorComponent } from 'src/app/components/buyer/billing-inf
     OrdersComponent,
     ShoppingCartComponent,
     AddressEditorComponent,
-    BillingInfoEditorComponent
+    BillingInfoEditorComponent,
   ],
   imports: [
-    // FormsModule,
+    FormsModule,
     CommonModule,
     SharedModule,
     ReactiveFormsModule,
