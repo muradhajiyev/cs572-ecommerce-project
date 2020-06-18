@@ -1,6 +1,8 @@
 [
     {
-        "_id": {"$oid":"5ee1698cf1d0b8140cb05935"},
+        "_id": {
+            "$oid": "5ee1698cf1d0b8140cb05935"
+        },
         "email": "hajiyev.murad1@gmail.com",
         "password": "$2a$05$SWE0HcbjodtAwrZY6sR8JOH..FZAImeCnlgriJwLMQu1W/lMk68Tq",
         "name": "Murad",
@@ -8,7 +10,9 @@
         "role": "ADMIN"
     },
     {
-        "_id": {"$oid":"5ee1698cf1d0b8140cb05936"},
+        "_id": {
+            "$oid": "5ee1698cf1d0b8140cb05936"
+        },
         "email": "maharishi@gmail.com",
         "password": "$2a$05$SWE0HcbjodtAwrZY6sR8JOH..FZAImeCnlgriJwLMQu1W/lMk68Tq",
         "name": "Maharishi",
@@ -16,7 +20,9 @@
         "role": "SELLER"
     },
     {
-        "_id": {"$oid":"5ee1698cf1d0b8140cb05937"},
+        "_id": {
+            "$oid": "5ee1698cf1d0b8140cb05937"
+        },
         "email": "corozza@gmail.com",
         "password": "$2a$05$jYfiArsDKVzXFmDEgykOguGT.t2nBdz22YZU6FjALvMntN.BNJnjW",
         "name": "Corozza",
@@ -24,7 +30,9 @@
         "role": "BUYER"
     },
     {
-        "_id": {"$oid":"5ee1698cf1d0b8140cb05938"},
+        "_id": {
+            "$oid": "5ee1698cf1d0b8140cb05938"
+        },
         "email": "amin@gmail.com",
         "password": "$2a$05$SWE0HcbjodtAwrZY6sR8JOH..FZAImeCnlgriJwLMQu1W/lMk68Tq",
         "name": "Aminjoni",
@@ -32,7 +40,9 @@
         "role": "SELLER"
     },
     {
-        "_id": {"$oid":"5ee1698cf1d0b8140cb05939"},
+        "_id": {
+            "$oid": "5ee1698cf1d0b8140cb05939"
+        },
         "email": "joe@gmail.com",
         "password": "$2a$05$jYfiArsDKVzXFmDEgykOguGT.t2nBdz22YZU6FjALvMntN.BNJnjW",
         "name": "Joe",
@@ -40,7 +50,9 @@
         "role": "BUYER"
     },
     {
-        "_id": {"$oid":"5ee1698cf2c0b8140cb05938"},
+        "_id": {
+            "$oid": "5ee1698cf2c0b8140cb05938"
+        },
         "email": "test@gmail.com",
         "password": "$2a$05$SWE0HcbjodtAwrZY6sR8JOH..FZAImeCnlgriJwLMQu1W/lMk68Tq",
         "name": "test",
@@ -48,11 +60,23 @@
         "role": "SELLER"
     },
     {
-        "_id": {"$oid":"5ee1698cf2c0b8140cb05123"},
+        "_id": {
+            "$oid": "5ee1698cf2c0b8140cb05123"
+        },
         "email": "Tina@gmail.com",
         "password": "$2a$05$SWE0HcbjodtAwrZY6sR8JOH..FZAImeCnlgriJwLMQu1W/lMk68Tq",
         "name": "Tina",
         "status": "ACTIVE",
         "role": "BUYER"
+    },
+    {
+        "_id": {
+            "$oid": "5eebeffa0d4ee8eeacb15a67"
+        },
+        "email": "best.seller@gmail.com",
+        "password": "$2a$05$T7WxnSs02g2sGn/c07bYDO0MAFCQqw6gmb5ZaH4xoljI4Aa5kZ3uS",
+        "name": "Best seller",
+        "status": "ACTIVE",
+        "role": "SELLER"
     }
 ]

@@ -13,7 +13,7 @@ export class BuyerProfileComponent implements OnInit {
 
   menuListModel: MenuListModel = new MenuListModel("Buyer", "tab", [
     { id: "addresses", text: "Addresses" },
-    { id: "billing-infos", text: "Billing info" },
+    { id: "billing-infos", text: "Payment methods" },
     { id: "orders", text: "Orders" },
     { id: "shopping-cart", text: "Shopping cart" }
   ], true);

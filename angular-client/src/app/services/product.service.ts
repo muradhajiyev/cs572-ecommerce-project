@@ -41,4 +41,7 @@ export class ProductService {
   public editProduct(id) {
     return this._http.get<ApiResponse<Product>>('/api/products/' + id);
   }
+  public deleteProduct(id) {
+    return this._http.delete<ApiResponse<Product>>('/api/products/' + id);
+  }
 }

@@ -24,7 +24,7 @@ import { OrderCheckoutComponent } from './components/buyer/order-checkout/order-
     ProductDetailsComponent,
     ProductCardComponent,
     ProductListComponent,
-    OrderCheckoutComponent,
+    OrderCheckoutComponent
   ],
   imports: [
     HttpClientModule,
