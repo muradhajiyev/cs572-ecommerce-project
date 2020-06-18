@@ -39,6 +39,8 @@ export class ProductsComponent implements OnInit {
     if(confirm("Are you sure to delete this product?")) {
       this._productService.deleteProduct(id).subscribe(result => {
         this.refreshProducts();
+      },err=>{
+        alert(err.error.result.message);
       });
     }
   }
