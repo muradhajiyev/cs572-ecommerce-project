@@ -34,9 +34,14 @@ exports.deleteProduct = function (req, res, next) {
     //Todo: it is needed to be implemented after product id is added to orders.
 }
 
-exports.getImage = function(req, res){
+exports.getImage = function(req, res,next){
     const filename = req.params.name;
     const filePath = path.join(__dirname, '..', '_uploads', filename);
     const readStream = fs.createReadStream(filePath);
-    readStream.pipe(res);
+
+    readStream.on('open', function () {
+        readStream.pipe(res);
+      });
+    
+    readStream.on('error', err => next(err));
 }
