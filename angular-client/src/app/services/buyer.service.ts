@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import { ApiResponse } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,9 @@ export class BuyerService {
 
   constructor(private _http: HttpClient) { }
 
+  public getAvailableCashback(){
+    return this._http.get<ApiResponse<{availableCashBack:number}>>('/api/users/available-cashback');
+  }
   public getShoppingCart(){
     return this._http.get('/api/carts');
   }

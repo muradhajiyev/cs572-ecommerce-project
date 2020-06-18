@@ -10,7 +10,6 @@ import { map } from 'rxjs/operators';
 })
 export class MenuListComponent implements OnInit {
   @Input() menu: MenuListModel;
-  @Output() itemClick = new EventEmitter();
 
   currentItemId: string = "all";
 
@@ -37,7 +36,4 @@ export class MenuListComponent implements OnInit {
     }
   }
 
-  onItemClicked(itemId) {
-    this.itemClick.emit(itemId);
-  }
 }

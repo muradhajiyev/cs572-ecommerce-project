@@ -1,0 +1,51 @@
+<div class="h4">Checkout</div>
+        <form [formGroup]="dataForm" (ngSubmit)="onSubmit()">
+            <div class="h4">Products:</div>
+            <div class="list-group">
+                <a href="#" *ngFor="let cart of shoppingCartProducts" [routerLink]="['products', cart.productId._id]"
+                   class="list-group-item list-group-item-action list-group-item-secondary flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{cart.productId.title}}</h5>
+                        <small class="text-muted">${{cart.productId.price}} * {{cart.quantity}} = ${{cart.productId.price*cart.quantity}}</small>
+                    </div>
+                </a>
+            </div>
+            <div class="checkout-total-price">${{totalPrice}}</div>
+            <div class="form-group">
+                <label for="cashbackPayment">Payment from cashback <small><b>Available cashback: {{availablePoints}}</b></small></label>
+                <input type="number" min="0" step="0.01" [max]="availablePoints" class="form-control currency" 
+                formControlName="cashbackPayment" placeholder="0.00">
+                <p *ngIf="dataForm.controls.cashbackPayment.touched && dataForm.get('cashbackPayment').hasError('required')"
+                class="text-danger">
+                    Incorrect cashback</p>
+            </div>
+            <div class="form-group">
+                <label for="billingInfoId">Payment method</label>
+                <select class="form-control" formControlName="billingInfoId" required>
+                    <option value="">Select payment method</option>
+                    <option *ngFor="let pay of myBillingInfos" [value]="pay._id">
+                        Credit card: {{pay.cardNumber}}, {{pay.cardName}}
+                    </option>
+                </select>
+                <p *ngIf="dataForm.controls.billingInfoId.touched && dataForm.get('billingInfoId').hasError('required')"
+                class="text-danger">
+                    Incorrect Payment method</p>
+            </div>
+            <div class="form-group">
+                <label for="shippingAddressId">Shipping Address</label>
+                <select class="form-control" formControlName="shippingAddressId" required>
+                    <option value="">Select Address</option>
+                    <option *ngFor="let address of addresses" [value]="address._id">
+                        {{address.city}}, {{address.state}}, {{address.street}}, {{address.zipCode}}, {{address.phoneNumber}},
+                        {{address.country}}
+                    </option>
+                </select>
+                <p *ngIf="dataForm.controls.shippingAddressId.touched && dataForm.get('shippingAddressId').hasError('required')"
+                class="text-danger">
+                    Incorrect Address</p>
+            </div>
+            <div id="form-group">
+                <input class="btn btn-primary btn-sm" [disabled]="!dataForm.valid" value="Checkout" type="submit" />
+            </div>
+
+        </form>

@@ -13,5 +13,11 @@ export class OrderService {
   public getOrders(): Observable<ApiResponse<Order[]>>{
     return this.httpClient.get<ApiResponse<Order[]>>('/api/orders');
   }
+
+  public createOrder(data): Observable<ApiResponse<Order[]>>{
+    return this.httpClient.post<ApiResponse<Order[]>>('/api/orders', data);
+  }
+
+  
 }
 
