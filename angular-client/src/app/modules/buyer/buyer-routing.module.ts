@@ -8,10 +8,12 @@ import { OrdersComponent } from 'src/app/components/buyer/orders/orders.componen
 import { ShoppingCartComponent } from 'src/app/components/buyer/shopping-cart/shopping-cart.component';
 import { AddressEditorComponent } from 'src/app/components/buyer/address-editor/address-editor.component';
 import { BillingInfoEditorComponent } from 'src/app/components/buyer/billing-info-editor/billing-info-editor.component';
+import { AuthGuard } from 'src/app/guards/auth.guard';
+import { Role } from 'src/app/models';
 
 
 const routes: Routes = [
-  { path: '', component: BuyerProfileComponent,children:
+  { path: '', component: BuyerProfileComponent, canActivate: [AuthGuard], data: {roles: [Role.Buyer]}, children:
     [
       {path:'addresses', component: AddressesComponent},
       {path:'addresses/add', component: AddressEditorComponent},
