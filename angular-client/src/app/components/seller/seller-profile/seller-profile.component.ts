@@ -12,9 +12,8 @@ export class SellerProfileComponent {
     'Seller',
     'menu',
     [
-      { id: 'myproducts', text: 'My Products' },
+      { id: 'products', text: 'My Products' },
       { id: 'orders', text: 'Orders' },
-      { id: 'create-product', text: 'Create Product' },
     ],
     true
   );
@@ -24,9 +23,4 @@ export class SellerProfileComponent {
     //   this.currentTab = queryParams['tab'];
     // });
   }
-
-<<<<<<< HEAD
-  ngOnInit(): void {}
-=======
->>>>>>> 83c04e7f5bf33da50465fff228e863ed15deb092
 }

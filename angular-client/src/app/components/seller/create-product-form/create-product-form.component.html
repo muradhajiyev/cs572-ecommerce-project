@@ -13,7 +13,7 @@
         class="form-control-file"
         id="select-photo"
         required
-        [(ngModel)]="productForm.filename"
+        (change)="fileEvent($event)"
         name="filename"
       />
     </div>
@@ -25,7 +25,9 @@
         name="categoryId"
         [(ngModel)]="productForm.categoryId"
       >
-        <option *ngFor="let opt of category">{{ opt.name }}</option>
+        <option *ngFor="let opt of category" [ngValue]="opt._id">{{
+          opt.name
+        }}</option>
       </select>
     </div>
     <div class="form-group">

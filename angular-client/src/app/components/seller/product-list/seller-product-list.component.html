@@ -1,7 +1,12 @@
 <div>
-  <button (click)="addproduct($event)" type="button" class="btn btn-secondary">
+  <!-- <a
+    href="#"
+    [routerLink]="['.', 'add']"
+    type="button"
+    class="btn btn-secondary"
+  >
     Add Product
-  </button>
+  </a> -->
   <hr />
   <table class="table">
     <thead>
@@ -23,7 +28,14 @@
         <td>mdo</td>
         <td>Mark</td>
         <td>Otto</td>
-        <td>test</td>
+        <td>
+          <div routerLink="create-product" fragment="create-product">
+            <a href="seller/create-product">Edit</a>
+          </div>
+
+          <a>Image</a>
+          <a>Remove</a>
+        </td>
       </tr>
     </tbody>
   </table>

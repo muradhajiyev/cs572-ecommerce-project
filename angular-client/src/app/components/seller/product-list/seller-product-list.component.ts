@@ -8,9 +8,4 @@ import { RouterModule, Router, ActivatedRoute } from '@angular/router';
 export class SellerProductList implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router) {}
   ngOnInit(): void {}
-
-  public addproduct(event) {
-    console.log('HERE');
-    this.router.navigate(['create-product']);
-  }
 }
