@@ -1,19 +1,6 @@
 <div class="row admin-page">
   <div [model]="menuListModel" class="col-lg-3" app-menu-list></div>
   <div class="col-lg-9">
-    <div *ngIf="currentAdminSection == currentSectionEnum.PENDINGSELLERS">
-      <app-admin-pending-tasks [headerTitles]="pendingSellersHeaderTitles"
-                                  [actionTitles]="PendingSellersActionTitles"
-                                  [data]="pendingSellersData"
-                                  (approve)="approvePendingSellers($event)"
-                                  (reject)="rejectPendingSellers($event)"></app-admin-pending-tasks>
-    </div>
-    <div *ngIf="currentAdminSection == currentSectionEnum.PENDINGREVIEWS">
-      <app-admin-pending-tasks [headerTitles]="pendingReviewsHeaderTitles"
-                                  [actionTitles]="PendingReviewsActionTitles"
-                                  [data]="pendingReviewsData"
-                                  (approve)="approvePendingReviews($event)"
-                                  (reject)="rejectPendingReviews($event)"></app-admin-pending-tasks>
-    </div>
+    <router-outlet></router-outlet>
   </div>
 </div>

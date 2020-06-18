@@ -4,6 +4,5 @@
        [ngClass]="{'active': currentItemId === item.id}"
        [routerLink]="['.']"
        [queryParams]="{cat: item.id}"
-       (click)="onItemClicked(item.id)"
        class="list-group-item">{{item.text}}</a>
 </div>

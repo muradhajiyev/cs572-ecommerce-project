@@ -38,5 +38,21 @@
         "name": "Joe",
         "status": "ACTIVE",
         "role": "BUYER"
+    },
+    {
+        "_id": {"$oid":"5ee1698cf2c0b8140cb05938"},
+        "email": "test@gmail.com",
+        "password": "$2a$05$SWE0HcbjodtAwrZY6sR8JOH..FZAImeCnlgriJwLMQu1W/lMk68Tq",
+        "name": "test",
+        "status": "ACTIVE",
+        "role": "SELLER"
+    },
+    {
+        "_id": {"$oid":"5ee1698cf2c0b8140cb05123"},
+        "email": "Tina@gmail.com",
+        "password": "$2a$05$SWE0HcbjodtAwrZY6sR8JOH..FZAImeCnlgriJwLMQu1W/lMk68Tq",
+        "name": "Tina",
+        "status": "ACTIVE",
+        "role": "BUYER"
     }
 ]

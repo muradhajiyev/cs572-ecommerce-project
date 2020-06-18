@@ -1,0 +1,23 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col" *ngFor="let title of headerTitles">{{title}}</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let pendingSeller of pendingSellers; let i = index">
+    <th scope="row">{{i + 1}}</th>
+    <td>{{pendingSeller.name}}</td>
+    <td>{{pendingSeller.email}}</td>
+    <td class="action-buttons">
+      <button type="button"
+              (click)="approveSeller(pendingSeller['_id'])"
+              class="btn btn-secondary">Approve</button>
+      <button type="button"
+              (click)="rejectSeller(pendingSeller['_id'])"
+              class="btn btn-secondary">Reject</button>
+    </td>
+  </tr>
+  </tbody>
+</table>

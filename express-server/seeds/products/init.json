@@ -23,12 +23,29 @@
           "buyerId": {
             "$oid": "5ee1698cf1d0b8140cb05939"
           },
-          "nama": "Joe",
+          "name": "Joe",
           "email": "joe@gmail.com"
         },
         "createdDate": "2024-06-01T00:00:00.000+00:00",
         "stars": 3,
         "comment": "it's okay",
+        "decisionDate": null
+      },
+      {
+        "_id": {
+          "$oid": "5ee1698df1d0b8140fb01903"
+        },
+        "status": "PENDING",
+        "buyer": {
+          "buyerId": {
+            "$oid": "5ee1698cf2c0b8140cb05123"
+          },
+          "name": "Tina",
+          "email": "Tina@gmail.com"
+        },
+        "createdDate": "2024-06-01T00:00:00.000+00:00",
+        "stars": 2,
+        "comment": "Not bad",
         "decisionDate": null
       }
     ]
@@ -57,7 +74,7 @@
           "buyerId": {
             "$oid": "5ee1698cf1d0b8140cb05939"
           },
-          "nama": "Joe",
+          "name": "Joe",
           "email": "joe@gmail.com"
         },
         "createdDate": "2024-06-01T00:00:00.000+00:00",
@@ -91,7 +108,7 @@
           "buyerId": {
             "$oid": "5ee1698cf1d0b8140cb05939"
           },
-          "nama": "Joe",
+          "name": "Joe",
           "email": "joe@gmail.com"
         },
         "createdDate": "2024-06-01T00:00:00.000+00:00",
@@ -125,7 +142,7 @@
           "buyerId": {
             "$oid": "5ee1698cf1d0b8140cb05939"
           },
-          "nama": "Joe",
+          "name": "Joe",
           "email": "joe@gmail.com"
         },
         "createdDate": "2024-06-01T00:00:00.000+00:00",
@@ -159,7 +176,7 @@
           "buyerId": {
             "$oid": "5ee1698cf1d0b8140cb05939"
           },
-          "nama": "Joe",
+          "name": "Joe",
           "email": "joe@gmail.com"
         },
         "createdDate": "2024-06-01T00:00:00.000+00:00",

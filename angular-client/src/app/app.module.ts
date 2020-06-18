@@ -28,7 +28,6 @@ import {RouterModule} from "@angular/router";
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
     NgxStarsModule,
     ReactiveFormsModule,
     SharedModule,

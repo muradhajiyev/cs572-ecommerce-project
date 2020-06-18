@@ -18,12 +18,6 @@ export class AdminComponent implements OnInit {
     { id: "pending-sellers", text: "Pending sellers" },
     { id: "pending-reviews", text: "Pending reviews" }
   ]);
-  public pendingSellersHeaderTitles = ['Seller name','Seller email','Actions'];
-  public pendingReviewsHeaderTitles = ['Buyer','Order Product','Created date', 'Stars', 'Comment', 'Actions'];
-  public PendingSellersActionTitles = ['Approve', 'Reject'];
-  public PendingReviewsActionTitles = ['Post', 'Decline'];
-  public pendingSellersData: any;
-  public pendingReviewsData: any;
 
   constructor(private _route: ActivatedRoute) { }
 
@@ -31,22 +25,6 @@ export class AdminComponent implements OnInit {
     this._route.queryParams.subscribe(params => {
       this.currentAdminSection = params.cat;
     });
-  }
-
-  public approvePendingSellers(event){
-
-  }
-
-  public rejectPendingSellers(event){
-
-  }
-
-  public approvePendingReviews(event){
-
-  }
-
-  public rejectPendingReviews(event){
-
   }
 
 }

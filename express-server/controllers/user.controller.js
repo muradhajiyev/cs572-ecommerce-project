@@ -1,11 +1,13 @@
 const ReviewStatus = require("../models/enums/review-status");
 const UserStatus = require("../models/enums/user-status");
+const UserRole = require("../models/enums/user-role");
+const ApiResponse = require('./viewmodels/ApiResponse');
 
 const path = require("path"),
     {
-        ApiResponse,
         Buyer,
-        User
+        User,
+        Product
     } = require(path.join(__dirname, "..", "models")),
     {
         cashbackService
@@ -61,44 +63,38 @@ exports.getAvailableCashback = (req, res, next) => {
 };
 
 // Handle Approve Seller
-exports.approveSeller = (req, res) => {
+exports.approveSeller = (req, res, next) => {
   const id = req.params.id;
-
   User.findById(id)
     .then((user) => {
       user.status = UserStatus.ACTIVE;
-      return User.save();
+      return user.save();
     })
     .then((user) => {
       res.status(200).json(new ApiResponse(200, "success", user));
     })
-    .catch((err) => {
-      res.status(404).send({ message: "user not found" });
-    });
+    .catch(next);
 };
 
 // Handle Reject Seller
-exports.rejectSeller = (req, res) => {
+exports.rejectSeller = (req, res, next) => {
   const id = req.params.id;
 
   User.findById(id)
     .then((user) => {
       user.status = UserStatus.REJECT;
-      return User.save();
+      return user.save();
     })
     .then((user) => {
       res.status(200).json(new ApiResponse(200, "success", user));
     })
-    .catch((err) => {
-      res.status(404).send({ message: "user not found" });
-    });
+    .catch(next);
 };
 
 // Handle Post Review
-exports.postReview = (req, res) => {
+exports.postReview = (req, res, next) => {
   const productId = req.params.productid;
   const id = req.params.id;
-  // console.log(productId, id);
   Product.findById(productId)
     .then((product) => {
       let review = product.reviews.find((review) => {
@@ -115,13 +111,11 @@ exports.postReview = (req, res) => {
         })
       );
     })
-    .catch((err) => {
-      res.status(500).send(new ApiResponse(500, "error", err));
-    });
+    .catch(next);
 };
 
 // Handle Reject Review
-exports.rejectReview = (req, res) => {
+exports.rejectReview = (req, res, next) => {
   const productId = req.params.productid;
   const id = req.params.id;
 
@@ -141,7 +135,31 @@ exports.rejectReview = (req, res) => {
         })
       );
     })
-    .catch((err) => {
-      res.status(500).send(new ApiResponse(500, "error", err));
-    });
+    .catch(next);
 };
+
+exports.getPendingUsers = (req, res, next) => {
+    User.find({$and : [{status: {$eq: UserStatus.PENDING}}, {role: {$eq: UserRole.SELLER}}]})
+        .then((users) => {
+                res.status(200).json(new ApiResponse(200, "success",  users));
+        })
+        .catch(next);
+}
+
+exports.getPendingReviews = (req, res, next) => {
+    Product.find({"reviews.status": {$eq: ReviewStatus.PENDING}})
+        .then((products) => {
+            let reviews = [];
+            products.map(p=>{
+                p.reviews.forEach(review => {
+                    let productDetails = {};
+                    productDetails.title = p.title;
+                    productDetails.productId = p._id;
+                    reviews.push(review);
+                });
+                // reviews.push(...p.reviews);
+            });
+            res.status(200).json(new ApiResponse(200, "success",  reviews.filter(r=>r.status === ReviewStatus.PENDING)));
+        })
+        .catch(next);
+}
