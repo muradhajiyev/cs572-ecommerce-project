@@ -12,6 +12,7 @@ enum CurrentSection{
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
+  
   public currentSectionEnum = CurrentSection;
   public currentAdminSection;
   public menuListModel: MenuListModel = new MenuListModel("Admin", "pageType", [
