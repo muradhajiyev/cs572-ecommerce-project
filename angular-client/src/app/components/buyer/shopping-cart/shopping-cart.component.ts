@@ -7,7 +7,7 @@ import {BuyerService} from "../../../services/buyer.service";
   styleUrls: ['./shopping-cart.component.css']
 })
 export class ShoppingCartComponent implements OnInit {
-  public shoppingCartProducts: any;
+  public shoppingCartProducts: any = [];
   public headerTitles = ['Product', 'Quantity', 'Price', 'Actions'];
   public totalPrice: number = 0;
 
@@ -30,12 +30,11 @@ export class ShoppingCartComponent implements OnInit {
     );
   }
 
-  public removeProductFromShoppingCart(productId) {
-    const productIdString: string = productId.toString();
+  public removeProductFromShoppingCart(productIdString) {
     this._buyerService.removeProductFromShoppingCart(productIdString).subscribe(
       () => {
         this.shoppingCartProducts = this.shoppingCartProducts.filter(product => {
-          return product.productId._id.toString() != productIdString;
+          return product.productId._id != productIdString;
         });
         console.log("product removed from shopping cart");
       },

@@ -65,38 +65,62 @@ exports.createOrder = async function (buyerId, data) {
         securityNumber: blInfo.securityNumber,
         billingAddress: blInfo.billingAddress
     };
-    let lastOrderNumber = await getLastOrderNumber();
-    let result = [];
-    sellerIds.forEach(async function (products, sellerId) {
-        let order = new Order({
-            buyerId: new ObjectId(buyerId),
-            sellerId: sellerId,
-            orderNumber: ++lastOrderNumber,
-            orderDate: new Date(),
-            status: OrderStatus.CREATED,
-            canceledDate: null,
-            shippedDate: null,
-            deliveredDate: null,
-            products: products,
-            shippingAddress: shippingAddress,
-            billingInfo: billingInfo
-        });
-        order = await order.save();
-        if (order) {
-            result.push(order);
-            if (data.cashbackPayment > 0) {
-                cashbackService.spendCashback(buyer, order._id, products.reduce((a, p) => a + p.cashbackPayment, 0));
-            }
-        } else {
-            throw new Error(`Order ${lastOrderNumber} not created`);
-        }
-    });
+    let result = await createOrders(buyerId, buyer, data, sellerIds, shippingAddress, billingInfo);
 
     buyer.shoppingCart = [];
+    console.log("buyer2", buyer);
     await buyer.save();
     return result;
 }
-
+function createOrders(buyerId, buyer, data, sellerIds, shippingAddress, billingInfo) {
+    return getLastOrderNumber()
+        .then(lastOrderNumber => {
+            let result = [];
+            let tmp = [];
+            sellerIds.forEach(function (products, sellerId) {
+                tmp.push({ k: sellerId, v: products });
+                console.log("1", tmp);
+            });
+            console.log("2", tmp);
+            var bar = new Promise((resolve, reject) => {
+                tmp.forEach(function (i, index) {
+                    let products = i.v;
+                    let sellerId = i.k;
+                    let order = new Order({
+                        buyerId: new ObjectId(buyerId),
+                        sellerId: sellerId,
+                        orderNumber: ++lastOrderNumber,
+                        orderDate: new Date(),
+                        status: OrderStatus.CREATED,
+                        canceledDate: null,
+                        shippedDate: null,
+                        deliveredDate: null,
+                        products: products,
+                        shippingAddress: shippingAddress,
+                        billingInfo: billingInfo
+                    });
+                    return order.save().then(order => {
+                        if (order) {
+                            result.push(order);
+                            if (data.cashbackPayment > 0) {
+                                buyer = cashbackService.spendCashback(buyer, order._id, products.reduce((a, p) => a + p.cashbackPayment, 0));
+                                console.log("buyer1", buyer);
+                            }
+                        } else {
+                            throw new Error(`Order ${lastOrderNumber} not created`);
+                        }
+                        console.log("3", tmp);
+                        if (index === tmp.length -1) resolve();
+                    });
+                });
+            });
+            
+            return bar.then(() => {
+                console.log("4", tmp);
+                return result;
+            });
+        });
+}
 async function getLastOrderNumber() {
     let orders = await Order.getLastOrderNumber();
     let lastOrderNumber = 0;
@@ -119,7 +143,7 @@ exports.cancelOrderByBuyer = async function (buyerId, orderId) {
     let buyer = await Buyer.findById(buyerId);
 
     let cashBack = order.products.reduce((a, p) => a + p.cashbackPayment, 0);
-    cashbackService.refundCashback(buyer, order._id, cashBack);
+    buyer = cashbackService.refundCashback(buyer, order._id, cashBack);
 
     await buyer.save();
     return order;
@@ -139,11 +163,11 @@ exports.setOrderStatusBySeller = async function (sellerId, orderId, orderStatus)
         let buyer = await Buyer.findById(buyerId);
         if (orderStatus === OrderStatus.CANCELED) {
             let cashBack = order.products.reduce((a, p) => a + p.cashbackPayment, 0);
-            cashbackService.refundCashback(buyer, order._id, cashBack);
+            buyer = cashbackService.refundCashback(buyer, order._id, cashBack);
 
         } else if (orderStatus === OrderStatus.DELIVERED) {
             let cashBack = order.products.reduce((a, p) => a + p.creditCardPayment, 0) / 100;
-            cashbackService.earnCashback(buyer, order._id, cashBack);
+            buyer = cashbackService.earnCashback(buyer, order._id, cashBack);
         }
         await buyer.save();
     }
@@ -158,14 +182,14 @@ exports.getSellerOrders = async function (sellerId) {
     return await Order.find({ sellerId: new ObjectId(sellerId) });
 }
 
-exports.getOrderById = async function(orderId){
+exports.getOrderById = async function (orderId) {
     const order = await Order.findById({ _id: new ObjectId(orderId) });
-    if(!order) throw Error(`No order exists with this id ${orderId}`);
+    if (!order) throw Error(`No order exists with this id ${orderId}`);
     return order;
 }
 
 
-exports.generateReceipt = function(order, seller, buyer){
+exports.generateReceipt = function (order, seller, buyer) {
     var html = fs.readFileSync(path.join(__dirname, "..", "views", "receipt.report.html"), 'utf8');
     html = html.replace("${num}", order.orderNumber);
     html = html.replace("${seller}", seller.name);

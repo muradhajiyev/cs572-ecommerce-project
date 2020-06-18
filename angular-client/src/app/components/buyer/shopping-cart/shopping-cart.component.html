@@ -36,6 +36,7 @@
 </table>
 
 <div class="checkout-btn-container">
-  <button type="button"
+  <button [routerLink]="['..', 'orders', 'checkout']" type="button"
+          [disabled]="shoppingCartProducts.length===0"
           class="btn btn-secondary">Proceed to checkout</button>
 </div>
