@@ -1,31 +1,31 @@
-<div>
-  <table class="table">
-    <thead>
+<div class="container">
+  <h2>Seller's Orders</h2>
+    <p><strong>Note:</strong> The <strong>order's</strong> status can be altered. it also can be canceled if it has not been shipped yet.</p>
+  <table class="table table-bordered">
+    <thead class="thead-dark">
       <tr>
         <th scope="col">#</th>
         <th scope="col">Status</th>
         <th scope="col">Ordered products</th>
-        <th scope="col">Buyer</th>
-        <th scope="col">Sipping address</th>
+        <th scope="col">Shipping address</th>
         <th scope="col">Dates</th>
         <th scope="col">Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>mdo</td>
-        <td>Mark</td>
-        <td>Otto</td>
+      <tr *ngFor="let order of orders; index as i">
+        <th scope="row">{{i+1}}</th>
+        <td>{{order.status}}</td>
         <td>
-          <div routerLink="create-product">
-            <a href="seller/create-product">Cancel Orders</a>
-          </div>
-          <div routerLink="create-product">
-            <a href="seller/create-product">Make it as shipped</a>
-          </div>
+          <ul>
+            <li *ngFor="let item of order.products">{{item.product.title}}</li>
+          </ul>
+        </td>
+        <td>{{order.shippingAddress.city}}</td>
+        <td>{{order.orderDate | date }}</td>
+        <td>
+          <button *ngIf="order.status === 'CREATED'" class="btn btn-sm btn-danger" (click)="cancelOrder(order)">Cancel Orders</button>
+          <button *ngIf="order.nextStage" class="btn btn-sm btn-success mt-1" (click)="processOrder(order)">{{order.nextStage}}</button>
         </td>
       </tr>
     </tbody>
