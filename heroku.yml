@@ -10,6 +10,6 @@ build:
       - dockerfile: express-server/Dockerfile
         target: prod
     angular: angular-client/Dockerfile
-    # express: express-server/Dockerfile
-    # seeder: express-server/seeder/Dockerfile
+    express: express-server/Dockerfile
+    seeder: express-server/seeder/Dockerfile
       
