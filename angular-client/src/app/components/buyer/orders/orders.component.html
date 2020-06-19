@@ -1,51 +1,63 @@
 <div class="container">
-    <h2>Orders</h2>
-    <p><strong>Note:</strong> The <strong>orders</strong> consists of products which belongs to a same seller. You can add review and cancel if has not been shipped.</p>
-    <div id="accordion">
-      <div class="card" *ngFor="let order of orders; index as i">
-        <div class="card-header">
-          <a class="card-link" data-toggle="collapse" href="#collapse{{order.orderNumber}}">
-            Order #{{order.orderNumber}}
-          </a>
-        </div>
-        <div id="collapse{{order.orderNumber}}" class="collapse" [ngClass]="{'show': i == 0}" data-parent="#accordion">
-          <div class="card-body">
-            <div class="row">
-                <div class="col-md-2 offset-10 float-right">
-                    <a class="btn btn-primary" href="/api/orders/{{order._id}}/receipt" target="_blank">Receipt</a>
-                </div>
+  <h2>Orders</h2>
+  <p><strong>Note:</strong> The <strong>orders</strong> consists of products which belongs to a same seller. You can add
+    review and cancel if has not been shipped.</p>
+  <div id="accordion">
+    <div class="card" *ngFor="let order of orders; index as i">
+      <div class="card-header">
+        <a class="card-link" data-toggle="collapse" href="#collapse{{order.orderNumber}}">
+          Order #{{order.orderNumber}} -> {{order.status}}
+        </a>
+      </div>
+      <div id="collapse{{order.orderNumber}}" class="collapse" [ngClass]="{'show': i == 0}" data-parent="#accordion">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-10">
+              <ul>
+                <li>Order created at: {{order.orderDate | date}}</li>
+                <li>Order shipped at: {{order.shippedDate | date}}</li>
+                <li>Order delivered at: {{order.delieveredDate | date}}</li>
+                <li>Order canceled at: {{order.canceledDate | date}}</li>
+              </ul>
             </div>
-            
-            <div class="row mt-2">
-                <div class="col-md-12">
-                    <table border="1">
-                        <thead class="thead">
-                            <th>Title</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Paid Cashback</th>
-                            <th>Paid Cash</th>
-                            <th>Total</th>
-                            <th></th>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let item of order.products">
-                                <td>{{item.product.title}}</td>
-                                <td>{{item.quantity}}</td>
-                                <td>{{item.product.price | currency: 'USD'}}</td>
-                                <td>{{item.cashbackPayment | currency: 'USD'}}</td>
-                                <td>{{item.creditCardPayment | currency: 'USD'}}</td>
-                                <td>{{item.totalPayment | currency: 'USD'}}</td>
-                                <td>
-                                    <button class="btn btn-success">Add review</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+            <div class="col-md-2">
+              <a class="btn btn-sm btn-primary" href="/api/orders/{{order._id}}/receipt" target="_blank">Receipt</a>
+              <button class="btn btn-sm btn-danger mt-1" *ngIf="order.status == 'CREATED'" (click)="cancelOrder(order)">Cancel</button>
+            </div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-md-12">
+              <table class="table table-bordered">
+                <thead class="thead">
+                  <th>Title</th>
+                  <th>Quantity</th>
+                  <th>Price</th>
+                  <th>Paid Cashback</th>
+                  <th>Paid Cash</th>
+                  <th>Total</th>
+                  <th></th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of order.products">
+                    <td>{{item.product.title}}</td>
+                    <td>{{item.quantity}}</td>
+                    <td>{{item.product.price | currency: 'USD'}}</td>
+                    <td>{{item.cashbackPayment | currency: 'USD'}}</td>
+                    <td>{{item.creditCardPayment | currency: 'USD'}}</td>
+                    <td>{{item.totalPayment | currency: 'USD'}}</td>
+                    <td>
+                      <button class="btn btn-sm btn-success"
+                        [routerLink]="['/buyer','products', item.product.productId, 'reviews', 'add']">Add
+                        review</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>

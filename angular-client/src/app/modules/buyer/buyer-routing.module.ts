@@ -11,6 +11,7 @@ import { BillingInfoEditorComponent } from 'src/app/components/buyer/billing-inf
 import { AuthGuard } from 'src/app/guards/auth.guard';
 import { Role } from 'src/app/models';
 import { OrderCheckoutComponent } from 'src/app/components/buyer/order-checkout/order-checkout.component';
+import { AddReviewComponent } from 'src/app/components/buyer/add-review/add-review.component';
 
 
 const routes: Routes = [
@@ -25,6 +26,7 @@ const routes: Routes = [
       {path:'orders', component: OrdersComponent},
       {path:'orders/checkout', component: OrderCheckoutComponent},
       {path:'shopping-cart', component: ShoppingCartComponent},
+      {path:'products/:id/reviews/add', component: AddReviewComponent}
     ]
   }
 ]

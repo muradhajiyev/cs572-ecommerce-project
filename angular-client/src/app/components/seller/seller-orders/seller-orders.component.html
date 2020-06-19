@@ -24,7 +24,7 @@
         <td>{{order.shippingAddress.city}}</td>
         <td>{{order.orderDate | date }}</td>
         <td>
-          <button *ngIf="order.status === 'CREATED'" class="btn btn-sm btn-danger" (click)="cancelOrder(order)">Cancel Orders</button>
+          <button *ngIf="order.status === 'CREATED'" class="btn btn-sm btn-danger" (click)="cancelOrder(order)">Cancel Order</button>
           <button *ngIf="order.nextStage" class="btn btn-sm btn-success mt-1" (click)="processOrder(order)">{{order.nextStage}}</button>
         </td>
       </tr>

@@ -1,6 +1,6 @@
 const path = require("path");
+const ApiResponse = require("./viewmodels/ApiResponse");
 const {
-    ApiResponse,
     Product,
     ReviewStatus,
 } = require(path.join(__dirname, "..", "models"));
@@ -32,20 +32,20 @@ exports.addReview = (req, res, next) => {
                                 .then(result => {
                                     addReview(req.user._id, req.params.productId, newReview, res);
                                 })
-                                .catch(err => res.status(500).json(new ApiResponse(500, 'error', {error: "can't replace the existing review"})));
-
+                                .catch(err => res.status(500).json(new ApiResponse(500, 'error', {message: "can't replace the existing review"})));
                         } else {
                             addReview(req.user._id, req.params.productId, newReview, res);
                         }
                     })
-                    .catch(err => res.status(500).json(new ApiResponse(500, 'error', {error: "can't find product with this id and this buyer id"})));
+                    .catch(err => next(new Error("can't find product with this id and this buyer id")));
             } else {
-                res.status(200).json(new ApiResponse(200, "success", {success: "You can't add review until your order is delivered"}));
+                res.status(200).json(new ApiResponse(200, "success", {message: "You can't add review until your order is delivered"}));
             }
-        })
-        .catch(err => res.status(500).json(new ApiResponse(500, 'error', {error: err})));
+        }).catch(err => next(err));
 };
 
+
+// not-good should be refactored. You are filtered here, you should use filtered db query.
 exports.getProductReviewByUserId = (req, res, next) => {
     reviewService.getProductByUserId(req.user._id, req.params.productId)
         .then(product => {
@@ -53,7 +53,7 @@ exports.getProductReviewByUserId = (req, res, next) => {
                 let review = product[0].reviews.find(review => {
                     return review.buyer.buyerId.toString() === req.user._id.toString();
                 })
-                res.status(200).json(new ApiResponse(200, "success", {success: review}));
+                res.status(200).json(new ApiResponse(200, "success", review));
             }
         })
         .catch((err) => {
