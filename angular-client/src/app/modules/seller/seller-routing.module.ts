@@ -12,11 +12,12 @@ const routes: Routes = [
   {
     path: '',
     component: SellerProfileComponent,
-    canActivate: [AuthGuard], 
-    data: {roles: [Role.Seller]}, 
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Seller] },
     children: [
       { path: 'products', component: ProductsComponent },
       { path: 'products/add', component: CreateProductForm },
+      { path: 'products/edit/:id', component: CreateProductForm },
       { path: 'orders', component: SellerOrdersComponent },
     ],
   },

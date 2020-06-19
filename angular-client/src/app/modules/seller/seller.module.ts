@@ -17,11 +17,11 @@ import { ProductsComponent } from 'src/app/components/seller/products/products.c
   ],
   imports: [
     FormsModule,
-    CommonModule, 
-    SharedModule, 
+    CommonModule,
+    SharedModule,
     ReactiveFormsModule,
-    SellerRoutingModule 
-    ],
+    SellerRoutingModule
+  ],
   exports: [SellerProfileComponent]
 })
 export class SellerModule {
