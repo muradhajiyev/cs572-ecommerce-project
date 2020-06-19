@@ -8,6 +8,6 @@
     </ng-container>
     <ng-container *ngIf="!menu.pathVariable">
         <a *ngFor="let item of menu.items" [ngClass]="{'active': currentItemId === item.id}"
-        [routerLink]="['.']" [queryParams]="menu.queryParams(item.id)" class="list-group-item">{{item.text}}</a>
+        [routerLink]="['/']" [queryParams]="menu.queryParams(item.id)" class="list-group-item">{{item.text}}</a>
     </ng-container>
 </div>
