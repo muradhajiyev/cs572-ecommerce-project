@@ -1,12 +1,14 @@
 <div class="card h-100">
-    <a href="#" [routerLink]="['/product', product._id.toString()]" >
+    <a href="#" [routerLink]="['/product', product._id.toString()]">
         <img class="card-img-top" [src]="product.imageUrl" alt=""></a>
-<div class="card-body">
+    <div class="card-body">
         <h4 class="card-title">
             <a href="#" [routerLink]="['/product', product._id.toString()]">{{product.title}}</a>
         </h4>
         <h5>{{product.price|currency:'USD'}}</h5>
-        <p class="card-text">{{product.description}}</p>
+        <div class="content">
+            <p class="card-text truncate">{{product.description}}</p>
+        </div>
     </div>
     <div class="card-footer">
         <small class="text-muted">★ ★ ★ ★ ☆</small>

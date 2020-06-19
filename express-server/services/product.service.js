@@ -1,10 +1,10 @@
 const { Product, Order } = require('../models');
-const {ObjectId} = require('mongodb');
+const { ObjectId } = require('mongodb');
 const PagedDto = require('./dto/Paged.dto');
 
-exports.getProducts = async function(categoryId, pageNumber = 1, pageSize = 10){
+exports.getProducts = async function (categoryId, pageNumber = 1, pageSize = 10) {
     let filter = {};
-    if(categoryId){
+    if (categoryId) {
         filter.categoryId = new ObjectId(categoryId);
     }
     const products = await Product.find(filter)
@@ -16,18 +16,18 @@ exports.getProducts = async function(categoryId, pageNumber = 1, pageSize = 10){
     return new PagedDto(products, pageNumber, Math.ceil(numOfProducts / pageSize), numOfProducts);
 }
 
-exports.getProductsBySellerId =  function(sId){
-     return Product.find({sellerId: sId});
+exports.getProductsBySellerId = function (sId) {
+    return Product.find({ sellerId: sId }).populate("categoryId");
 }
 
 
-exports.getProduct = async function(productId){
+exports.getProduct = async function (productId) {
     const product = await Product.findById(productId);
-    if(!product) throw Error(`The product with id: ${productId} was not found in the system.`);
+    if (!product) throw Error(`The product with id: ${productId} was not found in the system.`);
     return product;
 }
 
-exports.createProduct  = function(title, categoryId, price, imageName, description, sellerId){
+exports.createProduct = function (title, categoryId, price, imageName, description, sellerId) {
     const product = new Product({
         title: title,
         categoryId: categoryId,
@@ -37,29 +37,30 @@ exports.createProduct  = function(title, categoryId, price, imageName, descripti
         sellerId: sellerId
     });
 
-    if(!product.save())
+    if (!product.save())
         throw Error("The product couldn't be created. Check the system log for a detailed information.");
 
     return product;
 }
 
-exports.editProduct = async function(productId, title, categoryId, price, description){
+exports.editProduct = async function (productId, title, categoryId, price, imageName, description) {
     const product = await Product.findById(productId);
-    if(!product) throw Error(`The product with id: ${productId} was not found in the system.`);
+    if (!product) throw Error(`The product with id: ${productId} was not found in the system.`);
     product.title = title;
     product.categoryId = categoryId;
     product.price = price;
+    product.imageName = imageName;
     product.description = description;
     product.save();
 
-    if(!product) throw Error("The product couldn't be updated. Check the system log for a detailed information.");
+    if (!product) throw Error("The product couldn't be updated. Check the system log for a detailed information.");
 
     return product;
 }
 
-exports.deleteProduct = async function(id){
-    const orders = await Order.find({"products.product.productId": new ObjectId(id)});
-    if(orders != undefined && orders.length > 0)
+exports.deleteProduct = async function (id) {
+    const orders = await Order.find({ "products.product.productId": new ObjectId(id) });
+    if (orders != undefined && orders.length > 0)
         throw Error("This product has already been purchased.");
 
     return await Product.findByIdAndDelete(id);

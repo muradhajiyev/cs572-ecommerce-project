@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Product, ApiResponse, Paged } from '../models';
-import { ProductForm } from '../models/product-form';
+import { ToastrService } from "ngx-toastr";
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  constructor(private _http: HttpClient) {}
+  constructor(private _http: HttpClient,
+    private _toastr: ToastrService) { }
 
   public getProductDetails(productId: string) {
-    return this._http.get('/api/products/' + productId);
+    return this._http.get<ApiResponse<Product>>('/api/products/' + productId);
   }
 
   public addToCart(prodId: string) {
@@ -34,7 +35,22 @@ export class ProductService {
     return this._http.post('/api/products/', body);
   }
 
-  public getProductsBySellerId(){
-    return this._http.get('/api/products/seller');
+  public getProductsBySellerId(id) {
+    return this._http.get<ApiResponse<Product[]>>('/api/products/seller/' + id);
+  }
+
+  public editProduct(id, body: FormData) {
+    return this._http.put<ApiResponse<Product>>('/api/products/' + id, body);
+  }
+  public deleteProduct(id) {
+    return this._http.delete<ApiResponse<Product>>('/api/products/' + id);
+  }
+
+  public showSuccess(message, title) {
+    this._toastr.success(message, title)
+  }
+
+  public showError(message, title) {
+    this._toastr.error(message, title)
   }
 }
