@@ -59,7 +59,7 @@ typings/
 
 express-server/_uploads/*
 !express-server/_uploads/.gitkeep
-!express-server/_uploads/not-found.png
+!express-server/_uploads/not-found.jpg
 
 
 !express-server/_uploads/51iYcRDsJrL_1592528234868_bd11b416-cbe3-40d3-8cdb-b79515e4ba61.jpg

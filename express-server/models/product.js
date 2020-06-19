@@ -44,7 +44,7 @@ productSchema.virtual('imageUrl').get(function(){
   if (this.imageName != undefined && this.imageName.length > 0)
     return `${config.productImageUrl}/${this.imageName}`;
   else
-    return `${config.productImageUrl}/not-found.png`;
+    return `${config.productImageUrl}/not-found.jpg`;
 })
 
 //collection name => products
