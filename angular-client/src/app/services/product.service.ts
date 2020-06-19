@@ -38,8 +38,8 @@ export class ProductService {
     return this._http.get<ApiResponse<Product[]>>('/api/products/seller/' + id);
   }
 
-  public editProduct(id) {
-    return this._http.get<ApiResponse<Product>>('/api/products/' + id);
+  public editProduct(id, body: FormData) {
+    return this._http.put<ApiResponse<Product>>('/api/products/' + id, body);
   }
   public deleteProduct(id) {
     return this._http.delete<ApiResponse<Product>>('/api/products/' + id);

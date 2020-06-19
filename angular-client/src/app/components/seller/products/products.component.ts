@@ -17,7 +17,7 @@ export class ProductsComponent implements OnInit {
     private _authService: AuthenticationService,
     private _route: ActivatedRoute,
     private _router: Router
-  ) {}
+  ) { }
   ngOnInit(): void {
     this._authService.authenticatedSubject.subscribe((isAuth) => {
       this.currentUser = this._authService.currentUser;
@@ -36,10 +36,10 @@ export class ProductsComponent implements OnInit {
   }
 
   removeProduct(id: string) {
-    if(confirm("Are you sure to delete this product?")) {
+    if (confirm("Are you sure to delete this product?")) {
       this._productService.deleteProduct(id).subscribe(result => {
         this.refreshProducts();
-      },err=>{
+      }, err => {
         alert(err.error.result.message);
       });
     }
