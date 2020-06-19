@@ -11,20 +11,26 @@ import { Subscription } from 'rxjs';
 export class OrdersComponent implements OnInit {
 
   orders: Order[];
-  subscription: Subscription;
 
   constructor(private orderService: OrderService) { }
 
   ngOnInit(): void {
-    this.subscription = this.orderService.getOrders().subscribe((response: ApiResponse<Order[]>) => {
+    this.getOrders();
+  }
+
+  getOrders(){
+    this.orderService.getOrders().subscribe((response: ApiResponse<Order[]>) => {
       this.orders = response.result;
       
     })
   }
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
 
+  cancelOrder(order){
+    this.orderService.cancelOrder(order.id).subscribe(res =>{
+      alert('Canceled');
+      this.getOrders();
+    }, err => alert('Something went wrong'));
+  }
 
 }

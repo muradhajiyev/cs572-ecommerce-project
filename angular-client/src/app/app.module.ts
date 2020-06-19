@@ -15,6 +15,7 @@ import { ProductListComponent } from './components/product/product-list/product-
 import { SharedModule } from './modules/shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { OrderCheckoutComponent } from './components/buyer/order-checkout/order-checkout.component';
+import { AddReviewComponent } from './components/buyer/add-review/add-review.component';
 import { ToastrModule } from 'ngx-toastr';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
@@ -26,7 +27,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     ProductDetailsComponent,
     ProductCardComponent,
     ProductListComponent,
-    OrderCheckoutComponent
+    OrderCheckoutComponent,
+    AddReviewComponent,
   ],
   imports: [
     HttpClientModule,
