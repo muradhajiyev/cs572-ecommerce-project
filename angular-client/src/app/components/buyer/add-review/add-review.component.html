@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-md-10 offset-1 mt-5 md-5">
+    <div class="card">
+      <h4 class="card-header">Add Review for product: <strong>{{product.title}}</strong></h4>
+      <div class="card-body">
+        <form [formGroup]="reviewForm" #myform="ngForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="stars">Stars</label>
+            <input type="number" formControlName="stars" class="form-control" id="stars"
+              [ngClass]="{ 'is-invalid': myform.submitted && reviewForm.controls.stars.errors }" />
+            <div *ngIf="myform.submitted && reviewForm.controls.stars.errors" class="invalid-feedback">
+              <div *ngIf="reviewForm.controls.stars.errors.required">Stars are required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="comment">Comment</label>
+            <textarea  rows="9" formControlName="comment" class="form-control" id="comment"
+              [ngClass]="{ 'is-invalid': myform.submitted &&  reviewForm.controls.comment.errors }"></textarea>
+            <div *ngIf="myform.submitted && reviewForm.controls.comment.errors" class="invalid-feedback">
+                <div *ngIf="reviewForm.controls.comment.errors.required">Comment is required</div>
+              </div>
+            </div>
+            <button [disabled]="loading || reviewForm.invalid"  class="btn btn-primary">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+              Submit Review
+            </button>
+            <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
+            <div *ngIf="success" class="alert alert-success mt-3 mb-0">{{success}}</div>
+          </form>
+        </div>
+      </div>
+    </div>
+</div>

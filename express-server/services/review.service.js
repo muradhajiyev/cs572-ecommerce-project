@@ -3,16 +3,11 @@ const { ObjectId } = require('mongodb');
 const {
     Product,
     Order,
-    UserStatus,
     OrderStatus,
 } = require(path.join(__dirname, "..", "models"));
 
 exports.getOrdersByBuyerIdMatchWithProductIdDelivered = (buyerId, productId) => {
-    return Order.aggregate([
-        {$match: {'buyerId': buyerId}},
-        {$match: {'products.product.productId': productId}},
-        {$match: {status: OrderStatus.DELIVERED}}
-    ])
+    return Order.find({'buyerId': buyerId, 'products.product.productId': productId, status: OrderStatus.DELIVERED});
 };
 
 exports.getProductByUserId = (buyerId, productId) => {

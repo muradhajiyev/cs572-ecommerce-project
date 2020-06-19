@@ -26,7 +26,11 @@ const productSchema = new Schema({
         email:{ type: String }
       },
       createdDate: { type: Date },
-      stars: { type: Number },
+      stars: { 
+        type: Number,
+        min: [1, 'Min star is 1'],
+        max: [5, 'Max star is 5'] 
+      },
       comment: { type: String },
       decisionDate: { type: Date },
     },
