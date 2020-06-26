@@ -8,7 +8,7 @@
 
 ### Project Folder Structure
 
-![](./screenshots/Screen Shot 2020-06-18 at 21.04.18.png)
+![folder structure](https://raw.githubusercontent.com/muradhajiyev/cs572-ecommerce-project/master/screenshots/Screen Shot 2020-06-18 at 21.04.18.png)
 
 
 
@@ -26,7 +26,7 @@ There is also an extra container mongo-seeder that helps to load seed data befor
 
 Make sure that inside the angular proxy file, **express**(this is docker container) is written instead of localhost.
 
-![](./screenshots/Screen Shot 2020-06-18 at 22.07.24.png)
+![reverse-proxy conf.](https://raw.githubusercontent.com/muradhajiyev/cs572-ecommerce-project/master/screenshots/Screen Shot 2020-06-18 at 22.07.24.png)
 
 To solve CORS problem, angular's default `reverse-proxy` feature is used.
 
