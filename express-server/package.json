@@ -12,7 +12,7 @@
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "hashmap": "^2.4.0",
-    "html-pdf": "^2.2.0",
+    "html-pdf": "^3.0.1",
     "http-errors": "~1.6.3",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.18",
